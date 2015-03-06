@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2014 Guillaume EHRET
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/aboutLayout">
+
+    <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/app_name"
+            android:layout_margin="10px"
+            android:src="@drawable/logomixit"/>
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingLeft="5px"
+            android:paddingTop="10px"
+            android:layout_below="@+id/imageView1"
+            style="@style/myTextView"
+            android:text="@string/about_h1"
+            android:id="@+id/about_h1"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5px"
+            style="@style/myTextView"
+            android:layout_below="@+id/about_h1"
+            android:text="@string/about_cree"
+            
+            android:id="@+id/about_cree"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5px"
+            android:layout_toRightOf="@+id/about_cree"
+            android:layout_below="@+id/about_h1"
+            style="@style/myTextView"
+            android:lines="1"
+            android:text="@string/about_createur"
+            android:autoLink="web"
+            android:id="@+id/about_createur"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5px"
+            style="@style/myTextView"
+            android:layout_below="@+id/about_cree"
+            android:text="@string/about_blog"
+            
+            android:id="@+id/about_blog"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5px"
+            android:layout_toRightOf="@+id/about_blog"
+            android:layout_below="@+id/about_cree"
+            style="@style/myTextView"
+            android:text="@string/about_blogurl"
+            android:autoLink="web"
+            android:id="@+id/about_blogurl"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15px"
+            android:paddingBottom="15px"
+            android:paddingLeft="5px"
+            android:layout_below="@+id/about_blog"
+            style="@style/myTextView"
+            
+            android:text="@string/about_help"/>
+</RelativeLayout>

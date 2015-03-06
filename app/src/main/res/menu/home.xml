@@ -1,0 +1,58 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".HomeActivity">
+
+    <item android:id="@+id/menu_search"
+        android:title="@string/description_search"
+        android:icon="@drawable/ic_action_search"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:actionViewClass="android.widget.SearchView"/>
+    <item android:id="@+id/menu_favorites"
+        android:icon="@drawable/ic_action_event"
+        android:title="@string/action_settings"
+        app:showAsAction="ifRoom|collapseActionView"/>
+    <item android:id="@+id/menu_profile"
+        android:icon="@drawable/ic_action_shuffle"
+        android:title="@string/action_settings"
+        app:showAsAction="ifRoom|collapseActionView"/>
+
+    <item android:id="@+id/menu_compose_twitter"
+        android:icon="@drawable/ic_action_twitter"
+        android:title="@string/description_compose_twitter"
+        android:orderInCategory="0"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menu_compose_google"
+        android:icon="@drawable/ic_action_google"
+        android:title="@string/description_compose_google"
+        android:orderInCategory="0"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/menu_refresh"
+        android:icon="@drawable/ic_action_refresh"
+        android:title="@string/description_refresh"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/menu_sync_talk"
+        android:title="@string/description_sync_talk"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+    <item android:id="@+id/menu_sync_speaker"
+        android:title="@string/description_sync_speaker"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+    <item android:id="@+id/menu_sync_membre"
+        android:title="@string/description_sync_membre"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+    <item android:id="@+id/menu_sync_favorites"
+        android:title="@string/description_sync_favorites"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+    <item android:id="@+id/menu_about"
+        android:title="@string/about"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+
+
+</menu>

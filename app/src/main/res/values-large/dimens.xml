@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI elements -->
+    <dimen name="whats_on_height">64dp</dimen>
+    <dimen name="whats_on_item_padding">10dp</dimen>
+
+    <!-- body content -->
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="speaker_image_size">48dp</dimen>
+    <dimen name="speaker_image_padding">8dp</dimen>
+    <dimen name="text_size_button_salle">24sp</dimen>
+
+    <integer name="text_size_cal">14</integer>
+    <integer name="text_size_cal_mini">1</integer>
+    <integer name="text_size_cal_title">16</integer>
+</resources>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2014 Guillaume EHRET
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/grey_background_pattern"
+    android:padding="5px"
+    android:scrollbars="vertical"
+    >
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+        <LinearLayout android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/person_fragments">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingLeft="5px"
+                style="@style/myCalendarTitle"
+                android:id="@+id/membre_title"/>
+
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/membre_image"
+                    android:layout_width="@dimen/speaker_image_size"
+                    android:layout_height="@dimen/speaker_image_size"
+                    android:layout_marginRight="@dimen/speaker_image_padding"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="4dp"
+                    android:scaleType="fitCenter"/>
+                <TextView
+                    android:id="@+id/membre_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_toRightOf="@id/membre_image"
+                    android:maxLines="1"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="4dp"
+                    style="@style/myTextView"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_medium"/>
+                <TextView
+                    android:id="@+id/membre_entreprise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_toRightOf="@id/membre_image"
+                    android:layout_below="@id/membre_user_name"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="4dp"
+                    style="@style/myTextView"
+                    android:textSize="@dimen/text_size_small"/>
+
+                <TextView
+                    android:id="@+id/membre_shortdesciptif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_below="@id/membre_entreprise"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="4dp"
+                    style="@style/myTextView"
+                    android:textSize="@dimen/text_size_medium"/>
+
+
+
+                <TextView
+                    android:id="@+id/membre_desciptif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_below="@id/membre_shortdesciptif"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="4dp"
+                    style="@style/myTextView"
+                    android:textSize="@dimen/text_size_medium"/>
+            </RelativeLayout>
+
+            <fragment android:name="com.ehret.mixit.fragment.PeopleSessionsFragment"
+                android:id="@+id/personSessionFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5px"
+                >
+            </fragment>
+
+            <fragment android:name="com.ehret.mixit.fragment.PeopleLinkFragment"
+                android:id="@+id/personLinkFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5px"
+                >
+            </fragment>
+
+            <fragment android:name="com.ehret.mixit.fragment.PeopleInteretFragment"
+                android:id="@+id/personInteretFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5px"
+                >
+            </fragment>
+
+            <ImageView
+                android:id="@+id/membre_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/speaker_image_padding"
+                android:layout_below="@id/personInteretFragment"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:paddingBottom="4dp"
+                android:paddingLeft="4dp"
+                android:paddingTop="4dp"
+                android:scaleType="fitCenter"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

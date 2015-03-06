@@ -1,0 +1,194 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Mix-IT 2015</string>
+
+    <string name="title_section_home">Home</string>
+    <string name="title_section_planning">Planning</string>
+    <string name="title_section_fildeleau">Le fil de l\'eau</string>
+    <string name="title_section_talk">Talks</string>
+    <string name="title_section_workshop">Ateliers</string>
+    <string name="title_section_lightningtalks">Lightning talks</string>
+    <string name="title_section_favoris">Favoris</string>
+    <string name="title_section_speaker">Speakers</string>
+    <string name="title_section_sponsor">Sponsor</string>
+    <string name="title_section_staff">Staff</string>
+    <string name="title_section_members">Membres</string>
+
+    <!-- Titles -->
+    <string name="title_speaker">Speaker</string>
+    <string name="title_members">Membre</string>
+    <string name="title_staff">Staff</string>
+    <string name="title_sponsor">Sponsor</string>
+    <string name="title_talks">Talks</string>
+    <string name="title_workshops">Ateliers</string>
+    <string name="title_lightningtalks">Lightning talks</string>
+    <string name="title_favorites">Favoris</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="blank"> </string>
+    <string name="onload">Téléchargement en cours...</string>
+    <string name="welcome">Bienvenue sur l\'application mobile Mix-IT qui vous donne accès à toute la programmation de cette conférence</string>
+    <string name="about">A propos</string>
+    <string name="search_hint">texte</string>
+    <string name="mixit_url">http://www.mix-it.fr/infos/acces</string>
+    <string name="hastag">#mixit15</string>
+    <!-- Compteur -->
+    <string name="whats_on_countdown_title_0">Plus que <xliff:g id="remaining_time">%1$s</xliff:g>\navant Mix-IT 2015</string>
+    <plurals name="whats_on_countdown_title">
+        <item quantity="one"><xliff:g id="number_of_days">%1$s</xliff:g> jours, <xliff:g id="remaining_time">%2$s</xliff:g>\navant de nous retrouver à Mix-IT</item>
+        <item quantity="other"><xliff:g id="number_of_days">%1$s</xliff:g> jours, <xliff:g id="remaining_time">%2$s</xliff:g>\navant de nous retrouver à Mix-IT</item>
+    </plurals>
+    <string name="whats_on_thank_you_title">A l\'année prochaine!</string>
+
+
+    <!-- Tweets -->
+    <string name="tweetimage">Photo de profil twitter</string>
+    <string name="tweetnoreseau">Pas de connexion web... \nRéessayez plus tard pour visualiser les derniers tweets sur Mix-IT</string>
+    <string name="tweetpres">Liste des derniers tweets sur Mix-IT</string>
+    <string name="twitter">On parle de Mix-IT</string>
+    <string name="tweetincitation">Parlez de Mix-IT sur Twitter ou Google+ en utilisant les raccourcis proposés dans la barre de bouton. Pour apparaître dans la liste rien de plus simple : Ecrivez un message en utilisant le hashtag #mixit15 </string>
+
+
+    <!-- Import favoris -->
+    <string name="description_link_user">Lié ce compte à l\'application. Le fait de vous lier à votre compte supprimera tous les favoris déjà définis</string>
+    <string name="description_link_user_confirm">Le lien permet de récupérer vos favoris sur le site de Mix-IT. Par contre la synchronisation des liens ne se fait que dans un sens (du site vers l\'application) car le site Mix-IT ne permet pas de les mettre à jour. </string>
+    <string name="description_link_user_error">Aucun compte mix-IT n\'est lié à l\'application. Vous devez aller sur votre profil dans la liste des membres et cliquez sur le bouton lien dans la barre de bouton</string>
+
+    <!-- Menu -->
+    <string name="description_refresh">Rafraîchir</string>
+    <string name="description_compose_twitter">Tweet</string>
+    <string name="description_compose_google">Message Google+</string>
+    <string name="description_no_twitter">Installez au préalable l\'application Twitter</string>
+    <string name="description_no_google">Installez au préalable l\'application Google+</string>
+    <string name="description_planning">Planning</string>
+
+    <string name="description_sync_speaker">Raffraîchir données Speakers</string>
+    <string name="description_sync_favorites">Raffraîchir vos favoris</string>
+    <string name="description_sync_talk">Raffraîchir données Talks</string>
+    <string name="description_sync_membre">Raffraîchir données Membres</string>
+    <string name="description_search">Rechercher</string>
+    <string name="description_favorite_add">Mettre en favori</string>
+    <string name="description_favorite_del">Enlever des favoris</string>
+    <string name="description_favorite">Favoris</string>
+    <string name="description_sessions">Sessions</string>
+    <string name="description_talk">Conférences</string>
+    <string name="description_workshop">Ateliers</string>
+    <string name="description_ligtningtalk">Lightning Talk</string>
+    <string name="description_people">People</string>
+    <string name="description_speakers">Speakers</string>
+    <string name="description_staff">Staffs</string>
+    <string name="description_membres">Membres</string>
+    <string name="description_sponsor">Sponsors</string>
+    <string name="description_map">Google Map</string>
+    <string name="description_venir">Comment venir</string>
+    <string name="description_venir_mixit">Comment venir à Mix-IT</string>
+    <string name="description_plusinfo">Plus dinformations...</string>
+    <string name="description_liens">Liens</string>
+    <string name="description_interet">Intérêts</string>
+    <string name="description_niveau">Niveau</string>
+    <string name="description_votant">Nb votants</string>
+
+    <!-- Calendrier -->
+    <string name="calendrier_planning">De %1$s à %2$s</string>
+    <string name="calendrier_planninga">à %1$s</string>
+    <string name="calendrier_detail">détail...</string>
+    <string name="calendrier_confs">Talks</string>
+    <string name="calendrier_ateliers">Ateliers</string>
+    <string name="calendrier_conf">Conférence</string>
+    <string name="calendrier_conf_small">Talk</string>
+    <string name="calendrier_atelier">Atelier</string>
+    <string name="calendrier_accueil">Accueil</string>
+    <string name="calendrier_accueillg">Accueil et petit déjeuner</string>
+    <string name="calendrier_orga">Mot de l\'orga,  pres. sess. AM</string>
+    <string name="calendrier_orgalg">Le mot de l\'orga et prés. des sessions AM</string>
+    <string name="calendrier_presses">Pres. sessions PM</string>
+    <string name="calendrier_presseslg">Presentation des sessions PM </string>
+    <string name="calendrier_ligthning">Ligthning Talks</string>
+    <string name="calendrier_ligthning_small">Ligh.Talk</string>
+    <string name="calendrier_keynote">Keynote</string>
+    <string name="calendrier_cloture">Clôture des organisateurs</string>
+    <string name="calendrier_pause">Pause</string>
+    <string name="calendrier_secret">Secret slot</string>
+    <string name="calendrier_partie">Mixit Party</string>
+
+    <string name="calendrier_repas">Repas</string>
+    <string name="calendrier_title25">Programme mardi 29 avril</string>
+    <string name="calendrier_title26">Programme mercredi 30 avril</string>
+
+    <string name="calendrier_explication">Cliquez sur une plage horaire pour voir la répartition par salle</string>
+    <string name="calendrier_legende">(T) conférence, (W) atelier, (K) keynote, (L) lightning talk</string>
+    <string name="calendrier_salle_liste">Liste des salles</string>
+    <string name="calendrier_avril">Avril</string>
+    <string name="calendrier_jeudi">Mar</string>
+    <string name="calendrier_vendredi">Mer</string>
+    <string name="calendrier_24">28</string>
+    <string name="calendrier_25">29\n8H30 19H00\ndétail... </string>
+    <string name="calendrier_26">30\n8H30 18H00\ndétail... </string>
+    <string name="calendrier_27"> </string>
+    <!-- Dates -->
+    <string name="jour">jour</string>
+    <string name="jours">jours</string>
+    <string name="minutes">minutes</string>
+    <string name="minute">minute</string>
+    <string name="heures">heures</string>
+    <string name="heure">heure</string>
+    <string name="periode">%1$s de %2$s à %3$s</string>
+    <string name="pasdate">Pas d\'heure définie pour l\'instant</string>
+    <string name="Salle">Salle %s</string>
+
+    <!-- Différentes listes -->
+    <string name="focus_orga">Les membres du staff</string>
+    <string name="focus_membre">Inscrits sur le site Mix-IT</string>
+    <string name="focus_speaker">Les speakers</string>
+    <string name="focus_sponsor">Les sponsors</string>
+    <string name="focus_talk">Les talks</string>
+    <string name="focus_workshop">Les ateliers</string>
+    <string name="focus_lightningtalk">Les ligthning talks</string>
+    <string name="focus_favorite">Vos favoris</string>
+
+    <string name="focus_orga_desc"></string>
+    <string name="focus_membre_desc"></string>
+    <string name="focus_speaker_desc"></string>
+    <string name="focus_sponsor_desc"></string>
+    <string name="focus_talk_desc"></string>
+    <string name="focus_workshop_desc"></string>
+    <string name="focus_lightningtalk_desc"></string>
+    <string name="focus_favorite_desc"></string>
+
+
+
+    <!-- About -->
+    <string name="about_titre">A propos...</string>
+    <string name="about_h1">Mix-IT 2015 Client</string>
+    <string name="about_cree">Created by Guillaume EHRET</string>
+    <string name="about_createur">https://twitter.com/guillaumeehret</string>
+    <string name="about_blog">Blog</string>
+    <string name="about_blogurl">http://javamind-fr.blogspot.fr/</string>
+    <string name="about_help">Si vous rencontrez des problèmes pour afficher les informations cliquez sur le bouton RAZ pour supprimer les fichiers téléchargés et revenir dans la configuration d\'origine</string>
+
+    <!-- Synchronize -->
+    <string name="sync_erreur">Impossible de charger les données su site Mix-IT : le stockage est inaccessible</string>
+    <string name="sync_erreur_reseau">Impossible de charger les données su site Mix-IT : réseau inaccessible</string>
+    <string name="sync_message_title">Synchronisation</string>
+    <string name="sync_message">Lancement de la récupération des données Mix-IT</string>
+    <string name="sync_progress">Progression de la tâche asynchrone:</string>
+
+    <!--Dialogue-->
+    <string name="dial_OK">OK</string>
+    <string name="dial_oui">Oui</string>
+    <string name="dial_non">Non</string>
+    <string name="dial_cancel">Annuler</string>
+    <string name="dial_raz">Remise à zéro</string>
+    <string name="dial_message_talk">Le chargement récupère les données sur les ateliers, lightning talks et conférences</string>
+    <string name="dial_message">Le chargement récupère les données et les images et peut être plus ou moins long. Une fois lancée la tâche s\'exécutera jusqu\'à la fin
+        même si la fenêtre d\'avancement est masquée</string>
+    <string name="dial_message_membre">Le chargement des membres inscrits sur le site Mix-IT est très long à cause du grand nombre de personnes inscrites sur le site. Une fois lancée la tâche s\'exécutera jusqu\'à la fin
+    même si la fenêtre d\'avancement est masquée</string>
+
+</resources>

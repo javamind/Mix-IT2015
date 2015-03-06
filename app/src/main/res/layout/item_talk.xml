@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2014 Guillaume EHRET
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              android:baselineAligned="false"
+              android:padding="5dp"
+              android:scrollbars="vertical"
+              android:background="@drawable/listeitem_background">
+
+    <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="?android:listPreferredItemHeight"
+            >
+        <ImageView
+                android:id="@+id/talk_image"
+                android:layout_width="@dimen/speaker_image_size"
+                android:layout_height="@dimen/speaker_image_size"
+                android:layout_marginRight="@dimen/speaker_image_padding"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:paddingBottom="4dp"
+                android:paddingLeft="4dp"
+                android:paddingTop="4dp"
+                android:scaleType="fitCenter"/>
+        <ImageView
+                android:id="@+id/talk_image_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/speaker_image_padding"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="4dp"
+                android:paddingLeft="4dp"
+                android:paddingTop="4dp"
+                android:scaleType="fitCenter"/>
+        <TextView android:id="@+id/talkImageText"
+                  android:textStyle="bold"
+                  android:layout_width="match_parent"
+                  android:layout_height="@dimen/speaker_image_size"
+                  android:layout_marginRight="@dimen/speaker_image_padding"
+                  android:paddingBottom="4dp"
+                  android:paddingTop="4dp"
+                  android:textColor="@color/grey_dark"
+                  android:layout_gravity="center_horizontal|bottom"
+                  android:textSize="@dimen/text_size_small"/>
+    </FrameLayout>
+
+    <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="2dp"
+            >
+        <TextView
+                android:id="@+id/talk_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignWithParentIfMissing="true"
+                android:maxLines="1"
+                android:paddingTop="4dp"
+                style="@style/myTextView"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_size_medium"/>
+        <TextView
+                android:id="@+id/talk_horaire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/talk_name"
+                android:textStyle="bold"
+                android:paddingRight="20px"
+                android:textColor="@color/grey_dark"
+                android:textSize="@dimen/text_size_small"/>
+        <TextView
+                android:id="@+id/talk_salle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/talk_name"
+                android:lines="1"
+                android:layout_toRightOf="@+id/talk_horaire"
+                android:textStyle="bold"
+                style="@style/myTextView"
+
+                android:textSize="@dimen/text_size_small"/>
+        <TextView
+                android:id="@+id/talk_shortdesciptif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/talk_horaire"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                style="@style/myTextView"
+                android:textSize="@dimen/text_size_small"/>
+        <TextView
+                android:id="@+id/talk_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_toRightOf="@id/talk_name"
+                android:lines="1"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                style="@style/myTextView"
+                android:textSize="@dimen/text_size_small"/>
+
+    </RelativeLayout>
+</LinearLayout>
