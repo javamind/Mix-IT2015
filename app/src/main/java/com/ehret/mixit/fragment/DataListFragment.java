@@ -61,12 +61,17 @@ public class DataListFragment extends Fragment {
     }
 
     /**
-     * Recuperation des marques de la partie en cours
+     * Filters the list with the arg. This method is called by the Activity
      */
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void filter(String filter){
+        getArguments().putString(ARG_LIST_FILTER, filter);
+        updateList();
+    }
 
+    /**
+     * updates the list
+     */
+    private void updateList(){
         switch (TypeFile.getTypeFile(getArguments().getString(ARG_LIST_TYPE))) {
             case members:
                 afficherMembre(true);
@@ -94,7 +99,15 @@ public class DataListFragment extends Fragment {
                 afficherMembre(false);
 
         }
+    }
 
+    /**
+     * Recuperation des marques de la partie en cours
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateList();
     }
 
 
