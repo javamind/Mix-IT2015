@@ -112,7 +112,7 @@
                 >
             </fragment>
 
-            <fragment android:name="com.ehret.mixit.fragment.PeopleInteretFragment"
+            <fragment android:name="com.ehret.mixit.fragment.PeopleInterestFragment"
                 android:id="@+id/personInteretFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

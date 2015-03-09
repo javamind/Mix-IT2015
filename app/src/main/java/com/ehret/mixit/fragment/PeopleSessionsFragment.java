@@ -50,12 +50,9 @@ import java.util.Map;
  * Ce fragment permet d'afficher les sessions d'un user
  */
 public class PeopleSessionsFragment extends Fragment {
-    public static final String TAG = "PersonSessionsFragment";
+
     private ViewGroup mRootView;
     private LayoutInflater mInflater;
-    private String typePersonne;
-    private Long idPerson;
-    private ListView listView;
     private LinearLayout linearLayoutRoot;
     private TextView name;
     private TextView descriptif;
@@ -76,8 +73,8 @@ public class PeopleSessionsFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        idPerson = getParentFragment().getArguments().getLong(UIUtils.ARG_ID);
-        typePersonne = getParentFragment().getArguments().getString(UIUtils.ARG_LIST_TYPE);
+        Long idPerson = getParentFragment().getArguments().getLong(UIUtils.ARG_ID);
+        String typePersonne = getParentFragment().getArguments().getString(UIUtils.ARG_LIST_TYPE);
 
         //On recupere la personne concernee
         Membre membre = MembreFacade.getInstance().getMembre(getActivity(), typePersonne, idPerson);
@@ -189,11 +186,6 @@ public class PeopleSessionsFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putLong("ID_PERSON_LINKED", idPerson);
-        outState.putString("TYPE_PERSON_LINKED", typePersonne);
-    }
+
 
 }
