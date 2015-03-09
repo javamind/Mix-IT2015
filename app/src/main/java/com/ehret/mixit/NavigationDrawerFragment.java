@@ -1,5 +1,6 @@
 package com.ehret.mixit;
 
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -21,6 +22,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.ehret.mixit.adapter.ListMembreAdapter;
+import com.ehret.mixit.adapter.ListMenuAdapter;
+import com.ehret.mixit.model.MembreFacade;
+import com.ehret.mixit.utils.UIUtils;
+
+import java.util.Arrays;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -97,23 +105,25 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section_home),
-                        getString(R.string.title_section_planning),
-                        getString(R.string.title_section_fildeleau),
-                        getString(R.string.title_section_talk),
-                        getString(R.string.title_section_workshop),
-                        getString(R.string.title_section_favoris),
-                        getString(R.string.title_section_lightningtalks),
-                        getString(R.string.title_section_speaker),
-                        getString(R.string.title_section_sponsor),
-                        getString(R.string.title_section_staff),
-                        getString(R.string.title_section_members)
-                }));
+
+        mDrawerListView.setAdapter(
+                new ListMenuAdapter(
+                        getActionBar().getThemedContext(),
+                        Arrays.asList(
+                                new com.ehret.mixit.domain.Menu().setId(1).setLabel(R.string.title_section_home).setColorResource(R.color.color_home),
+                                new com.ehret.mixit.domain.Menu().setId(2).setLabel(R.string.title_section_planning).setColorResource(R.color.color_planning),
+                                new com.ehret.mixit.domain.Menu().setId(3).setLabel(R.string.title_section_fildeleau).setColorResource(R.color.color_planning),
+                                new com.ehret.mixit.domain.Menu().setId(4).setLabel(R.string.title_section_talk).setColorResource(R.color.color_talks),
+                                new com.ehret.mixit.domain.Menu().setId(5).setLabel(R.string.title_section_workshop).setColorResource(R.color.color_workshops),
+                                new com.ehret.mixit.domain.Menu().setId(6).setLabel(R.string.title_section_favoris).setColorResource(R.color.color_favorites),
+                                new com.ehret.mixit.domain.Menu().setId(7).setLabel(R.string.title_section_lightningtalks).setColorResource(R.color.color_lightningtalks),
+                                new com.ehret.mixit.domain.Menu().setId(7).setLabel(R.string.title_section_speaker).setColorResource(R.color.color_speaker),
+                                new com.ehret.mixit.domain.Menu().setId(7).setLabel(R.string.title_section_sponsor).setColorResource(R.color.color_sponsor),
+                                new com.ehret.mixit.domain.Menu().setId(7).setLabel(R.string.title_section_staff).setColorResource(R.color.color_staff),
+                                new com.ehret.mixit.domain.Menu().setId(7).setLabel(R.string.title_section_members).setColorResource(R.color.color_members)
+
+                        )
+                ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
@@ -145,7 +155,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerToggle = new ActionBarDrawerToggle(
                 getActivity(),                    /* host Activity */
                 mDrawerLayout,                    /* DrawerLayout object */
-                R.drawable.ic_drawer,             /* nav drawer image to replace 'Up' caret */
+                R.drawable.ic_menu,             /* nav drawer image to replace 'Up' caret */
                 R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
                 R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
         ) {
@@ -200,6 +210,7 @@ public class NavigationDrawerFragment extends Fragment {
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
+
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
