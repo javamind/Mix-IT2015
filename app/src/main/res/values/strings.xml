@@ -14,14 +14,22 @@
     <string name="title_section_members">Membres</string>
 
     <!-- Titles -->
-    <string name="title_speaker">Speaker</string>
-    <string name="title_members">Membre</string>
-    <string name="title_staff">Staff</string>
-    <string name="title_sponsor">Sponsor</string>
+    <string name="title_speaker">Speakers</string>
+    <string name="title_members">Membres</string>
+    <string name="title_staff">Staffs</string>
+    <string name="title_sponsor">Sponsors</string>
     <string name="title_talks">Talks</string>
     <string name="title_workshops">Ateliers</string>
     <string name="title_lightningtalks">Lightning talks</string>
     <string name="title_favorites">Favoris</string>
+    <string name="title_detail_speaker">Speaker</string>
+    <string name="title_detail_members">Membre</string>
+    <string name="title_detail_staff">Staff</string>
+    <string name="title_detail_sponsor">Sponsor</string>
+    <string name="title_detail_talks">Talk</string>
+    <string name="title_detail_workshops">Atelier</string>
+    <string name="title_detail_lightningtalks">Lightning talk</string>
+    <string name="title_detail_favorites">Favori</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

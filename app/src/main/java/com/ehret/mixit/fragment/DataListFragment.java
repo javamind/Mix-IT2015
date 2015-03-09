@@ -18,12 +18,9 @@ import com.ehret.mixit.domain.TypeFile;
 import com.ehret.mixit.domain.people.Membre;
 import com.ehret.mixit.model.ConferenceFacade;
 import com.ehret.mixit.model.MembreFacade;
+import com.ehret.mixit.utils.UIUtils;
 
 public class DataListFragment extends Fragment {
-
-    private static final String ARG_LIST_TYPE = "type_liste";
-    private static final String ARG_LIST_FILTER = "type_filter";
-    private static final String ARG_SECTION_NUMBER = "section_number";
 
     private ListView liste;
 
@@ -34,9 +31,9 @@ public class DataListFragment extends Fragment {
     public static DataListFragment newInstance(String typeAppel, String filterQuery, int sectionNumber) {
         DataListFragment fragment = new DataListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_LIST_TYPE, typeAppel);
-        args.putString(ARG_LIST_FILTER, filterQuery);
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        args.putString(UIUtils.ARG_LIST_TYPE, typeAppel);
+        args.putString(UIUtils.ARG_LIST_FILTER, filterQuery);
+        args.putInt(UIUtils.ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,24 +52,16 @@ public class DataListFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((HomeActivity) activity).onSectionAttached(
-                "title_" + getArguments().getString(ARG_LIST_TYPE),
-                "color_" + getArguments().getString(ARG_LIST_TYPE),
-                getArguments().getInt(ARG_SECTION_NUMBER));
-    }
-
-    /**
-     * Filters the list with the arg. This method is called by the Activity
-     */
-    public void filter(String filter){
-        getArguments().putString(ARG_LIST_FILTER, filter);
-        updateList();
+                "title_" + getArguments().getString(UIUtils.ARG_LIST_TYPE),
+                "color_" + getArguments().getString(UIUtils.ARG_LIST_TYPE),
+                getArguments().getInt(UIUtils.ARG_SECTION_NUMBER));
     }
 
     /**
      * updates the list
      */
-    private void updateList(){
-        switch (TypeFile.getTypeFile(getArguments().getString(ARG_LIST_TYPE))) {
+    private void updateList() {
+        switch (TypeFile.getTypeFile(getArguments().getString(UIUtils.ARG_LIST_TYPE))) {
             case members:
                 afficherMembre(true);
                 break;
@@ -123,23 +112,24 @@ public class DataListFragment extends Fragment {
         liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO detail
                 Membre membre = (Membre) liste.getItemAtPosition(position);
-//                Map<String, Object> parameters = new HashMap<String, Object>(2);
-//                parameters.put(UIUtils.MESSAGE, membre.getId());
-//                parameters.put(UIUtils.TYPE, typeAppel);
-//                //UIUtils.startActivity(MembreActivity.class, mActivity, parameters);
+                ((HomeActivity) getActivity()).changeCurrentFragment(
+                        PeopleDetailFragment.newInstance(
+                                getArguments().getString(UIUtils.ARG_LIST_TYPE),
+                                membre.getId(),
+                                getArguments().getInt(UIUtils.ARG_SECTION_NUMBER)),
+                        true);
             }
         });
-        //On trie la liste retournée
 
+        //On trie la liste retournée
         liste.setAdapter(
                 new ListMembreAdapter(
                         context,
                         MembreFacade.getInstance().getMembres(
                                 context,
-                                getArguments().getString(ARG_LIST_TYPE),
-                                getArguments().getString(ARG_LIST_FILTER))));
+                                getArguments().getString(UIUtils.ARG_LIST_TYPE),
+                                getArguments().getString(UIUtils.ARG_LIST_FILTER))));
     }
 
     /**
@@ -153,7 +143,7 @@ public class DataListFragment extends Fragment {
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                Conference conf = (Conference) liste.getItemAtPosition(position);
 //                Map<String, Object> parameters = new HashMap<String, Object>(2);
-//                parameters.put(UIUtils.MESSAGE, conf.getId());
+//                parameters.put(UIUtils.ARG_MESSAGE, conf.getId());
 //                if (conf instanceof Lightningtalk) {
 //                    parameters.put(UIUtils.TYPE, TypeFile.lightningtalks.name());
 //                } else if (conf instanceof Talk && ((Talk) conf).getFormat().equals("Workshop")) {
@@ -164,18 +154,20 @@ public class DataListFragment extends Fragment {
 //                UIUtils.startActivity(TalkActivity.class, mActivity, parameters);
 //            }
 //        });
-        switch (TypeFile.getTypeFile( getArguments().getString(ARG_LIST_TYPE))) {
+        String filter = getArguments().getString(UIUtils.ARG_LIST_FILTER);
+
+        switch (TypeFile.getTypeFile(getArguments().getString(UIUtils.ARG_LIST_TYPE))) {
             case workshops:
-                liste.setAdapter(new ListTalkAdapter(context, ConferenceFacade.getInstance().getWorkshops(context, getArguments().getString(ARG_LIST_FILTER))));
+                liste.setAdapter(new ListTalkAdapter(context, ConferenceFacade.getInstance().getWorkshops(context, filter)));
                 break;
             case talks:
-                liste.setAdapter(new ListTalkAdapter(context, ConferenceFacade.getInstance().getTalks(context, getArguments().getString(ARG_LIST_FILTER))));
+                liste.setAdapter(new ListTalkAdapter(context, ConferenceFacade.getInstance().getTalks(context, filter)));
                 break;
             case lightningtalks:
-                liste.setAdapter(new ListTalkAdapter(context, ConferenceFacade.getInstance().getLightningTalks(context, getArguments().getString(ARG_LIST_FILTER))));
+                liste.setAdapter(new ListTalkAdapter(context, ConferenceFacade.getInstance().getLightningTalks(context, filter)));
                 break;
             default:
-                liste.setAdapter(new ListTalkAdapter(context, ConferenceFacade.getInstance().getFavorites(context, getArguments().getString(ARG_LIST_FILTER))));
+                liste.setAdapter(new ListTalkAdapter(context, ConferenceFacade.getInstance().getFavorites(context, filter)));
 
         }
     }

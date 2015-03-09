@@ -31,15 +31,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/person_fragments">
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:paddingLeft="5px"
-                style="@style/myCalendarTitle"
-                android:id="@+id/membre_title"/>
-
-
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">

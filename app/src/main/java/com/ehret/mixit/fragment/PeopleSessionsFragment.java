@@ -15,8 +15,9 @@
  */
 package com.ehret.mixit.fragment;
 
-import android.app.Fragment;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,21 +76,15 @@ public class PeopleSessionsFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (getActivity().getIntent().getExtras() != null) {
-            idPerson = getActivity().getIntent().getExtras().getLong(UIUtils.MESSAGE);
-            typePersonne = getActivity().getIntent().getExtras().getString(UIUtils.TYPE);
-        } else if(savedInstanceState!=null) {
-            //On gere le cas ou on tourne l'écran en restorant les états de la vue
-            idPerson = savedInstanceState.getLong("ID_PERSON_LINKED");
-            typePersonne = savedInstanceState.getString("TYPE_PERSON_LINKED");
-        }
+        idPerson = getParentFragment().getArguments().getLong(UIUtils.ARG_ID);
+        typePersonne = getParentFragment().getArguments().getString(UIUtils.ARG_LIST_TYPE);
 
         //On recupere la personne concernee
         Membre membre = MembreFacade.getInstance().getMembre(getActivity(), typePersonne, idPerson);
-        if(membre==null){
+        if (membre == null) {
             membre = MembreFacade.getInstance().getMembre(getActivity(), TypeFile.members.name(), idPerson);
         }
-        if(membre!=null) {
+        if (membre != null) {
             //On recupere aussi la liste des sessions de l'utilisateur
             List<Conference> conferences = ConferenceFacade.getInstance().getSessionMembre(membre, getActivity());
 
@@ -168,7 +163,7 @@ public class PeopleSessionsFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Map<String, Object> parameters = new HashMap<String, Object>(2);
-                            parameters.put(UIUtils.MESSAGE, conf.getId());
+                            parameters.put(UIUtils.ARG_ID, conf.getId());
                             TypeFile typeFile = null;
                             if (conf instanceof Talk) {
                                 if ("Workshop".equals(((Talk) conf).getFormat())) {
@@ -179,9 +174,9 @@ public class PeopleSessionsFragment extends Fragment {
                             } else {
                                 typeFile = TypeFile.lightningtalks;
                             }
-                            parameters.put(UIUtils.TYPE, typeFile);
                             //Todo display the talk for a speaker
-                            //UIUtils.startActivity(TalkActivity.class, getActivity(), parameters);
+                            //parameters.put(UIUtils.TYPE, typeFile);
+                            // UIUtils.startActivity(TalkActivity.class, getActivity(), parameters);
                         }
                     });
 
