@@ -15,38 +15,32 @@
  */
 package com.ehret.mixit.fragment;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.ehret.mixit.R;
 import com.ehret.mixit.builder.TextViewTableBuilder;
 import com.ehret.mixit.domain.TypeFile;
-import com.ehret.mixit.domain.people.Link;
+import com.ehret.mixit.domain.people.Interet;
 import com.ehret.mixit.domain.people.Membre;
 import com.ehret.mixit.model.MembreFacade;
 import com.ehret.mixit.utils.UIUtils;
 
 
 /**
- * Ce fragment permet d'afficher les différents links qu'une des personnes référenceés
+ * Ce fragment permet d'afficher les différents interets qu'une des personnes référenceés
  * sous Mixit a partage
  */
-public class PeopleLinkFragment extends Fragment {
+public class PeopleInterestFragment extends Fragment {
+
     private ViewGroup mRootView;
     private LayoutInflater mInflater;
-    private TextView link_text;
     private LinearLayout linearLayoutRoot;
 
     @Override
@@ -65,18 +59,18 @@ public class PeopleLinkFragment extends Fragment {
 
         //On recupere la personne concernee
         Membre membre = MembreFacade.getInstance().getMembre(getActivity(), typePersonne, idPerson);
-        if(membre==null){
+        if (membre == null) {
             membre = MembreFacade.getInstance().getMembre(getActivity(), TypeFile.members.name(), idPerson);
         }
         //On affiche les liens que si on a recuperer des choses
-        if (membre!=null && membre.getSharedLinks() != null && !membre.getSharedLinks().isEmpty()) {
+        if (membre != null && membre.getInterests() != null && !membre.getInterests().isEmpty()) {
             linearLayoutRoot = (LinearLayout) mInflater.inflate(R.layout.layout_linear, mRootView, false);
             //On vide les éléments
             linearLayoutRoot.removeAllViews();
 
             linearLayoutRoot.addView(new TextViewTableBuilder()
                     .buildView(getActivity())
-                    .addText(getString(R.string.description_liens))
+                    .addText(getString(R.string.description_interet))
                     .addPadding(0, 10, 4)
                     .addBold(true)
                     .addUpperCase()
@@ -84,32 +78,27 @@ public class PeopleLinkFragment extends Fragment {
                     .addTextColor(getResources().getColor(R.color.black))
                     .getView());
 
-            //On ajoute un table layout
-            TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
-            TableLayout tableLayout = new TableLayout(getActivity().getBaseContext());
-            tableLayout.setLayoutParams(tableParams);
-
-            for (final Link link : membre.getSharedLinks()) {
-                RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_link, null);
-                row.setBackgroundResource(R.drawable.row_transparent_background);
-                //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
-                link_text = (TextView) row.findViewById(R.id.link_text);
-                link_text.setText(Html.fromHtml(String.format("%s : <a href=\"%s\">%s</a>", link.getName(), link.getUrl(), link.getUrl())));
-                link_text.setBackgroundColor(Color.TRANSPARENT);
-                link_text.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent in = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getUrl()));
-                        getActivity().startActivity(in);
+            StringBuffer interets = new StringBuffer();
+            for (final Long iidInteret : membre.getInterests()) {
+                Interet interet = MembreFacade.getInstance().getInteret(getActivity(), iidInteret);
+                if (interet != null) {
+                    if (interets.length() > 0) {
+                        interets.append(", ");
                     }
-
-                });
-                tableLayout.addView(row);
+                    interets.append(interet.getName());
+                }
             }
-
-
-            linearLayoutRoot.addView(tableLayout);
+            TextView text = new TextViewTableBuilder()
+                    .buildView(getActivity())
+                    .addText(interets.toString())
+                    .addPadding(4, 10, 4)
+                    .addSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.text_size_cal))
+                    .addTextColor(getResources().getColor(R.color.black))
+                    .getView();
+            text.setSingleLine(false);
+            linearLayoutRoot.addView(text);
             mRootView.addView(linearLayoutRoot);
         }
     }
+
 }

@@ -22,6 +22,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +89,12 @@ public class PeopleDetailFragment extends Fragment {
                 getArguments().getInt(UIUtils.ARG_SECTION_NUMBER));
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // Indicate that this fragment would like to influence the set of actions in the action bar.
+        setHasOptionsMenu(true);
+    }
 
     /**
      * Recuperation des marques de la partie en cours
@@ -140,6 +148,13 @@ public class PeopleDetailFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        if (isPeopleMemberFragment()) {
+            menu.findItem(R.id.menu_profile).setVisible(true);
+        }
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -16,6 +16,7 @@ import com.ehret.mixit.adapter.ListMembreAdapter;
 import com.ehret.mixit.adapter.ListTalkAdapter;
 import com.ehret.mixit.domain.TypeFile;
 import com.ehret.mixit.domain.people.Membre;
+import com.ehret.mixit.domain.talk.Conference;
 import com.ehret.mixit.model.ConferenceFacade;
 import com.ehret.mixit.model.MembreFacade;
 import com.ehret.mixit.utils.UIUtils;
@@ -63,13 +64,13 @@ public class DataListFragment extends Fragment {
     private void updateList() {
         switch (TypeFile.getTypeFile(getArguments().getString(UIUtils.ARG_LIST_TYPE))) {
             case members:
-                afficherMembre(true);
+                afficherMembre();
                 break;
             case staff:
-                afficherMembre(false);
+                afficherMembre();
                 break;
             case sponsor:
-                afficherMembre(false);
+                afficherMembre();
                 break;
             case talks:
                 afficherConference();
@@ -85,7 +86,7 @@ public class DataListFragment extends Fragment {
                 break;
             default:
                 //Par defaut on affiche les speakers
-                afficherMembre(false);
+                afficherMembre();
 
         }
     }
@@ -102,10 +103,8 @@ public class DataListFragment extends Fragment {
 
     /**
      * Affichage des conferences
-     *
-     * @param partial
      */
-    private void afficherMembre(boolean partial) {
+    private void afficherMembre() {
         Context context = getActivity().getBaseContext();
 
         liste.setClickable(true);
@@ -138,22 +137,18 @@ public class DataListFragment extends Fragment {
     private void afficherConference() {
         Context context = getActivity().getBaseContext();
         liste.setClickable(true);
-//        liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Conference conf = (Conference) liste.getItemAtPosition(position);
-//                Map<String, Object> parameters = new HashMap<String, Object>(2);
-//                parameters.put(UIUtils.ARG_MESSAGE, conf.getId());
-//                if (conf instanceof Lightningtalk) {
-//                    parameters.put(UIUtils.TYPE, TypeFile.lightningtalks.name());
-//                } else if (conf instanceof Talk && ((Talk) conf).getFormat().equals("Workshop")) {
-//                    parameters.put(UIUtils.TYPE, TypeFile.workshops.name());
-//                } else {
-//                    parameters.put(UIUtils.TYPE, TypeFile.talks.name());
-//                }
-//                UIUtils.startActivity(TalkActivity.class, mActivity, parameters);
-//            }
-//        });
+        liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Conference conf = (Conference) liste.getItemAtPosition(position);
+                ((HomeActivity) getActivity()).changeCurrentFragment(
+                        SessionDetailFragment.newInstance(
+                                getArguments().getString(UIUtils.ARG_LIST_TYPE),
+                                conf.getId(),
+                                getArguments().getInt(UIUtils.ARG_SECTION_NUMBER)),
+                        true);
+            }
+        });
         String filter = getArguments().getString(UIUtils.ARG_LIST_FILTER);
 
         switch (TypeFile.getTypeFile(getArguments().getString(UIUtils.ARG_LIST_TYPE))) {

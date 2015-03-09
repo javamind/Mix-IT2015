@@ -28,21 +28,21 @@ import com.ehret.mixit.R;
 import com.ehret.mixit.builder.TextViewTableBuilder;
 import com.ehret.mixit.domain.TypeFile;
 import com.ehret.mixit.domain.people.Interet;
-import com.ehret.mixit.domain.people.Membre;
+import com.ehret.mixit.domain.talk.Conference;
+import com.ehret.mixit.model.ConferenceFacade;
 import com.ehret.mixit.model.MembreFacade;
 import com.ehret.mixit.utils.UIUtils;
 
 
 /**
- * Ce fragment permet d'afficher les différents interets qu'une des personnes référenceés
+ * Ce fragment permet d'afficher les différents links qu'une des personnes référenceés
  * sous Mixit a partage
  */
-public class PeopleInteretFragment extends Fragment {
+public class SessionInterestFragment extends Fragment {
 
     private ViewGroup mRootView;
     private LayoutInflater mInflater;
-    private String typePersonne;
-    private Long idPerson;
+    private TextView link_text;
     private LinearLayout linearLayoutRoot;
 
     @Override
@@ -56,16 +56,19 @@ public class PeopleInteretFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        idPerson = getParentFragment().getArguments().getLong(UIUtils.ARG_ID);
-        typePersonne = getParentFragment().getArguments().getString(UIUtils.ARG_LIST_TYPE);
+        Long idSession = getParentFragment().getArguments().getLong(UIUtils.ARG_ID);
+        String typeSession = getParentFragment().getArguments().getString(UIUtils.ARG_LIST_TYPE);
 
-        //On recupere la personne concernee
-        Membre membre = MembreFacade.getInstance().getMembre(getActivity(), typePersonne, idPerson);
-        if (membre == null) {
-            membre = MembreFacade.getInstance().getMembre(getActivity(), TypeFile.members.name(), idPerson);
+        Conference conference = null;
+        //On recupere la session concernee
+        if (TypeFile.lightningtalks.name().equals(typeSession)) {
+            conference = ConferenceFacade.getInstance().getLightningtalk(getActivity(), idSession);
+        } else {
+            conference = ConferenceFacade.getInstance().getTalk(getActivity(), idSession);
         }
+
         //On affiche les liens que si on a recuperer des choses
-        if (membre != null && membre.getInterests() != null && !membre.getInterests().isEmpty()) {
+        if (conference.getInterests() != null && !conference.getInterests().isEmpty()) {
             linearLayoutRoot = (LinearLayout) mInflater.inflate(R.layout.layout_linear, mRootView, false);
             //On vide les éléments
             linearLayoutRoot.removeAllViews();
@@ -76,12 +79,12 @@ public class PeopleInteretFragment extends Fragment {
                     .addPadding(0, 10, 4)
                     .addBold(true)
                     .addUpperCase()
-                    .addSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.text_size_cal))
+                    .addSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.text_size_cal_title))
                     .addTextColor(getResources().getColor(R.color.black))
                     .getView());
 
             StringBuffer interets = new StringBuffer();
-            for (final Long iidInteret : membre.getInterests()) {
+            for (final Long iidInteret : conference.getInterests()) {
                 Interet interet = MembreFacade.getInstance().getInteret(getActivity(), iidInteret);
                 if (interet != null) {
                     if (interets.length() > 0) {
@@ -103,10 +106,4 @@ public class PeopleInteretFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putLong("ID_PERSON_LINK", idPerson);
-        outState.putString("TYPE_PERSON_LINK", typePersonne);
-    }
 }

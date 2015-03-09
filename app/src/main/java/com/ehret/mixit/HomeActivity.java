@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -27,6 +26,7 @@ import com.ehret.mixit.domain.TypeFile;
 import com.ehret.mixit.fragment.DataListFragment;
 import com.ehret.mixit.fragment.DialogAboutFragment;
 import com.ehret.mixit.fragment.PeopleDetailFragment;
+import com.ehret.mixit.fragment.SessionDetailFragment;
 import com.ehret.mixit.utils.UIUtils;
 
 
@@ -161,28 +161,26 @@ public class HomeActivity extends ActionBarActivity
         restoreActionBar();
 
         //We have to know which fragment is used
+        boolean found = false;
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             if (fragment instanceof DataListFragment) {
+                found=true;
                 menu.findItem(R.id.menu_search).setVisible(true);
                 // Get the SearchView and set the searchable configuration
                 SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
                 SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
                 searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            } else {
-                menu.findItem(R.id.menu_search).setVisible(false);
             }
-
-            //TODO if (!(this instanceof TalkActivity)) {
-            menu.findItem(R.id.menu_favorites).setVisible(false);
-            //}
-
-            if (fragment instanceof PeopleDetailFragment && ((PeopleDetailFragment)fragment).isPeopleMemberFragment()) {
-                menu.findItem(R.id.menu_profile).setVisible(true);
-            }
-            else{
-                menu.findItem(R.id.menu_profile).setVisible(false);
+            //The search buuton is not displayed if detail is displayed
+            if ((fragment instanceof SessionDetailFragment) || (fragment instanceof PeopleDetailFragment)) {
+                found=false;
             }
         }
+        if(!found){
+            menu.findItem(R.id.menu_search).setVisible(false);
+        }
+        menu.findItem(R.id.menu_favorites).setVisible(false);
+        menu.findItem(R.id.menu_profile).setVisible(false);
         return true;
     }
 
