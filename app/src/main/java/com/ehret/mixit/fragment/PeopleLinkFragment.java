@@ -15,11 +15,11 @@
  */
 package com.ehret.mixit.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -62,14 +62,9 @@ public class PeopleLinkFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (getActivity().getIntent().getExtras() != null) {
-            idPerson = getActivity().getIntent().getExtras().getLong(UIUtils.MESSAGE);
-            typePersonne = getActivity().getIntent().getExtras().getString(UIUtils.TYPE);
-        } else {
-            //On gere le cas ou on tourne l'écran en restorant les états de la vue
-            idPerson = savedInstanceState.getLong("ID_PERSON_LINK");
-            typePersonne = savedInstanceState.getString("TYPE_PERSON_LINK");
-        }
+        idPerson = getParentFragment().getArguments().getLong(UIUtils.ARG_ID);
+        typePersonne = getParentFragment().getArguments().getString(UIUtils.ARG_LIST_TYPE);
+
         //On recupere la personne concernee
         Membre membre = MembreFacade.getInstance().getMembre(getActivity(), typePersonne, idPerson);
         if(membre==null){

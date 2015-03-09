@@ -15,8 +15,8 @@
  */
 package com.ehret.mixit.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +38,7 @@ import com.ehret.mixit.utils.UIUtils;
  * sous Mixit a partage
  */
 public class PeopleInteretFragment extends Fragment {
-    public static final String TAG = "PersonInteretFragment";
+
     private ViewGroup mRootView;
     private LayoutInflater mInflater;
     private String typePersonne;
@@ -56,21 +56,16 @@ public class PeopleInteretFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (getActivity().getIntent().getExtras() != null) {
-            idPerson = getActivity().getIntent().getExtras().getLong(UIUtils.MESSAGE);
-            typePersonne = getActivity().getIntent().getExtras().getString(UIUtils.TYPE);
-        } else {
-            //On gere le cas ou on tourne l'écran en restorant les états de la vue
-            idPerson = savedInstanceState.getLong("ID_PERSON_LINK");
-            typePersonne = savedInstanceState.getString("TYPE_PERSON_LINK");
-        }
+        idPerson = getParentFragment().getArguments().getLong(UIUtils.ARG_ID);
+        typePersonne = getParentFragment().getArguments().getString(UIUtils.ARG_LIST_TYPE);
+
         //On recupere la personne concernee
         Membre membre = MembreFacade.getInstance().getMembre(getActivity(), typePersonne, idPerson);
-        if(membre==null){
+        if (membre == null) {
             membre = MembreFacade.getInstance().getMembre(getActivity(), TypeFile.members.name(), idPerson);
         }
         //On affiche les liens que si on a recuperer des choses
-        if (membre!=null && membre.getInterests() != null && !membre.getInterests().isEmpty()) {
+        if (membre != null && membre.getInterests() != null && !membre.getInterests().isEmpty()) {
             linearLayoutRoot = (LinearLayout) mInflater.inflate(R.layout.layout_linear, mRootView, false);
             //On vide les éléments
             linearLayoutRoot.removeAllViews();

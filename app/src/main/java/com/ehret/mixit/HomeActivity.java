@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -25,6 +26,7 @@ import com.ehret.mixit.domain.SendSocial;
 import com.ehret.mixit.domain.TypeFile;
 import com.ehret.mixit.fragment.DataListFragment;
 import com.ehret.mixit.fragment.DialogAboutFragment;
+import com.ehret.mixit.fragment.PeopleDetailFragment;
 import com.ehret.mixit.utils.UIUtils;
 
 
@@ -101,7 +103,6 @@ public class HomeActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = null;
 
         if (position > 2) {
@@ -109,14 +110,22 @@ public class HomeActivity extends ActionBarActivity
         } else {
             fragment = PlaceholderFragment.newInstance(position + 1);
         }
+        changeCurrentFragment(fragment, false);
+    }
 
-        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+    public void changeCurrentFragment(Fragment fragment, boolean backable){
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if(backable){
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.replace(R.id.container, fragment).commit();
     }
 
     public void onSectionAttached(String title, String color, int number) {
         if (title != null) {
             mTitle = getString(getResources().getIdentifier(title, "string", HomeActivity.this.getPackageName()));
-        } else {
+        }
+        else {
             switch (number) {
                 case 1:
                     mTitle = getString(R.string.app_name);
@@ -166,9 +175,13 @@ public class HomeActivity extends ActionBarActivity
             //TODO if (!(this instanceof TalkActivity)) {
             menu.findItem(R.id.menu_favorites).setVisible(false);
             //}
-            //TODO if (!(this instanceof MembreActivity)) {
-            menu.findItem(R.id.menu_profile).setVisible(false);
-            //}
+
+            if (fragment instanceof PeopleDetailFragment && ((PeopleDetailFragment)fragment).isPeopleMemberFragment()) {
+                menu.findItem(R.id.menu_profile).setVisible(true);
+            }
+            else{
+                menu.findItem(R.id.menu_profile).setVisible(false);
+            }
         }
         return true;
     }

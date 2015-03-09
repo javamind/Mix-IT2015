@@ -41,8 +41,11 @@ public class UIUtils {
     private static final Time sTime = new Time();
     public static final long CONFERENCE_START_MILLIS = parseTime("2015-04-16T08:30:00.000-07:00");
     public static final long CONFERENCE_END_MILLIS = parseTime("2015-04-17T18:30:00.000-07:00");
-    public static final String MESSAGE = "message";
-    public static final String TYPE = "type";
+
+    public static final String ARG_LIST_TYPE = "type_liste";
+    public static final String ARG_LIST_FILTER = "type_filter";
+    public static final String ARG_SECTION_NUMBER = "section_number";
+    public static final String ARG_ID = "id";
     public static final String PREFS_FAVORITES_NAME = "PrefFavorites";
     public static final String PREFS_TEMP_NAME = "PrefTemp";
 
@@ -103,7 +106,7 @@ public class UIUtils {
         Intent i;
         i = new Intent(activity, activityClass);
         i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        i.putExtra(MESSAGE, id);
+        i.putExtra(ARG_ID, id);
         activity.startActivity(i);
         return true;
     }
