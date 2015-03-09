@@ -18,7 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
-                android:background="?android:attr/activatedBackgroundIndicator">
+                android:background="@drawable/listeitem_background">
     <ImageView
             android:id="@+id/person_user_image"
             android:layout_width="@dimen/speaker_image_size"
