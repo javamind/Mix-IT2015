@@ -26,6 +26,7 @@ import com.ehret.mixit.domain.TypeFile;
 import com.ehret.mixit.fragment.DataListFragment;
 import com.ehret.mixit.fragment.DialogAboutFragment;
 import com.ehret.mixit.fragment.PeopleDetailFragment;
+import com.ehret.mixit.fragment.PlanningFragment;
 import com.ehret.mixit.fragment.SessionDetailFragment;
 import com.ehret.mixit.utils.UIUtils;
 
@@ -63,7 +64,7 @@ public class HomeActivity extends ActionBarActivity
         super.onResume();
         if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
             String filterQuery = getIntent().getStringExtra(SearchManager.QUERY);
-            int current = PreferenceManager.getDefaultSharedPreferences(this).getInt(ARG_SECTION_NUMBER,0);
+            int current = PreferenceManager.getDefaultSharedPreferences(this).getInt(ARG_SECTION_NUMBER, 0);
             getSupportFragmentManager().beginTransaction().replace(
                     R.id.container,
                     DataListFragment.newInstance(getTypeFile(current).toString(), filterQuery,
@@ -72,8 +73,8 @@ public class HomeActivity extends ActionBarActivity
         }
     }
 
-    private TypeFile getTypeFile(int position){
-        if(position>2){
+    private TypeFile getTypeFile(int position) {
+        if (position > 1) {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = sp.edit();
             editor.putInt(ARG_SECTION_NUMBER, position);
@@ -81,19 +82,19 @@ public class HomeActivity extends ActionBarActivity
         }
 
         switch (position) {
-            case 3:
+            case 2:
                 return TypeFile.talks;
-            case 4:
+            case 3:
                 return TypeFile.workshops;
-            case 5:
+            case 4:
                 return TypeFile.favorites;
-            case 6:
+            case 5:
                 return TypeFile.lightningtalks;
-            case 7:
+            case 6:
                 return TypeFile.speaker;
-            case 8:
+            case 7:
                 return TypeFile.sponsor;
-            case 9:
+            case 8:
                 return TypeFile.staff;
             default:
                 return TypeFile.members;
@@ -105,17 +106,19 @@ public class HomeActivity extends ActionBarActivity
         // update the main content by replacing fragments
         Fragment fragment = null;
 
-        if (position > 2) {
+        if (position > 1) {
             fragment = DataListFragment.newInstance(getTypeFile(position).toString(), null, position + 1);
+        } else if (position == 1) {
+            fragment = PlanningFragment.newInstance();
         } else {
             fragment = PlaceholderFragment.newInstance(position + 1);
         }
         changeCurrentFragment(fragment, false);
     }
 
-    public void changeCurrentFragment(Fragment fragment, boolean backable){
+    public void changeCurrentFragment(Fragment fragment, boolean backable) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if(backable){
+        if (backable) {
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.replace(R.id.container, fragment).commit();
@@ -126,18 +129,8 @@ public class HomeActivity extends ActionBarActivity
             mTitle = getString(getResources().getIdentifier(title, "string", HomeActivity.this.getPackageName()));
         }
         else {
-            switch (number) {
-                case 1:
-                    mTitle = getString(R.string.app_name);
-                    break;
-                case 2:
-                    mTitle = getString(R.string.title_section_planning);
-                    break;
-                case 3:
-                    mTitle = getString(R.string.title_section_fildeleau);
-                    break;
-            }
-            color = number == 1 ? "color_home" : "color_planning";
+            mTitle = getString(R.string.app_name);
+            color = "color_home";
         }
 
         getSupportActionBar().setBackgroundDrawable(
@@ -164,7 +157,7 @@ public class HomeActivity extends ActionBarActivity
         boolean found = false;
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             if (fragment instanceof DataListFragment) {
-                found=true;
+                found = true;
                 menu.findItem(R.id.menu_search).setVisible(true);
                 // Get the SearchView and set the searchable configuration
                 SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -173,10 +166,10 @@ public class HomeActivity extends ActionBarActivity
             }
             //The search buuton is not displayed if detail is displayed
             if ((fragment instanceof SessionDetailFragment) || (fragment instanceof PeopleDetailFragment)) {
-                found=false;
+                found = false;
             }
         }
-        if(!found){
+        if (!found) {
             menu.findItem(R.id.menu_search).setVisible(false);
         }
         menu.findItem(R.id.menu_favorites).setVisible(false);
@@ -249,14 +242,7 @@ public class HomeActivity extends ActionBarActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-            switch (this.getArguments().getInt(ARG_SECTION_NUMBER)) {
-                case 2:
-                    return inflater.inflate(R.layout.fragment_planning, container, false);
-                case 3:
-                    return inflater.inflate(R.layout.fragment_fildeleau, container, false);
-                default:
-                    return inflater.inflate(R.layout.fragment_home, container, false);
-            }
+            return inflater.inflate(R.layout.fragment_home, container, false);
         }
 
         @Override

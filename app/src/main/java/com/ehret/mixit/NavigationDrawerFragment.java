@@ -112,7 +112,6 @@ public class NavigationDrawerFragment extends Fragment {
                         Arrays.asList(
                                 new com.ehret.mixit.domain.Menu().setId(1).setLabel(R.string.title_section_home).setColorResource(R.color.color_home),
                                 new com.ehret.mixit.domain.Menu().setId(2).setLabel(R.string.title_section_planning).setColorResource(R.color.color_planning),
-                                new com.ehret.mixit.domain.Menu().setId(3).setLabel(R.string.title_section_fildeleau).setColorResource(R.color.color_planning),
                                 new com.ehret.mixit.domain.Menu().setId(4).setLabel(R.string.title_section_talk).setColorResource(R.color.color_talks),
                                 new com.ehret.mixit.domain.Menu().setId(5).setLabel(R.string.title_section_workshop).setColorResource(R.color.color_workshops),
                                 new com.ehret.mixit.domain.Menu().setId(6).setLabel(R.string.title_section_favoris).setColorResource(R.color.color_favorites),
