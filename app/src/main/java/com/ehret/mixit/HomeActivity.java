@@ -74,7 +74,7 @@ public class HomeActivity extends ActionBarActivity
     }
 
     private TypeFile getTypeFile(int position) {
-        if (position > 1) {
+        if (position > 2) {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = sp.edit();
             editor.putInt(ARG_SECTION_NUMBER, position);
@@ -82,19 +82,19 @@ public class HomeActivity extends ActionBarActivity
         }
 
         switch (position) {
-            case 2:
-                return TypeFile.talks;
             case 3:
-                return TypeFile.workshops;
+                return TypeFile.talks;
             case 4:
-                return TypeFile.favorites;
+                return TypeFile.workshops;
             case 5:
-                return TypeFile.lightningtalks;
+                return TypeFile.favorites;
             case 6:
-                return TypeFile.speaker;
+                return TypeFile.lightningtalks;
             case 7:
-                return TypeFile.sponsor;
+                return TypeFile.speaker;
             case 8:
+                return TypeFile.sponsor;
+            case 9:
                 return TypeFile.staff;
             default:
                 return TypeFile.members;
@@ -104,12 +104,11 @@ public class HomeActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        Fragment fragment = null;
-
-        if (position > 1) {
+        Fragment fragment;
+        if (position > 2) {
             fragment = DataListFragment.newInstance(getTypeFile(position).toString(), null, position + 1);
         } else if (position == 1) {
-            fragment = PlanningFragment.newInstance();
+            fragment = new PlanningFragment();
         } else {
             fragment = PlaceholderFragment.newInstance(position + 1);
         }
@@ -241,7 +240,6 @@ public class HomeActivity extends ActionBarActivity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-
             return inflater.inflate(R.layout.fragment_home, container, false);
         }
 
