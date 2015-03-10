@@ -3,212 +3,133 @@ package com.ehret.mixit.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ehret.mixit.HomeActivity;
 import com.ehret.mixit.R;
-import com.ehret.mixit.utils.UIUtils;
-
-import java.util.Locale;
+import com.ehret.mixit.view.SlidingTabLayout;
 
 
-public class PlanningFragment extends Fragment implements ActionBar.TabListener {
+public class PlanningFragment extends Fragment {
 
     /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     * A custom {@link ViewPager} title strip which looks much like Tabs present in Android v4.0 and
+     * above, but is designed to give continuous feedback to the user when scrolling.
      */
-    SectionsPagerAdapter mSectionsPagerAdapter;
-
-    ActionBar mActionBar;
+    private SlidingTabLayout mSlidingTabLayout;
 
     /**
      * The {@link android.support.v4.view.ViewPager} that will host the section contents.
      */
-    ViewPager mViewPager;
-
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-    public static PlanningFragment newInstance() {
-        PlanningFragment fragment = new PlanningFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private ViewPager mViewPager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_planning_pager, container, false);
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        // a reference to the Tab.
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                mActionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        mActionBar.removeAllTabs();
-        // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by
-            // the adapter. Also specify this Activity object, which implements
-            // the TabListener interface, as the callback (listener) for when
-            // this tab is selected.
-            mActionBar.addTab(
-                    mActionBar.newTab()
-                            .setText(mSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
-        }
-
-        return rootView;
+        return inflater.inflate(R.layout.fragment_planning, container, false);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((HomeActivity) activity).onSectionAttached("title_section_planning", "color_planning", 2);
-
-        mActionBar = ((HomeActivity) activity).getSupportActionBar();
-
-        // When swiping between different sections, select the corresponding
-        // tab. We can also use ActionBar.Tab#select() to do this if we have
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(((HomeActivity) activity).getSupportFragmentManager());
-
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // Indicate that this fragment would like to influence the set of actions in the action bar.
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, switch to the corresponding page in
-        // the ViewPager.
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        ((HomeActivity) activity).onSectionAttached(
+                "title_section_planning",
+                "color_planning",2);
     }
 
     /**
-     * A {@link android.support.v4.app.FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
+     * This is called after the {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} has finished.
+     * Here we can pick out the {@link View}s we need to configure from the content view.
+     *
+     * We set the {@link ViewPager}'s adapter to be an instance of {@link SamplePagerAdapter}. The
+     * {@link SlidingTabLayout} is then given the {@link ViewPager} so that it can populate itself.
+     *
+     * @param view View created in {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        mViewPager.setAdapter(new SamplePagerAdapter());
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
+        // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
+        // it's PagerAdapter set.
+        mSlidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
+        mSlidingTabLayout.setDistributeEvenly(true);
+        mSlidingTabLayout.setViewPager(mViewPager);
+    }
 
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
-        }
+    /**
+     * The {@link android.support.v4.view.PagerAdapter} used to display pages in this sample.
+     * The individual pages are simple and just display two lines of text. The important section of
+     * this class is the {@link #getPageTitle(int)} method which controls what is displayed in the
+     * {@link SlidingTabLayout}.
+     */
+    class SamplePagerAdapter extends PagerAdapter {
 
+        /**
+         * @return the number of pages to display
+         */
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
+        /**
+         * @return true if the value returned from {@link #instantiateItem(ViewGroup, int)} is the
+         * same object as the {@link View} added to the {@link ViewPager}.
+         */
+        @Override
+        public boolean isViewFromObject(View view, Object o) {
+            return o == view;
+        }
+
+        /**
+         * Return the title of the item at {@code position}. This is important as what this method
+         * returns is what is displayed in the {@link SlidingTabLayout}.
+         * <p>
+         * Here we construct one using the position value, but for real application the title should
+         * refer to the item's contents.
+         */
         @Override
         public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return getString(R.string.calendrier_jour1);
-                case 1:
-                    return getString(R.string.calendrier_jour2);
-                case 2:
-                    return getString(R.string.calendrier_stream);
+            if(position== 0) {
+                return getString(R.string.calendrier_jour1);
             }
-            return null;
+            return getString(R.string.calendrier_jour2);
         }
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
         /**
-         * Returns a new instance of this fragment for the given section
-         * number.
+         * Instantiate the {@link View} which should be displayed at {@code position}. Here we
+         * inflate a layout from the apps resources and then change the text view to signify the position.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.sub_fragment_planning, container, false);
-            ((TextView) rootView.findViewById(R.id.section_label)).setText("" + getArguments().getInt(ARG_SECTION_NUMBER));
-            return rootView;
-        }
-    }
+        public Object instantiateItem(ViewGroup container, int position) {
+            // Inflate a new layout from our resources
+            View view = getActivity().getLayoutInflater().inflate(R.layout.item_planning,container, false);
+            // Add the newly created View to the ViewPager
+            container.addView(view);
 
+            // Retrieve a TextView from the inflated View, and update it's text
+            TextView title = (TextView) view.findViewById(R.id.planning);
+            title.setText(String.valueOf(position + 1));
+
+            // Return the View
+            return view;
+        }
+
+        /**
+         * Destroy the item from the {@link ViewPager}. In our case this is simply removing the
+         * {@link View}.
+         */
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((View) object);
+        }
+
+    }
 }
