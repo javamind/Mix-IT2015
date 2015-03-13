@@ -130,7 +130,7 @@
     <string name="calendrier_jour2">Vendredi 17 avril</string>
     <string name="calendrier_stream">Fil</string>
 
-    <string name="calendrier_explication">Cliquez sur une plage horaire pour voir la répartition par salle</string>
+    <string name="calendrier_explication"> </string>
     <string name="calendrier_legende">(T) conférence, (W) atelier, (K) keynote, (L) lightning talk</string>
     <string name="calendrier_salle_liste">Liste des salles</string>
     <string name="calendrier_avril">Avril</string>
