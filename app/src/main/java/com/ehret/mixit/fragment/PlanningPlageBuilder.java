@@ -1,6 +1,8 @@
 package com.ehret.mixit.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -35,6 +37,7 @@ public class PlanningPlageBuilder {
     private Context context;
     private TableLayout planningHoraireTableLayout;
     private int nbConfSurPlage;
+    private Date heure;
 
     private PlanningPlageBuilder(PlanningFragment planningFragment) {
         this.planningFragment = planningFragment;
@@ -56,6 +59,7 @@ public class PlanningPlageBuilder {
     }
 
     public PlanningPlageBuilder reinit(Date heure) {
+        this.heure = heure;
         //deux tableaux juxtaposer
         //Un d'une colonne pour gérer l'heure
         planningHoraireTableLayout.removeAllViews();
@@ -91,7 +95,7 @@ public class PlanningPlageBuilder {
                 salle = Salle.getSalle(((Talk) c).getRoom());
             }
             char code = ((Talk) c).getFormat().charAt(0);
-            createPlanningSalle(planningHoraireTableLayout, "(" + code + ") " + c.getTitle(), salle.getColor(), c);
+            createPlanningSalle("(" + code + ") " + c.getTitle(), salle.getColor(), c);
 
             StringBuilder buf = new StringBuilder();
             if (c.getSpeakers() != null) {
@@ -124,7 +128,7 @@ public class PlanningPlageBuilder {
     /**
      * Creation du planning salle
      */
-    private void createPlanningSalle(TableLayout planningHoraireTableLayout, String nom, int color, final Conference conf) {
+    private void createPlanningSalle(String nom, int color, final Conference conf) {
         TableRow tableRow = createTableRow();
         addEventOnTableRow(conf, tableRow);
         TextView textView = new TextViewTableBuilder()
@@ -161,6 +165,11 @@ public class PlanningPlageBuilder {
      */
     private void addEventOnTableRow(final Conference conf, TableRow tableRow) {
         final Map<String, Object> parameters = new HashMap<>(6);
+
+//            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+//            SharedPreferences.Editor editor = sp.edit();
+//            editor.putInt(ARG_SECTION_HOUR, heure);
+//            editor.commit();
 
             //En fonction du type de talk nous ne faisons pas la même chose
             if (conf instanceof Lightningtalk) {

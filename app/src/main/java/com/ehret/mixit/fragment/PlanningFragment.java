@@ -1,7 +1,9 @@
 package com.ehret.mixit.fragment;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -28,11 +30,26 @@ import java.util.List;
 
 public class PlanningFragment extends Fragment {
 
+    /**
+     * Remember the time when the user select a slot
+     */
+    private static final String STATE_SELECTED_TIME_0 = "selected_slot_time0";
+    private static final String STATE_SELECTED_TIME_1 = "selected_slot_time1";
+
     private PlanningPagerAdapter planningPagerAdapter;
+
+    private boolean mCreated = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_planning, container, false);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //If the user come on this fragment after a click on the back button this method is not called
+        mCreated = true;
     }
 
     @Override
@@ -151,16 +168,24 @@ public class PlanningFragment extends Fragment {
 
 
             //Par defaut on affiche la premiere session de la premier journee
+            int day = 29;
             if (position == 0) {
                 planningPlageBuilderJour0 = PlanningPlageBuilder.create(getInstance()).with(planningHoraireTableLayout);
-                refreshPlanningHoraire(0, UIUtils.createPlageHoraire(29, 8, 30));
                 planningJourneyBuilderJour0 = PlanningJourneyBuilder.create(getInstance()).jour(0).grid(calendarGrid);
                 dessinerCalendrierJour0(planningHoraireTableLayout);
             } else {
+                day = 30;
                 planningPlageBuilderJour1 = PlanningPlageBuilder.create(getInstance()).with(planningHoraireTableLayout);
-                refreshPlanningHoraire(1, UIUtils.createPlageHoraire(30, 8, 30));
                 planningJourneyBuilderJour1 = PlanningJourneyBuilder.create(getInstance()).jour(1).grid(calendarGrid);
                 dessinerCalendrierJour1(planningHoraireTableLayout);
+            }
+            Date heure = mCreated ?
+                    UIUtils.createPlageHoraire(day, 8, 30) :
+                    new Date(PreferenceManager.getDefaultSharedPreferences(getActivity()).getLong(position==0 ? STATE_SELECTED_TIME_0 :STATE_SELECTED_TIME_1, 0));
+            refreshPlanningHoraire(position, heure);
+
+            if(position!=0){
+                mCreated = false;
             }
 
             //On rearange la largeur des colonnes
@@ -203,6 +228,12 @@ public class PlanningFragment extends Fragment {
          * Permet d'afficher le planning lie a la plage selectionnee
          */
         public void refreshPlanningHoraire(int jour, Date heure) {
+            //We save the time
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putLong((jour == 0) ? STATE_SELECTED_TIME_0 : STATE_SELECTED_TIME_1, heure.getTime());
+            editor.commit();
+
             PlanningPlageBuilder planningPlageBuilderJour = (jour == 0) ? planningPlageBuilderJour0 : planningPlageBuilderJour1;
 
             List<Conference> confs = ConferenceFacade.getInstance().getConferenceSurPlageHoraire(heure, getActivity());
