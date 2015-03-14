@@ -1,22 +1,114 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".HomeActivity$PlaceholderFragment">
+<?xml version="1.0" encoding="utf-8"?><!--
+  Copyright 2014 Guillaume EHRET
 
-    <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    <TextView
-        android:layout_width="wrap_content"
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/grey_background_pattern"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="En construction"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/section_label"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="142dp" />
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <TextView
+            style="@style/myTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome" />
+
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:contentDescription="@string/app_name"
+            android:padding="0dp"
+            android:src="@drawable/logomixit" />
+
+
+        <TextView
+            android:id="@+id/whats_on"
+            style="@style/WhatsOnStaticItem"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingLeft="5px"
+            style="@style/myCalendarTitle"
+            android:text="@string/description_venir"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/mapmenu_background"
+            android:layout_height="?android:listPreferredItemHeight"
+            android:foregroundGravity="fill"
+            >
+            <ImageView android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/map_background"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/description_map"/>
+            <TextView android:id="@+id/mapTextView"
+                android:textStyle="bold"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:padding="10dp"
+                style="@style/myTextView"
+                android:text="@string/description_map"
+                android:textSize="@dimen/text_size_medium"/>
+
+        </FrameLayout>
+
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mapmenu_background"
+            android:orientation="vertical"
+
+            >
+
+            <TextView android:id="@+id/mapDescriptifTextView"
+                android:textStyle="bold"
+                android:text="@string/description_plusinfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                style="@style/myTextView"
+                />
+            <TextView android:id="@+id/mapDescriptifTextView2"
+                android:text="@string/mixit_url"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:autoLink="web"
+                android:layout_gravity="center"
+                style="@style/myTextView"
+                android:textSize="@dimen/text_size_small"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

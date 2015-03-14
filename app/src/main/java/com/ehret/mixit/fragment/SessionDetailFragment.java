@@ -114,8 +114,7 @@ public class SessionDetailFragment extends Fragment {
         super.onAttach(activity);
         ((HomeActivity) activity).onSectionAttached(
                 "title_detail_" + getArguments().getString(UIUtils.ARG_LIST_TYPE),
-                "color_" + getArguments().getString(UIUtils.ARG_LIST_TYPE),
-                getArguments().getInt(UIUtils.ARG_SECTION_NUMBER));
+                "color_" + getArguments().getString(UIUtils.ARG_LIST_TYPE));
     }
 
     @Override

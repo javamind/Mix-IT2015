@@ -55,9 +55,7 @@ public class PlanningFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((HomeActivity) activity).onSectionAttached(
-                "title_section_planning",
-                "color_planning", 2);
+        ((HomeActivity) activity).onSectionAttached("title_section_planning","color_planning");
     }
 
     /**

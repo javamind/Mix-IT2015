@@ -1,7 +1,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Mix-IT 2015</string>
 
-    <string name="title_section_home">Home</string>
+    <string name="title_section_home">Mix-IT 2015</string>
     <string name="title_section_planning">Planning</string>
     <string name="title_section_fildeleau">Le fil de l\'eau</string>
     <string name="title_section_talk">Talks</string>
