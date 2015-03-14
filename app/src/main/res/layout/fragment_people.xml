@@ -96,29 +96,39 @@
                     android:textSize="@dimen/text_size_medium"/>
             </RelativeLayout>
 
-            <fragment android:name="com.ehret.mixit.fragment.PeopleSessionsFragment"
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/personSessionFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5px"
-                >
-            </fragment>
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:baselineAligned="false"
+                android:padding="5dp"
+                android:scrollbars="vertical">
+            </LinearLayout>
 
-            <fragment android:name="com.ehret.mixit.fragment.PeopleLinkFragment"
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/personLinkFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5px"
-                >
-            </fragment>
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:baselineAligned="false"
+                android:padding="5dp"
+                android:scrollbars="vertical">
+            </LinearLayout>
 
-            <fragment android:name="com.ehret.mixit.fragment.PeopleInterestFragment"
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/personInteretFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5px"
-                >
-            </fragment>
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:baselineAligned="false"
+                android:padding="5dp"
+                android:scrollbars="vertical">
+            </LinearLayout>
+
 
             <ImageView
                 android:id="@+id/membre_logo"
