@@ -149,21 +149,25 @@
                 style="@style/myCalendarTitleh2"
                 android:text="@string/description_speakers"/>
 
-            <fragment android:name="com.ehret.mixit.fragment.SessionSpeakersFragment"
-                android:id="@+id/sessionPersonFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5px"
-                >
-            </fragment>
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:id="@+id/sessionPersonList"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:baselineAligned="false"
+                android:padding="5dp"
+                android:scrollbars="vertical">
+            </LinearLayout>
 
-            <fragment android:name="com.ehret.mixit.fragment.SessionInterestFragment"
-                android:id="@+id/sessionLinkFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5px"
-                >
-            </fragment>
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:id="@+id/sessionLinkList"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:baselineAligned="false"
+                android:padding="5dp"
+                android:scrollbars="vertical">
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

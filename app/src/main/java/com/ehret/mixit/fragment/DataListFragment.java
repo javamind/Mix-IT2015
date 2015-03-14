@@ -117,7 +117,7 @@ public class DataListFragment extends Fragment {
                                 getArguments().getString(UIUtils.ARG_LIST_TYPE),
                                 membre.getId(),
                                 getArguments().getInt(UIUtils.ARG_SECTION_NUMBER)),
-                        true);
+                        getArguments().getString(UIUtils.ARG_LIST_TYPE));
             }
         });
 
@@ -146,7 +146,7 @@ public class DataListFragment extends Fragment {
                                 getArguments().getString(UIUtils.ARG_LIST_TYPE),
                                 conf.getId(),
                                 getArguments().getInt(UIUtils.ARG_SECTION_NUMBER)),
-                        true);
+                        getArguments().getString(UIUtils.ARG_LIST_TYPE));
             }
         });
         String filter = getArguments().getString(UIUtils.ARG_LIST_FILTER);
