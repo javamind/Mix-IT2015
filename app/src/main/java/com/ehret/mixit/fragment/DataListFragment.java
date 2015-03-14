@@ -54,8 +54,7 @@ public class DataListFragment extends Fragment {
         super.onAttach(activity);
         ((HomeActivity) activity).onSectionAttached(
                 "title_" + getArguments().getString(UIUtils.ARG_LIST_TYPE),
-                "color_" + getArguments().getString(UIUtils.ARG_LIST_TYPE),
-                getArguments().getInt(UIUtils.ARG_SECTION_NUMBER));
+                "color_" + getArguments().getString(UIUtils.ARG_LIST_TYPE));
     }
 
     /**
