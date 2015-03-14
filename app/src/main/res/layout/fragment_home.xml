@@ -47,8 +47,68 @@
             android:id="@+id/whats_on"
             style="@style/WhatsOnStaticItem"
             android:layout_width="fill_parent"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"/>
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingLeft="5px"
+            style="@style/myCalendarTitle"
+            android:text="@string/description_venir"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/mapmenu_background"
+            android:layout_height="?android:listPreferredItemHeight"
+            android:foregroundGravity="fill"
+            >
+            <ImageView android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/map_background"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/description_map"/>
+            <TextView android:id="@+id/mapTextView"
+                android:textStyle="bold"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:padding="10dp"
+                style="@style/myTextView"
+                android:text="@string/description_map"
+                android:textSize="@dimen/text_size_medium"/>
+
+        </FrameLayout>
+
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mapmenu_background"
+            android:orientation="vertical"
+
+            >
+
+            <TextView android:id="@+id/mapDescriptifTextView"
+                android:textStyle="bold"
+                android:text="@string/description_plusinfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                style="@style/myTextView"
+                />
+            <TextView android:id="@+id/mapDescriptifTextView2"
+                android:text="@string/mixit_url"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:autoLink="web"
+                android:layout_gravity="center"
+                style="@style/myTextView"
+                android:textSize="@dimen/text_size_small"
+                />
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

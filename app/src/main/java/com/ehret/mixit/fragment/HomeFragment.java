@@ -1,6 +1,8 @@
 package com.ehret.mixit.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -25,6 +27,22 @@ public class HomeFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.fragment_home, container, false);
         mCountdownTextView = (TextView) rootView.findViewById(R.id.whats_on);
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //Mise a jour du titre
+        TextView mapText = (TextView) getActivity().findViewById(R.id.mapTextView);
+        mapText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW);
+                mapIntent.setData(Uri.parse("geo:45.78375369999999,4.869024799999999?z=14&q=CPE+Lyon,+43+Boulevard+du+11+novembre,+69616+Villeurbanne"));
+                UIUtils.filterIntent(getActivity(), "maps", mapIntent);
+                startActivity(Intent.createChooser(mapIntent, "Venir à Mix-IT"));
+            }
+        });
     }
 
     @Override
