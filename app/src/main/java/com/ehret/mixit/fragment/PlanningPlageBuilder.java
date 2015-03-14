@@ -1,12 +1,16 @@
 package com.ehret.mixit.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.ehret.mixit.HomeActivity;
 import com.ehret.mixit.R;
 import com.ehret.mixit.builder.TableRowBuilder;
 import com.ehret.mixit.builder.TextViewTableBuilder;
@@ -14,15 +18,14 @@ import com.ehret.mixit.domain.Salle;
 import com.ehret.mixit.domain.TypeFile;
 import com.ehret.mixit.domain.people.Membre;
 import com.ehret.mixit.domain.talk.Conference;
+import com.ehret.mixit.domain.talk.Lightningtalk;
 import com.ehret.mixit.domain.talk.Talk;
 import com.ehret.mixit.model.MembreFacade;
 
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -34,17 +37,18 @@ public class PlanningPlageBuilder {
     private Context context;
     private TableLayout planningHoraireTableLayout;
     private int nbConfSurPlage;
+    private Date heure;
 
     private PlanningPlageBuilder(PlanningFragment planningFragment) {
         this.planningFragment = planningFragment;
         this.context = planningFragment.getActivity();
     }
 
-    public static PlanningPlageBuilder create(PlanningFragment planningFragment){
+    public static PlanningPlageBuilder create(PlanningFragment planningFragment) {
         return new PlanningPlageBuilder(planningFragment);
     }
 
-    public PlanningPlageBuilder with(TableLayout planningHoraireTableLayout){
+    public PlanningPlageBuilder with(TableLayout planningHoraireTableLayout) {
         this.planningHoraireTableLayout = planningHoraireTableLayout;
         return this;
     }
@@ -54,7 +58,8 @@ public class PlanningPlageBuilder {
         return this;
     }
 
-    public PlanningPlageBuilder reinit(Date heure){
+    public PlanningPlageBuilder reinit(Date heure) {
+        this.heure = heure;
         //deux tableaux juxtaposer
         //Un d'une colonne pour gérer l'heure
         planningHoraireTableLayout.removeAllViews();
@@ -90,7 +95,7 @@ public class PlanningPlageBuilder {
                 salle = Salle.getSalle(((Talk) c).getRoom());
             }
             char code = ((Talk) c).getFormat().charAt(0);
-            createPlanningSalle(planningHoraireTableLayout, "(" + code + ") " + c.getTitle(), salle.getColor(), c);
+            createPlanningSalle("(" + code + ") " + c.getTitle(), salle.getColor(), c);
 
             StringBuilder buf = new StringBuilder();
             if (c.getSpeakers() != null) {
@@ -123,7 +128,7 @@ public class PlanningPlageBuilder {
     /**
      * Creation du planning salle
      */
-    private void createPlanningSalle(TableLayout planningHoraireTableLayout, String nom, int color, final Conference conf) {
+    private void createPlanningSalle(String nom, int color, final Conference conf) {
         TableRow tableRow = createTableRow();
         addEventOnTableRow(conf, tableRow);
         TextView textView = new TextViewTableBuilder()
@@ -161,42 +166,43 @@ public class PlanningPlageBuilder {
     private void addEventOnTableRow(final Conference conf, TableRow tableRow) {
         final Map<String, Object> parameters = new HashMap<>(6);
 
-        //TODO
-//            //En fonction du type de talk nous ne faisons pas la même chose
-//            if (conf instanceof Lightningtalk) {
-//                //Pour la les lightning on affiche la liste complete
-//                tableRow.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        parameters.put(UIUtils.MESSAGE, TypeFile.lightningtalks.name());
-//                        UIUtils.startActivity(ParseListeActivity.class, getActivity(), parameters);
-//                    }
-//                });
-//            } else {
-//                //Pour les talks on ne retient que les talks et workshop
-//                char code = ((Talk) conf).getFormat().charAt(0);
-//                if (code == 'T' || code == 'W' || code == 'K') {
-//                    tableRow.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Map<String, Object> parameters = new HashMap<String, Object>(2);
-//                            parameters.put(UIUtils.MESSAGE, conf.getId());
-//                            parameters.put(UIUtils.TYPE, ((Talk) conf).getFormat().charAt(0) == 'W' ? TypeFile.workshops.name() :
-//                                    TypeFile.talks.name());
-//                            UIUtils.startActivity(TalkActivity.class, getActivity(), parameters);
-//                        }
-//                    });
-//                } else if (code == 'L') {
-//                    tableRow.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Map<String, Object> parameters = new HashMap<String, Object>(6);
-//                            parameters.put(UIUtils.MESSAGE, TypeFile.lightningtalks);
-//                            UIUtils.startActivity(ParseListeActivity.class, getActivity(), parameters);
-//                        }
-//                    });
-//                }
-//            }
+//            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+//            SharedPreferences.Editor editor = sp.edit();
+//            editor.putInt(ARG_SECTION_HOUR, heure);
+//            editor.commit();
+
+            //En fonction du type de talk nous ne faisons pas la même chose
+            if (conf instanceof Lightningtalk) {
+                //Pour la les lightning on affiche la liste complete
+                tableRow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((HomeActivity) planningFragment.getActivity()).changeCurrentFragment(
+                                SessionDetailFragment.newInstance(TypeFile.lightningtalks.toString(),conf.getId(),6),
+                                true);
+                    }
+                });
+            } else {
+                //Pour les talks on ne retient que les talks et workshop
+                char code = ((Talk) conf).getFormat().charAt(0);
+                if (code == 'T' || code == 'W' || code == 'K') {
+                    tableRow.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int num = 3;
+                            TypeFile type = TypeFile.talks;
+                            if(((Talk) conf).getFormat().charAt(0) == 'W'){
+                                num = 4;
+                                type = TypeFile.workshops;
+                            }
+
+                            ((HomeActivity) planningFragment.getActivity()).changeCurrentFragment(
+                                    SessionDetailFragment.newInstance(type.name(),conf.getId(),num),
+                                    true);
+                        }
+                    });
+                }
+            }
     }
 
     /**
