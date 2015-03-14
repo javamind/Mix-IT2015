@@ -18,9 +18,11 @@ package com.ehret.mixit.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,21 +31,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.ehret.mixit.HomeActivity;
 import com.ehret.mixit.R;
+import com.ehret.mixit.builder.TextViewTableBuilder;
 import com.ehret.mixit.domain.Salle;
 import com.ehret.mixit.domain.TypeFile;
+import com.ehret.mixit.domain.people.Interet;
+import com.ehret.mixit.domain.people.Membre;
 import com.ehret.mixit.domain.talk.Conference;
 import com.ehret.mixit.domain.talk.Lightningtalk;
 import com.ehret.mixit.domain.talk.Talk;
 import com.ehret.mixit.model.ConferenceFacade;
+import com.ehret.mixit.model.MembreFacade;
+import com.ehret.mixit.utils.FileUtils;
 import com.ehret.mixit.utils.UIUtils;
 import com.github.rjeschke.txtmark.Processor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Activité permettant d'afficher les informations sur un talk
@@ -59,6 +71,9 @@ public class SessionDetailFragment extends Fragment {
     private TextView descriptif;
     private Button salle;
     private ImageView imageFavorite;
+    private LinearLayout sessionLinkList;
+    private LinearLayout sessionPersonList;
+    private LayoutInflater mInflater;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -76,6 +91,7 @@ public class SessionDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.mInflater = inflater;
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_session, container, false);
 
         this.image = (ImageView) rootView.findViewById(R.id.talk_image);
@@ -87,6 +103,8 @@ public class SessionDetailFragment extends Fragment {
         this.summary = (TextView) rootView.findViewById(R.id.talk_summary);
         this.descriptif = (TextView) rootView.findViewById(R.id.talk_desciptif);
         this.salle = (Button) rootView.findViewById(R.id.talk_salle);
+        this.sessionLinkList = (LinearLayout) rootView.findViewById(R.id.sessionLinkList);
+        this.sessionPersonList = (LinearLayout) rootView.findViewById(R.id.sessionPersonList);
 
         return rootView;
     }
@@ -132,6 +150,12 @@ public class SessionDetailFragment extends Fragment {
             image.setImageDrawable(getResources().getDrawable(R.drawable.talk));
         }
 
+        addGeneralInfo(conference);
+        addSpeakerInfo(conference);
+        addInterestInfo(conference);
+    }
+
+    private void addGeneralInfo(Conference conference){
         SimpleDateFormat sdf = new SimpleDateFormat("EEE");
         if (conference.getStart() != null && conference.getEnd() != null) {
             horaire.setText(String.format(getResources().getString(R.string.periode),
@@ -165,7 +189,7 @@ public class SessionDetailFragment extends Fragment {
                 salle.setBackgroundResource(room.getDrawable());
             }
             else{
-                salle.setBackgroundColor(context.getResources().getColor(room.getColor()));
+                salle.setBackgroundColor(getActivity().getBaseContext().getResources().getColor(room.getColor()));
             }
             //TODO zoom salle
 //            salle.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +198,114 @@ public class SessionDetailFragment extends Fragment {
 //                    UIUtils.startActivity(Salle1Activity.class, talkActivity);
 //                }
 //            });
+        }
+    }
+
+    private void addSpeakerInfo(Conference conference){
+        //On vide les éléments
+        sessionPersonList.removeAllViews();
+
+        List<Membre> speakers = new ArrayList<Membre>();
+        for (Long id : conference.getSpeakers()) {
+            Membre membre = MembreFacade.getInstance().getMembre(getActivity(), TypeFile.members.name(), id);
+            if (membre != null) {
+                speakers.add(membre);
+            }
+        }
+
+        //On affiche les liens que si on a recuperer des choses
+        if (!speakers.isEmpty()) {
+            //On utilisait auparavant une liste pour afficher ces éléments dans la page mais cette liste
+            //empêche d'avoir un ScrollView englobant pour toute la page. Nous utilisons donc un tableau
+
+            //On ajoute un table layout
+            TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+            TableLayout tableLayout = new TableLayout(getActivity().getBaseContext());
+            tableLayout.setLayoutParams(tableParams);
+
+            for (final Membre membre : speakers) {
+                RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_person, null);
+                row.setBackgroundResource(R.drawable.row_transparent_background);
+
+                //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
+                TextView userName = (TextView) row.findViewById(R.id.person_user_name);
+                TextView descriptif = (TextView) row.findViewById(R.id.person_shortdesciptif);
+                TextView level = (TextView) row.findViewById(R.id.person_level);
+                ImageView profileImage = (ImageView) row.findViewById(R.id.person_user_image);
+
+                userName.setText(membre.getCompleteName());
+
+                if (membre.getShortdesc() != null) {
+                    descriptif.setText(membre.getShortdesc().trim());
+                }
+
+                if (membre.getLevel() != null && !membre.getLevel().isEmpty()) {
+                    level.setText("[" + membre.getLevel().trim() + "]");
+                }
+
+                //Recuperation de l'mage liee au profil
+                Bitmap image = FileUtils.getImageProfile(getActivity(), membre);
+                if (image == null) {
+                    profileImage.setImageDrawable(getResources().getDrawable(R.drawable.person_image_empty));
+                } else {
+                    //On regarde dans les images embarquees
+                    profileImage.setImageBitmap(image);
+                }
+
+                row.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((HomeActivity) getActivity()).changeCurrentFragment(
+                                PeopleDetailFragment.newInstance(
+                                        TypeFile.speaker.toString(),
+                                        membre.getId(),
+                                        7),
+                                TypeFile.speaker.toString());
+                    }
+                });
+
+                tableLayout.addView(row);
+            }
+
+            sessionPersonList.addView(tableLayout);
+        }
+    }
+
+
+    private void addInterestInfo(Conference conference){
+        //On vide les éléments
+        sessionLinkList.removeAllViews();
+        //On affiche les liens que si on a recuperer des choses
+        if (conference.getInterests() != null && !conference.getInterests().isEmpty()) {
+            sessionLinkList.addView(new TextViewTableBuilder()
+                    .buildView(getActivity())
+                    .addText(getString(R.string.description_interet))
+                    .addPadding(0, 10, 4)
+                    .addBold(true)
+                    .addUpperCase()
+                    .addSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.text_size_cal_title))
+                    .addTextColor(getResources().getColor(R.color.black))
+                    .getView());
+
+            StringBuffer interets = new StringBuffer();
+            for (final Long iidInteret : conference.getInterests()) {
+                Interet interet = MembreFacade.getInstance().getInteret(getActivity(), iidInteret);
+                if (interet != null) {
+                    if (interets.length() > 0) {
+                        interets.append(", ");
+                    }
+                    interets.append(interet.getName());
+                }
+            }
+            TextView text = new TextViewTableBuilder()
+                    .buildView(getActivity())
+                    .addText(interets.toString())
+                    .addPadding(4, 10, 4)
+                    .addSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.text_size_cal))
+                    .addTextColor(getResources().getColor(R.color.black))
+                    .getView();
+            text.setSingleLine(false);
+            sessionLinkList.addView(text);
         }
     }
 

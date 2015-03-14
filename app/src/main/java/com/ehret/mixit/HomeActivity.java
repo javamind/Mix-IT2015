@@ -1,6 +1,7 @@
 package com.ehret.mixit;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -112,13 +113,16 @@ public class HomeActivity extends ActionBarActivity
         } else {
             fragment = PlaceholderFragment.newInstance(position + 1);
         }
-        changeCurrentFragment(fragment, false);
+        changeCurrentFragment(fragment, null);
     }
 
-    public void changeCurrentFragment(Fragment fragment, boolean backable) {
+    public void changeCurrentFragment(Fragment fragment, String backable) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (backable) {
-            fragmentTransaction.addToBackStack(null);
+        if (backable!=null) {
+            fragmentTransaction.addToBackStack(backable);
+        }
+        else{
+            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         fragmentTransaction.replace(R.id.container, fragment).commit();
     }

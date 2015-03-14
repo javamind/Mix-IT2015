@@ -179,7 +179,7 @@ public class PlanningPlageBuilder {
                     public void onClick(View v) {
                         ((HomeActivity) planningFragment.getActivity()).changeCurrentFragment(
                                 SessionDetailFragment.newInstance(TypeFile.lightningtalks.toString(),conf.getId(),6),
-                                true);
+                                TypeFile.lightningtalks.toString());
                     }
                 });
             } else {
@@ -198,7 +198,7 @@ public class PlanningPlageBuilder {
 
                             ((HomeActivity) planningFragment.getActivity()).changeCurrentFragment(
                                     SessionDetailFragment.newInstance(type.name(),conf.getId(),num),
-                                    true);
+                                    type.name());
                         }
                     });
                 }
