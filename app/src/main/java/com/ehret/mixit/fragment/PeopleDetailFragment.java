@@ -203,22 +203,24 @@ public class PeopleDetailFragment extends Fragment {
             TableLayout tableLayout = new TableLayout(getActivity().getBaseContext());
             tableLayout.setLayoutParams(tableParams);
 
-            for (final Link link : membre.getSharedLinks()) {
-                RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_link, null);
-                row.setBackgroundResource(R.drawable.row_transparent_background);
-                //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
-                TextView link_text = (TextView) row.findViewById(R.id.link_text);
-                link_text.setText(Html.fromHtml(String.format("%s : <a href=\"%s\">%s</a>", link.getName(), link.getUrl(), link.getUrl())));
-                link_text.setBackgroundColor(Color.TRANSPARENT);
-                link_text.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent in = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getUrl()));
-                        getActivity().startActivity(in);
-                    }
+            if(mInflater!=null) {
+                for (final Link link : membre.getSharedLinks()) {
+                    RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_link, null);
+                    row.setBackgroundResource(R.drawable.row_transparent_background);
+                    //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
+                    TextView link_text = (TextView) row.findViewById(R.id.link_text);
+                    link_text.setText(Html.fromHtml(String.format("%s : <a href=\"%s\">%s</a>", link.getName(), link.getUrl(), link.getUrl())));
+                    link_text.setBackgroundColor(Color.TRANSPARENT);
+                    link_text.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent in = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getUrl()));
+                            getActivity().startActivity(in);
+                        }
 
-                });
-                tableLayout.addView(row);
+                    });
+                    tableLayout.addView(row);
+                }
             }
             linkLayout.addView(tableLayout);
         }
@@ -247,80 +249,82 @@ public class PeopleDetailFragment extends Fragment {
             TableLayout tableLayout = new TableLayout(getActivity().getBaseContext());
             tableLayout.setLayoutParams(tableParams);
 
-            for (final Conference conf : conferences) {
-                LinearLayout row = (LinearLayout) mInflater.inflate(R.layout.item_talk, null);
-                row.setBackgroundResource(R.drawable.row_transparent_background);
-                //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
-                ImageView image = (ImageView) row.findViewById(R.id.talk_image);
-                TextView level = (TextView) row.findViewById(R.id.talk_level);
-                TextView horaire = (TextView) row.findViewById(R.id.talk_horaire);
-                TextView talkImageText = (TextView) row.findViewById(R.id.talkImageText);
-                TextView talkSalle = (TextView) row.findViewById(R.id.talk_salle);
+            if(mInflater!=null) {
+                for (final Conference conf : conferences) {
+                    LinearLayout row = (LinearLayout) mInflater.inflate(R.layout.item_talk, null);
+                    row.setBackgroundResource(R.drawable.row_transparent_background);
+                    //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
+                    ImageView image = (ImageView) row.findViewById(R.id.talk_image);
+                    TextView level = (TextView) row.findViewById(R.id.talk_level);
+                    TextView horaire = (TextView) row.findViewById(R.id.talk_horaire);
+                    TextView talkImageText = (TextView) row.findViewById(R.id.talkImageText);
+                    TextView talkSalle = (TextView) row.findViewById(R.id.talk_salle);
 
 
-                ((TextView) row.findViewById(R.id.talk_name)).setText(conf.getTitle());
-                ((TextView) row.findViewById(R.id.talk_shortdesciptif)).setText(conf.getSummary().trim());
+                    ((TextView) row.findViewById(R.id.talk_name)).setText(conf.getTitle());
+                    ((TextView) row.findViewById(R.id.talk_shortdesciptif)).setText(conf.getSummary().trim());
 
-                SimpleDateFormat sdf = new SimpleDateFormat("EEE");
-                if (conf.getStart() != null && conf.getEnd() != null) {
-                    horaire.setText(String.format(getResources().getString(R.string.periode),
-                            sdf.format(conf.getStart()),
-                            DateFormat.getTimeInstance(DateFormat.SHORT).format(conf.getStart()),
-                            DateFormat.getTimeInstance(DateFormat.SHORT).format(conf.getEnd())
-                    ));
-                } else {
-                    horaire.setText(getResources().getString(R.string.pasdate));
-
-                }
-                Salle salle = Salle.INCONNU;
-                if (conf instanceof Talk && Salle.INCONNU != Salle.getSalle(((Talk) conf).getRoom())) {
-                    salle = Salle.getSalle(((Talk) conf).getRoom());
-                }
-                talkSalle.setText(String.format(getResources().getString(R.string.Salle), salle.getNom()));
-                talkSalle.setBackgroundColor(getResources().getColor(salle.getColor()));
-
-
-                if (conf instanceof Talk) {
-                    level.setText("[" + ((Talk) conf).getLevel() + "]");
-
-                    if ("Workshop".equals(((Talk) conf).getFormat())) {
-                        talkImageText.setText("Workshop");
-                        image.setImageDrawable(getResources().getDrawable(R.drawable.workshop));
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE");
+                    if (conf.getStart() != null && conf.getEnd() != null) {
+                        horaire.setText(String.format(getResources().getString(R.string.periode),
+                                sdf.format(conf.getStart()),
+                                DateFormat.getTimeInstance(DateFormat.SHORT).format(conf.getStart()),
+                                DateFormat.getTimeInstance(DateFormat.SHORT).format(conf.getEnd())
+                        ));
                     } else {
-                        talkImageText.setText("Talk");
-                        image.setImageDrawable(getResources().getDrawable(R.drawable.talk));
-                    }
-                } else {
-                    talkImageText.setText("L.Talk");
-                    image.setImageDrawable(getResources().getDrawable(R.drawable.lightning));
-                }
+                        horaire.setText(getResources().getString(R.string.pasdate));
 
-                row.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TypeFile typeFile = null;
-                        int page = 6;
-                        if (conf instanceof Talk) {
-                            if ("Workshop".equals(((Talk) conf).getFormat())) {
-                                typeFile = TypeFile.workshops;
-                                page = 4;
-                            } else {
-                                typeFile = TypeFile.talks;
-                                page = 3;
-                            }
+                    }
+                    Salle salle = Salle.INCONNU;
+                    if (conf instanceof Talk && Salle.INCONNU != Salle.getSalle(((Talk) conf).getRoom())) {
+                        salle = Salle.getSalle(((Talk) conf).getRoom());
+                    }
+                    talkSalle.setText(String.format(getResources().getString(R.string.Salle), salle.getNom()));
+                    talkSalle.setBackgroundColor(getResources().getColor(salle.getColor()));
+
+
+                    if (conf instanceof Talk) {
+                        level.setText("[" + ((Talk) conf).getLevel() + "]");
+
+                        if ("Workshop".equals(((Talk) conf).getFormat())) {
+                            talkImageText.setText("Workshop");
+                            image.setImageDrawable(getResources().getDrawable(R.drawable.workshop));
                         } else {
-                            typeFile = TypeFile.lightningtalks;
+                            talkImageText.setText("Talk");
+                            image.setImageDrawable(getResources().getDrawable(R.drawable.talk));
                         }
-                        ((HomeActivity) getActivity()).changeCurrentFragment(
-                                SessionDetailFragment.newInstance(
-                                        typeFile.toString(),
-                                        conf.getId(),
-                                        page),
-                                typeFile.toString());
+                    } else {
+                        talkImageText.setText("L.Talk");
+                        image.setImageDrawable(getResources().getDrawable(R.drawable.lightning));
                     }
-                });
 
-                tableLayout.addView(row);
+                    row.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            TypeFile typeFile = null;
+                            int page = 6;
+                            if (conf instanceof Talk) {
+                                if ("Workshop".equals(((Talk) conf).getFormat())) {
+                                    typeFile = TypeFile.workshops;
+                                    page = 4;
+                                } else {
+                                    typeFile = TypeFile.talks;
+                                    page = 3;
+                                }
+                            } else {
+                                typeFile = TypeFile.lightningtalks;
+                            }
+                            ((HomeActivity) getActivity()).changeCurrentFragment(
+                                    SessionDetailFragment.newInstance(
+                                            typeFile.toString(),
+                                            conf.getId(),
+                                            page),
+                                    typeFile.toString());
+                        }
+                    });
+
+                    tableLayout.addView(row);
+                }
             }
             sessionLayout.addView(tableLayout);
         }

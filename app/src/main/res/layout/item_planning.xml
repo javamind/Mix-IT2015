@@ -16,9 +16,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/grey_background_pattern"
     android:orientation="vertical"
     android:padding="5px"
+    android:background="@color/white"
     android:scrollbars="vertical">
 
     <ScrollView
@@ -39,7 +39,6 @@
                 android:layout_weight="0.4"
                 android:baselineAligned="false"
                 android:orientation="vertical"
-                android:padding="5dp"
                 android:scrollbars="vertical">
                 <GridLayout
                     android:layout_width="fill_parent"

@@ -43,6 +43,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Comparator;
@@ -88,6 +89,11 @@ public class ConferenceFacade {
     private static Map<Long, Talk> talksSpeciaux = new HashMap<Long, Talk>();
 
     /**
+     * Events du calendrier qui ne sont pas envoyés par Mixit
+     */
+    private static List<Talk> timeMark = new ArrayList<Talk>();
+
+    /**
      * Permet de vider le cache de données hormis les events speciaux
      */
     public void viderCache() {
@@ -106,8 +112,6 @@ public class ConferenceFacade {
 
     /**
      * Retourne le singleton
-     *
-     * @return
      */
     public static ConferenceFacade getInstance() {
         if (membreFacade == null) {
@@ -118,9 +122,6 @@ public class ConferenceFacade {
 
     /**
      * Permet de recuperer la liste des confs mises en favoris
-     *
-     * @param context
-     * @return
      */
     public List<Conference> getFavorites(Context context, String filtre) {
         List<Conference> conferences = new ArrayList<Conference>();
@@ -186,9 +187,6 @@ public class ConferenceFacade {
 
     /**
      * Permet de recuperer la liste des talks
-     *
-     * @param context
-     * @return
      */
     public List<Talk> getTalks(Context context, String filtre) {
         return Ordering.from(getComparatorDate()).compound(getComparatorConference())
@@ -197,9 +195,6 @@ public class ConferenceFacade {
 
     /**
      * Permet de recuperer la liste des talks
-     *
-     * @param context
-     * @return
      */
     public List<Lightningtalk> getLightningTalks(Context context, String filtre) {
         return Ordering.from(getComparatorDate()).compound(getComparatorConference())
@@ -208,9 +203,6 @@ public class ConferenceFacade {
 
     /**
      * Permet de recuperer la liste des talks
-     *
-     * @param context
-     * @return
      */
     public List<Talk> getWorkshops(Context context, String filtre) {
         return Ordering.from(getComparatorDate()).compound(getComparatorConference())
@@ -218,10 +210,19 @@ public class ConferenceFacade {
     }
 
     /**
+     * Permet de recuperer la liste des talks et ateliers
+     */
+    public List<Talk> getWorkshopsAndTalks(Context context) {
+        List<Talk> talks = new ArrayList<>();
+        talks.addAll(filtrerTalk(getTalkAndWorkshops(context), null, null));
+        talks.addAll(FluentIterable.from(getEventsSpeciaux(context).values()).toList());
+        talks.addAll(getTimeMarkers(context));
+
+        return Ordering.from(getComparatorDate()).compound(getComparatorConference()).sortedCopy(talks);
+    }
+
+    /**
      * Cette méthode cherche les talks sur cette période
-     *
-     * @param date
-     * @return
      */
     public List<Conference> getConferenceSurPlageHoraire(Date date, Context context) {
         List<Conference> confs = new ArrayList<Conference>();
@@ -258,91 +259,114 @@ public class ConferenceFacade {
     }
 
     /**
-     * Création de tous les events qui ne sont pas fournis par l'interface Mixit
-     *
+     * Cree la liste des marqueurs de temps pour le fil de l'eau
      * @return
+     */
+    public List<Talk> getTimeMarkers(Context context) {
+        if(timeMark.isEmpty()){
+            timeMark.add(createTalkHorsConf(null, 120000)
+                    .setStart(UIUtils.createPlageHoraire(29, 6, 0))
+                    .setEnd(UIUtils.createPlageHoraire(29, 6, 0))
+                    .setFormat("day1"));
+            timeMark.add(createTalkHorsConf(null, 120001)
+                    .setStart(UIUtils.createPlageHoraire(30, 6, 0))
+                    .setEnd(UIUtils.createPlageHoraire(30, 6, 0))
+                    .setFormat("day2"));
+
+            for(int j=29 ; j<31 ;j++) {
+                for (int i = 8; i < 20; i++) {
+                    timeMark.add(createTalkHorsConf(null, 110000 + i + (20 * j % 2))
+                            .setStart(UIUtils.createPlageHoraire(j, i-1, 59))
+                            .setEnd(UIUtils.createPlageHoraire(j, i, 0)));
+                }
+            }
+        }
+        return timeMark;
+    }
+    /**
+     * Création de tous les events qui ne sont pas fournis par l'interface Mixit
      */
     public Map<Long, Talk> getEventsSpeciaux(Context context) {
         if (talksSpeciaux.isEmpty()) {
 
             Talk event = null;
-            event = createTalkHorsConf( context.getString(R.string.calendrier_accueillg), 90000);
-            event.setStart(UIUtils.createPlageHoraire(29, 8, 30));
-            event.setEnd(UIUtils.createPlageHoraire(29, 9, 0));
+            event = createTalkHorsConf( context.getString(R.string.calendrier_accueillg), 90000)
+                    .setStart(UIUtils.createPlageHoraire(29, 8, 30))
+                    .setEnd(UIUtils.createPlageHoraire(29, 9, 0));
             talksSpeciaux.put(event.getId(), event);
-            event = createTalkHorsConf(context.getString(R.string.calendrier_orgalg), 90002);
-            event.setStart(UIUtils.createPlageHoraire(29, 9, 0));
-            event.setEnd(UIUtils.createPlageHoraire(29, 9, 15));
+            event = createTalkHorsConf(context.getString(R.string.calendrier_orgalg), 90002)
+                    .setStart(UIUtils.createPlageHoraire(29, 9, 0))
+                    .setEnd(UIUtils.createPlageHoraire(29, 9, 15));
             talksSpeciaux.put(event.getId(), event);
 
-            event = createTalkHorsConf(context.getString(R.string.calendrier_presseslg), 90003);
-            event.setStart(UIUtils.createPlageHoraire(29, 13, 30));
-            event.setEnd(UIUtils.createPlageHoraire(29, 13, 40));
+            event = createTalkHorsConf(context.getString(R.string.calendrier_presseslg), 90003)
+                    .setStart(UIUtils.createPlageHoraire(29, 13, 30))
+                    .setEnd(UIUtils.createPlageHoraire(29, 13, 40));
             talksSpeciaux.put(event.getId(), event);
-            event = createTalkHorsConf(context.getString(R.string.calendrier_accueillg), 90005);
-            event.setStart(UIUtils.createPlageHoraire(30, 8, 30));
-            event.setEnd(UIUtils.createPlageHoraire(30, 9, 0));
+            event = createTalkHorsConf(context.getString(R.string.calendrier_accueillg), 90005)
+                    .setStart(UIUtils.createPlageHoraire(30, 8, 30))
+                    .setEnd(UIUtils.createPlageHoraire(30, 9, 0));
             talksSpeciaux.put(event.getId(), event);
-            event = createTalkHorsConf(context.getString(R.string.calendrier_orgalg), 90006);
-            event.setStart(UIUtils.createPlageHoraire(30, 9, 0));
-            event.setEnd(UIUtils.createPlageHoraire(30, 9, 15));
+            event = createTalkHorsConf(context.getString(R.string.calendrier_orgalg), 90006)
+                    .setStart(UIUtils.createPlageHoraire(30, 9, 0))
+                    .setEnd(UIUtils.createPlageHoraire(30, 9, 15));
             talksSpeciaux.put(event.getId(), event);
-            event = createTalkHorsConf(context.getString(R.string.calendrier_presseslg), 90007);
-            event.setStart(UIUtils.createPlageHoraire(30, 13, 30));
-            event.setEnd(UIUtils.createPlageHoraire(30, 13, 40));
+            event = createTalkHorsConf(context.getString(R.string.calendrier_presseslg), 90007)
+                    .setStart(UIUtils.createPlageHoraire(30, 13, 30))
+                    .setEnd(UIUtils.createPlageHoraire(30, 13, 40));
             talksSpeciaux.put(event.getId(), event);
 
             Talk repas = null;
-            repas = createTalkHorsConf(context.getString(R.string.calendrier_repas), 80000);
-            repas.setStart(UIUtils.createPlageHoraire(29, 12, 0));
-            repas.setEnd(UIUtils.createPlageHoraire(29, 13, 0));
+            repas = createTalkHorsConf(context.getString(R.string.calendrier_repas), 80000)
+                    .setStart(UIUtils.createPlageHoraire(29, 12, 0))
+                    .setEnd(UIUtils.createPlageHoraire(29, 13, 0));
             talksSpeciaux.put(repas.getId(), repas);
-            repas = createTalkHorsConf(context.getString(R.string.calendrier_repas), 80002);
-            repas.setStart(UIUtils.createPlageHoraire(30, 12, 0));
-            repas.setEnd(UIUtils.createPlageHoraire(30, 13, 0));
+            repas = createTalkHorsConf(context.getString(R.string.calendrier_repas), 80002)
+                    .setStart(UIUtils.createPlageHoraire(30, 12, 0))
+                    .setEnd(UIUtils.createPlageHoraire(30, 13, 0));
             talksSpeciaux.put(repas.getId(), repas);
 
             Talk pause = null;
-            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70000);
-            pause.setStart(UIUtils.createPlageHoraire(29, 10, 50));
-            pause.setEnd(UIUtils.createPlageHoraire(29, 11, 10));
+            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70000)
+                    .setStart(UIUtils.createPlageHoraire(29, 10, 50))
+                    .setEnd(UIUtils.createPlageHoraire(29, 11, 10));
             talksSpeciaux.put(pause.getId(), pause);
-            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70001);
-            pause.setStart(UIUtils.createPlageHoraire(29, 14, 30));
-            pause.setEnd(UIUtils.createPlageHoraire(29, 14, 50));
+            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70001)
+                    .setStart(UIUtils.createPlageHoraire(29, 14, 30))
+                    .setEnd(UIUtils.createPlageHoraire(29, 14, 50));
             talksSpeciaux.put(pause.getId(), pause);
-            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70002);
-            pause.setStart(UIUtils.createPlageHoraire(29, 9, 40));
-            pause.setEnd(UIUtils.createPlageHoraire(29, 10, 0));
+            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70002)
+                    .setStart(UIUtils.createPlageHoraire(29, 9, 40))
+                    .setEnd(UIUtils.createPlageHoraire(29, 10, 0));
             talksSpeciaux.put(pause.getId(), pause);
-            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70003);
-            pause.setStart(UIUtils.createPlageHoraire(29, 15, 40));
-            pause.setEnd(UIUtils.createPlageHoraire(29, 16, 0));
+            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70003)
+                    .setStart(UIUtils.createPlageHoraire(29, 15, 40))
+                    .setEnd(UIUtils.createPlageHoraire(29, 16, 0));
             talksSpeciaux.put(pause.getId(), pause);
-            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70004);
-            pause.setStart(UIUtils.createPlageHoraire(29, 16, 50));
-            pause.setEnd(UIUtils.createPlageHoraire(29, 17, 10));
+            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70004)
+                    .setStart(UIUtils.createPlageHoraire(29, 16, 50))
+                    .setEnd(UIUtils.createPlageHoraire(29, 17, 10));
             talksSpeciaux.put(pause.getId(), pause);
 
-            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70006);
-            pause.setStart(UIUtils.createPlageHoraire(30, 9, 40));
-            pause.setEnd(UIUtils.createPlageHoraire(30, 10, 0));
+            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70006)
+                    .setStart(UIUtils.createPlageHoraire(30, 9, 40))
+                    .setEnd(UIUtils.createPlageHoraire(30, 10, 0));
             talksSpeciaux.put(pause.getId(), pause);
-            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70005);
-            pause.setStart(UIUtils.createPlageHoraire(30, 10, 50));
-            pause.setEnd(UIUtils.createPlageHoraire(30, 11, 10));
+            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70005)
+                    .setStart(UIUtils.createPlageHoraire(30, 10, 50))
+                    .setEnd(UIUtils.createPlageHoraire(30, 11, 10));
             talksSpeciaux.put(pause.getId(), pause);
-            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70007);
-            pause.setStart(UIUtils.createPlageHoraire(30, 14, 30));
-            pause.setEnd(UIUtils.createPlageHoraire(30, 14, 50));
+            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70007)
+                    .setStart(UIUtils.createPlageHoraire(30, 14, 30))
+                    .setEnd(UIUtils.createPlageHoraire(30, 14, 50));
             talksSpeciaux.put(pause.getId(), pause);
-            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70008);
-            pause.setStart(UIUtils.createPlageHoraire(30, 15, 40));
-            pause.setEnd(UIUtils.createPlageHoraire(30, 16, 0));
+            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70008)
+                    .setStart(UIUtils.createPlageHoraire(30, 15, 40))
+                    .setEnd(UIUtils.createPlageHoraire(30, 16, 0));
             talksSpeciaux.put(pause.getId(), pause);
-            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70009);
-            pause.setStart(UIUtils.createPlageHoraire(30, 16, 50));
-            pause.setEnd(UIUtils.createPlageHoraire(30, 17, 10));
+            pause = createTalkHorsConf(context.getString(R.string.calendrier_pause), 70009)
+                    .setStart(UIUtils.createPlageHoraire(30, 16, 50))
+                    .setEnd(UIUtils.createPlageHoraire(30, 17, 10));
             talksSpeciaux.put(pause.getId(), pause);
 
 
@@ -381,9 +405,6 @@ public class ConferenceFacade {
 
     /**
      * Permet de recuperer la liste des talks
-     *
-     * @param context
-     * @return
      */
     private Map<Long, Talk> getTalkAndWorkshops(Context context) {
         if (talks.isEmpty()) {
@@ -423,9 +444,6 @@ public class ConferenceFacade {
 
     /**
      * Permet de recuperer la liste des talks
-     *
-     * @param context
-     * @return
      */
     private Map<Long, Lightningtalk> getLightningtalks(Context context) {
         if (lightningtalks.isEmpty()) {
@@ -463,49 +481,33 @@ public class ConferenceFacade {
         return lightningtalks;
     }
 
-    /**
-     * @param context
-     * @param key
-     * @return
-     */
     public Talk getTalk(Context context, Long key) {
         return getTalkAndWorkshops(context).get(key);
     }
 
-    /**
-     * @param context
-     * @param key
-     * @return
-     */
     public Talk getWorkshop(Context context, Long key) {
         return getTalkAndWorkshops(context).get(key);
     }
 
-    /**
-     * @param context
-     * @param key
-     * @return
-     */
     public Lightningtalk getLightningtalk(Context context, Long key) {
         return getLightningtalks(context).get(key);
     }
 
     /**
      * Filtre la liste des talks ou des workshops
-     *
-     * @param talks
-     * @param type
-     * @return
      */
     private List<Talk> filtrerTalk(Map<Long, Talk> talks, final TypeFile type, final String filtre) {
         return FluentIterable.from(talks.values()).filter(new Predicate<Talk>() {
             @Override
             public boolean apply(Talk input) {
-                boolean retenu = false;
-                if (type.equals(TypeFile.workshops)) {
-                    retenu = "Workshop".equals(((Talk) input).getFormat());
+                boolean retenu;
+                if (type==null){
+                    retenu = true;
+                }
+                else if(type.equals(TypeFile.workshops)){
+                    retenu = "Workshop".equals(input.getFormat());
                 } else {
-                    retenu = !"Workshop".equals(((Talk) input).getFormat());
+                    retenu = !"Workshop".equals(input.getFormat());
                 }
                 if (retenu) {
                     return (filtre == null ||
@@ -519,10 +521,6 @@ public class ConferenceFacade {
 
     /**
      * Filtre la liste des talks ou des workshops
-     *
-     * @param talks
-     * @param filtre
-     * @return
      */
     private List<Lightningtalk> filtrerLightningTalk(Map<Long, Lightningtalk> talks, final String filtre) {
         return FluentIterable.from(talks.values()).filter(new Predicate<Lightningtalk>() {
@@ -537,10 +535,6 @@ public class ConferenceFacade {
 
     /**
      * Filtre la liste des talks ou des workshops
-     *
-     * @param talks
-     * @param filtre
-     * @return
      */
     private List<Conference> filtrerConference(List<Conference> talks, final String filtre) {
         return FluentIterable.from(talks).filter(new Predicate<Conference>() {
@@ -555,9 +549,6 @@ public class ConferenceFacade {
 
     /**
      * Filtre la liste des favoris pour qu'ils disparaissent le jour de la conference
-     *
-     * @param talks
-     * @return
      */
     private List<Conference> filtrerConferenceParDate(List<Conference> talks) {
         return FluentIterable.from(talks).filter(new Predicate<Conference>() {
@@ -581,8 +572,6 @@ public class ConferenceFacade {
 
     /**
      * Renvoie le comparator permettant de trier des conf
-     *
-     * @return
      */
     private <T extends Conference> Comparator<T> getComparatorDate() {
         return new Comparator<T>() {
@@ -601,13 +590,17 @@ public class ConferenceFacade {
 
     /**
      * Renvoie le comparator permettant de trier des conf
-     *
-     * @return
      */
     private <T extends Conference> Comparator<T> getComparatorConference() {
         return new Comparator<T>() {
             @Override
             public int compare(T m1, T m2) {
+                if(m1.getTitle()==null){
+                    return 1;
+                }
+                if(m2.getTitle()==null){
+                    return -1;
+                }
                 return m1.getTitle().compareTo(m2.getTitle());
             }
         };
@@ -615,9 +608,6 @@ public class ConferenceFacade {
 
     /**
      * Renvoi la liste des membres attachés à une session
-     *
-     * @param membre
-     * @return
      */
     public List<Conference> getSessionMembre(Membre membre, Context context) {
         List<Conference> sessions = new ArrayList<Conference>();

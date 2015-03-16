@@ -18,7 +18,7 @@ package com.ehret.mixit.domain.talk;
 /**
  * Représente aussi bien un atelier qu'une conf
  */
-public class Talk extends Conference {
+public class Talk extends Conference<Talk> {
     private String format;
     private String level;
     private String room;
@@ -35,8 +35,9 @@ public class Talk extends Conference {
         return format;
     }
 
-    public void setFormat(String format) {
+    public Talk setFormat(String format) {
         this.format = format;
+        return this;
     }
 
     public String getLevel() {

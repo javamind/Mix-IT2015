@@ -24,7 +24,7 @@ import java.util.List;
  * Classe mère des conferences contenant les données communes
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Conference {
+public class Conference<T> {
     private long id;
     private String title;
     private String summary;
@@ -38,16 +38,18 @@ public class Conference {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public T setEnd(Date end) {
         this.end = end;
+        return (T) this;
     }
 
     public Date getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public T setStart(Date start) {
         this.start = start;
+        return (T) this;
     }
 
 

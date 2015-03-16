@@ -26,6 +26,7 @@
     <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="?android:listPreferredItemHeight"
+            android:id="@+id/container2"
             >
         <ImageView
                 android:id="@+id/talk_image"
@@ -64,7 +65,7 @@
     <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="2dp"
+                    android:id="@+id/container3"
             >
         <TextView
                 android:id="@+id/talk_name"
@@ -123,4 +124,5 @@
                 android:textSize="@dimen/text_size_small"/>
 
     </RelativeLayout>
+
 </LinearLayout>

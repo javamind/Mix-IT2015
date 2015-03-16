@@ -85,7 +85,9 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
 
         Conference conf = datas.get(position);
         holder.name.setText(conf.getTitle());
-        holder.descriptif.setText(Html.fromHtml(conf.getSummary().trim()));
+        if(conf.getSummary()!=null) {
+            holder.descriptif.setText(Html.fromHtml(conf.getSummary().trim()));
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("EEE");
         if (conf.getStart() != null && conf.getEnd() != null) {
             holder.horaire.setText(String.format(context.getResources().getString(R.string.periode),

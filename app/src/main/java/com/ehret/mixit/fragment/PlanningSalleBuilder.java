@@ -33,12 +33,12 @@ public class PlanningSalleBuilder {
         return this;
     }
 
-    public PlanningSalleBuilder createSalle(Salle salle1, Salle salle2) {
+    public PlanningSalleBuilder createSalle(Salle salle1, Salle salle2, boolean dernierligne) {
         TableRow tableRow = new TableRowBuilder().buildTableRow(context)
                 .addNbColonne(2)
                 .addBackground(context.getResources().getColor(R.color.grey)).getView();
-        createSalle(false, tableRow, salle1);
-        createSalle(false, tableRow, salle2);
+        createSalle(dernierligne, tableRow, salle1);
+        createSalle(dernierligne, tableRow, salle2);
         salleTableLayout.addView(tableRow, TableRowBuilder.getLayoutParams());
         return this;
     }
