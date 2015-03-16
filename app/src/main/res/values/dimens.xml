@@ -13,6 +13,7 @@
 
     <!-- body content -->
     <dimen name="text_size_small">10sp</dimen>
+    <dimen name="text_size_small_container">12sp</dimen>
     <dimen name="text_size_medium">12sp</dimen>
     <dimen name="text_size_large">16sp</dimen>
     <dimen name="speaker_image_size">48dp</dimen>

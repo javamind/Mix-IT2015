@@ -18,7 +18,7 @@ package com.ehret.mixit.domain.talk;
 /**
  * Les lightning talk ont plusieurs particularités dont le nb de votes
  */
-public class Lightningtalk extends Conference {
+public class Lightningtalk extends Conference<Lightningtalk> {
 
     private int nbVotes;
 

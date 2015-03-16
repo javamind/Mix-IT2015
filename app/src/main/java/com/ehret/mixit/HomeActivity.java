@@ -26,6 +26,7 @@ import com.ehret.mixit.domain.SendSocial;
 import com.ehret.mixit.domain.TypeFile;
 import com.ehret.mixit.fragment.DataListFragment;
 import com.ehret.mixit.fragment.DialogAboutFragment;
+import com.ehret.mixit.fragment.FilDeLeauFragment;
 import com.ehret.mixit.fragment.HomeFragment;
 import com.ehret.mixit.fragment.PeopleDetailFragment;
 import com.ehret.mixit.fragment.PlanningFragment;
@@ -107,12 +108,18 @@ public class HomeActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         Fragment fragment;
-        if (position > 2) {
-            fragment = DataListFragment.newInstance(getTypeFile(position).toString(), null, position + 1);
-        } else if (position == 1) {
-            fragment = new PlanningFragment();
-        } else {
-            fragment = new HomeFragment();
+        switch (position){
+            case 0:
+                fragment = new HomeFragment();
+                break;
+            case 1:
+                fragment = new PlanningFragment();
+                break;
+            case 2:
+                fragment = new FilDeLeauFragment();
+                break;
+            default:
+                fragment = DataListFragment.newInstance(getTypeFile(position).toString(), null, position + 1);
         }
         changeCurrentFragment(fragment, null);
     }

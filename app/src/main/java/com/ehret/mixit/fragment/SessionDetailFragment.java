@@ -205,7 +205,7 @@ public class SessionDetailFragment extends Fragment {
         sessionPersonList.removeAllViews();
 
         List<Membre> speakers = new ArrayList<Membre>();
-        for (Long id : conference.getSpeakers()) {
+        for (Long id : (List<Long>)conference.getSpeakers()) {
             Membre membre = MembreFacade.getInstance().getMembre(getActivity(), TypeFile.members.name(), id);
             if (membre != null) {
                 speakers.add(membre);
@@ -222,50 +222,51 @@ public class SessionDetailFragment extends Fragment {
             TableLayout tableLayout = new TableLayout(getActivity().getBaseContext());
             tableLayout.setLayoutParams(tableParams);
 
-            for (final Membre membre : speakers) {
-                RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_person, null);
-                row.setBackgroundResource(R.drawable.row_transparent_background);
+            if(mInflater!=null) {
+                for (final Membre membre : speakers) {
+                    RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_person, null);
+                    row.setBackgroundResource(R.drawable.row_transparent_background);
 
-                //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
-                TextView userName = (TextView) row.findViewById(R.id.person_user_name);
-                TextView descriptif = (TextView) row.findViewById(R.id.person_shortdesciptif);
-                TextView level = (TextView) row.findViewById(R.id.person_level);
-                ImageView profileImage = (ImageView) row.findViewById(R.id.person_user_image);
+                    //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
+                    TextView userName = (TextView) row.findViewById(R.id.person_user_name);
+                    TextView descriptif = (TextView) row.findViewById(R.id.person_shortdesciptif);
+                    TextView level = (TextView) row.findViewById(R.id.person_level);
+                    ImageView profileImage = (ImageView) row.findViewById(R.id.person_user_image);
 
-                userName.setText(membre.getCompleteName());
+                    userName.setText(membre.getCompleteName());
 
-                if (membre.getShortdesc() != null) {
-                    descriptif.setText(membre.getShortdesc().trim());
-                }
-
-                if (membre.getLevel() != null && !membre.getLevel().isEmpty()) {
-                    level.setText("[" + membre.getLevel().trim() + "]");
-                }
-
-                //Recuperation de l'mage liee au profil
-                Bitmap image = FileUtils.getImageProfile(getActivity(), membre);
-                if (image == null) {
-                    profileImage.setImageDrawable(getResources().getDrawable(R.drawable.person_image_empty));
-                } else {
-                    //On regarde dans les images embarquees
-                    profileImage.setImageBitmap(image);
-                }
-
-                row.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((HomeActivity) getActivity()).changeCurrentFragment(
-                                PeopleDetailFragment.newInstance(
-                                        TypeFile.speaker.toString(),
-                                        membre.getId(),
-                                        7),
-                                TypeFile.speaker.toString());
+                    if (membre.getShortdesc() != null) {
+                        descriptif.setText(membre.getShortdesc().trim());
                     }
-                });
 
-                tableLayout.addView(row);
+                    if (membre.getLevel() != null && !membre.getLevel().isEmpty()) {
+                        level.setText("[" + membre.getLevel().trim() + "]");
+                    }
+
+                    //Recuperation de l'mage liee au profil
+                    Bitmap image = FileUtils.getImageProfile(getActivity(), membre);
+                    if (image == null) {
+                        profileImage.setImageDrawable(getResources().getDrawable(R.drawable.person_image_empty));
+                    } else {
+                        //On regarde dans les images embarquees
+                        profileImage.setImageBitmap(image);
+                    }
+
+                    row.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ((HomeActivity) getActivity()).changeCurrentFragment(
+                                    PeopleDetailFragment.newInstance(
+                                            TypeFile.speaker.toString(),
+                                            membre.getId(),
+                                            7),
+                                    TypeFile.speaker.toString());
+                        }
+                    });
+
+                    tableLayout.addView(row);
+                }
             }
-
             sessionPersonList.addView(tableLayout);
         }
     }
@@ -287,7 +288,7 @@ public class SessionDetailFragment extends Fragment {
                     .getView());
 
             StringBuffer interets = new StringBuffer();
-            for (final Long iidInteret : conference.getInterests()) {
+            for (final Long iidInteret : (List<Long>)conference.getInterests()) {
                 Interet interet = MembreFacade.getInstance().getInteret(getActivity(), iidInteret);
                 if (interet != null) {
                     if (interets.length() > 0) {

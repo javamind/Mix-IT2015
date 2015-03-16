@@ -99,7 +99,7 @@ public class PlanningPlageBuilder {
 
             StringBuilder buf = new StringBuilder();
             if (c.getSpeakers() != null) {
-                for (Long id : c.getSpeakers()) {
+                for (Long id : (List<Long>)c.getSpeakers()) {
                     Membre m = MembreFacade.getInstance().getMembre(context, TypeFile.speaker.name(), id);
                     if (m != null && m.getCompleteName() != null) {
                         if (!buf.toString().equals("")) {

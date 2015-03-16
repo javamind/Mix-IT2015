@@ -150,11 +150,11 @@ public class PlanningFragment extends Fragment {
             PlanningSalleBuilder
                     .create(getActivity())
                     .with(salleTableLayout)
-                    .createSalle(Salle.SALLE1, Salle.SALLE2)
-                    .createSalle(Salle.SALLE3, Salle.SALLE4)
-                    .createSalle(Salle.SALLE5, Salle.SALLE6)
-                    .createSalle(Salle.SALLE7, Salle.SALLE8)
-                    .createSalle(Salle.SALLE9, Salle.INCONNU);
+                    .createSalle(Salle.SALLE1, Salle.SALLE2, false)
+                    .createSalle(Salle.SALLE3, Salle.SALLE4, false)
+                    .createSalle(Salle.SALLE5, Salle.SALLE6, false)
+                    .createSalle(Salle.SALLE7, Salle.SALLE8, false)
+                    .createSalle(Salle.SALLE9, Salle.INCONNU, true);
 
             TableLayout planningHoraireTableLayout = (TableLayout) view.findViewById(R.id.planningHoraireTableLayout);
             final GridLayout calendarGrid = (GridLayout) view.findViewById(R.id.planningGrid);

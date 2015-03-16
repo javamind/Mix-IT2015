@@ -58,9 +58,11 @@ public class DataListFragment extends Fragment {
     }
 
     /**
-     * updates the list
+     * Recuperation des marques de la partie en cours
      */
-    private void updateList() {
+    @Override
+    public void onResume() {
+        super.onResume();
         switch (TypeFile.getTypeFile(getArguments().getString(UIUtils.ARG_LIST_TYPE))) {
             case members:
                 afficherMembre();
@@ -88,15 +90,6 @@ public class DataListFragment extends Fragment {
                 afficherMembre();
 
         }
-    }
-
-    /**
-     * Recuperation des marques de la partie en cours
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateList();
     }
 
 

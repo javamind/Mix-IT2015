@@ -22,6 +22,8 @@ import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.format.Time;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.widget.Toast;
 
 import com.ehret.mixit.R;
@@ -151,4 +153,5 @@ public class UIUtils {
         }
         activity.startActivity(Intent.createChooser(i, "Share URL"));
     }
+
 }
