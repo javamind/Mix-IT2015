@@ -312,8 +312,11 @@ public class SessionDetailFragment extends Fragment {
     /**
      * Icon change according to the session if it's present or not in the favorites
      */
-    public void updateMenuItem(MenuItem item) {
-        if (isTalkFavorite()) {
+    public void updateMenuItem(MenuItem item, Boolean isFavorite) {
+        if(isFavorite==null){
+            isFavorite = isTalkFavorite();
+        }
+        if (isFavorite) {
             //On affiche bouton pour l'enlever
             item.setTitle(R.string.description_favorite_del);
             item.setIcon(getResources().getDrawable(R.drawable.ic_action_del_event));
@@ -334,19 +337,13 @@ public class SessionDetailFragment extends Fragment {
     private boolean isTalkFavorite() {
         boolean trouve = false;
         SharedPreferences settings = getActivity().getSharedPreferences(UIUtils.PREFS_FAVORITES_NAME, 0);
-        for (String key : settings.getAll().keySet()) {
-            if (key.equals(String.valueOf(getArguments().getLong(UIUtils.ARG_ID)))) {
-                trouve = true;
-                break;
-            }
-        }
-        return trouve;
+        return settings.getBoolean(String.valueOf(getArguments().getLong(UIUtils.ARG_ID)), false);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         MenuItem item = menu.findItem(R.id.menu_favorites).setVisible(true);
-        updateMenuItem(item);
+        updateMenuItem(item, null);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -355,20 +352,19 @@ public class SessionDetailFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_favorites) {
             //On recupere id
-            SharedPreferences settings = getActivity().getSharedPreferences(UIUtils.PREFS_TEMP_NAME, 0);
-            long id = settings.getLong("idTalk", 0L);
+            long id = getArguments().getLong(UIUtils.ARG_ID);
             if (id > 0) {
                 //On sauvegarde le choix de l'utilsateur
-                settings = getActivity().getSharedPreferences(UIUtils.PREFS_FAVORITES_NAME, 0);
+                SharedPreferences settings = getActivity().getSharedPreferences(UIUtils.PREFS_FAVORITES_NAME, 0);
                 SharedPreferences.Editor editor = settings.edit();
                 if (isTalkFavorite()) {
                     //S'il l'est et on qu'on a cliquer sur le bouton on supprime
                     editor.remove(String.valueOf(id));
-                    updateMenuItem(item);
+                    updateMenuItem(item, false);
 
                 } else {
                     editor.putBoolean(String.valueOf(id), Boolean.TRUE);
-                    updateMenuItem(item);
+                    updateMenuItem(item, true);
                 }
                 editor.commit();
             }
