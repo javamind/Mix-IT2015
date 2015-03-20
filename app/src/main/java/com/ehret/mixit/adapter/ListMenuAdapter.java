@@ -21,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ehret.mixit.R;
@@ -61,7 +60,7 @@ public class ListMenuAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_menu, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_menu, parent, false);
             holder = new ViewHolder();
             holder.color = (TextView) convertView.findViewById(R.id.menu_color);
             holder.label = (TextView) convertView.findViewById(R.id.menu_label);

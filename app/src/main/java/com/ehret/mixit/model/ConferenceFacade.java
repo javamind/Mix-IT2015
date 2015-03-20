@@ -18,6 +18,7 @@ package com.ehret.mixit.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.util.LongSparseArray;
 
 import com.ehret.mixit.R;
 import com.ehret.mixit.domain.TypeFile;
@@ -28,9 +29,9 @@ import com.ehret.mixit.domain.talk.Lightningtalk;
 import com.ehret.mixit.domain.talk.Talk;
 import com.ehret.mixit.utils.FileUtils;
 import com.ehret.mixit.utils.UIUtils;
+import com.ehret.mixit.utils.Utils;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 
 import org.codehaus.jackson.JsonFactory;
@@ -43,15 +44,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -77,21 +75,21 @@ public class ConferenceFacade {
     /**
      * Liste des talks statique pour ne pas la recharger à chaque appel
      */
-    private static Map<Long, Talk> talks = new HashMap<Long, Talk>();
+    private static LongSparseArray<Talk> talks = new LongSparseArray<>();
     /**
      * Liste des lightning talk statique pour ne pas la recharger à chaque appel
      */
-    private static Map<Long, Lightningtalk> lightningtalks = new HashMap<Long, Lightningtalk>();
+    private static LongSparseArray<Lightningtalk> lightningtalks = new LongSparseArray<>();
 
     /**
      * Events du calendrier qui ne sont pas envoyés par Mixit
      */
-    private static Map<Long, Talk> talksSpeciaux = new HashMap<Long, Talk>();
+    private static LongSparseArray<Talk> talksSpeciaux = new LongSparseArray<>();
 
     /**
      * Events du calendrier qui ne sont pas envoyés par Mixit
      */
-    private static List<Talk> timeMark = new ArrayList<Talk>();
+    private static List<Talk> timeMark = new ArrayList<>();
 
     /**
      * Permet de vider le cache de données hormis les events speciaux
@@ -168,7 +166,7 @@ public class ConferenceFacade {
                     for (Favorite m : talkListe) {
                         editor.putBoolean(String.valueOf(m.getId()), Boolean.TRUE);
                     }
-                    editor.commit();
+                    editor.apply();
                 }
             } catch (IOException e) {
                 Log.e(TAG, "Erreur lors de la recuperation des favorites", e);
@@ -215,7 +213,7 @@ public class ConferenceFacade {
     public List<Talk> getWorkshopsAndTalks(Context context) {
         List<Talk> talks = new ArrayList<>();
         talks.addAll(filtrerTalk(getTalkAndWorkshops(context), null, null));
-        talks.addAll(FluentIterable.from(getEventsSpeciaux(context).values()).toList());
+        talks.addAll(FluentIterable.from(Utils.asList(getEventsSpeciaux(context))).toList());
         talks.addAll(getTimeMarkers(context));
 
         return Ordering.from(getComparatorDate()).compound(getComparatorConference()).sortedCopy(talks);
@@ -227,7 +225,7 @@ public class ConferenceFacade {
     public List<Conference> getConferenceSurPlageHoraire(Date date, Context context) {
         List<Conference> confs = new ArrayList<Conference>();
         //On recupere les talks
-        Collection<Talk> talks = getTalkAndWorkshops(context).values();
+        Collection<Talk> talks = Utils.asList(getTalkAndWorkshops(context));
 
         //On decale la date de 1 minute pour ne pas avoir de souci de comparaison
         Calendar calendar = Calendar.getInstance(Locale.FRANCE);
@@ -249,7 +247,7 @@ public class ConferenceFacade {
         }
 
         //On ajoute ls events particuliers
-        Collection<Talk> talkSpeciaux = getEventsSpeciaux(context).values();
+        Collection<Talk> talkSpeciaux = Utils.asList(getEventsSpeciaux(context));
         for (Talk talk : talkSpeciaux) {
             if (talk.getStart() != null && talk.getEnd() != null && (dateComparee.before(talk.getEnd()) && dateComparee.after(talk.getStart()))) {
                 confs.add(talk);
@@ -286,8 +284,8 @@ public class ConferenceFacade {
     /**
      * Création de tous les events qui ne sont pas fournis par l'interface Mixit
      */
-    public Map<Long, Talk> getEventsSpeciaux(Context context) {
-        if (talksSpeciaux.isEmpty()) {
+    public LongSparseArray<Talk> getEventsSpeciaux(Context context) {
+        if (talksSpeciaux.size()==0) {
 
             Talk event = null;
             event = createTalkHorsConf( context.getString(R.string.calendrier_accueillg), 90000)
@@ -406,8 +404,8 @@ public class ConferenceFacade {
     /**
      * Permet de recuperer la liste des talks
      */
-    private Map<Long, Talk> getTalkAndWorkshops(Context context) {
-        if (talks.isEmpty()) {
+    private LongSparseArray<Talk> getTalkAndWorkshops(Context context) {
+        if (talks.size()==0) {
             InputStream is = null;
             List<Talk> talkListe = null;
             JsonParser jp = null;
@@ -445,11 +443,11 @@ public class ConferenceFacade {
     /**
      * Permet de recuperer la liste des talks
      */
-    private Map<Long, Lightningtalk> getLightningtalks(Context context) {
-        if (lightningtalks.isEmpty()) {
+    private LongSparseArray<Lightningtalk> getLightningtalks(Context context) {
+        if (lightningtalks.size()==0) {
             InputStream is = null;
-            List<Lightningtalk> talkListe = null;
-            JsonParser jp = null;
+            List<Lightningtalk> talkListe;
+            JsonParser jp;
             try {
                 //On regarde si fichier telecharge
                 File myFile = FileUtils.getFileJson(context, TypeFile.lightningtalks);
@@ -496,25 +494,22 @@ public class ConferenceFacade {
     /**
      * Filtre la liste des talks ou des workshops
      */
-    private List<Talk> filtrerTalk(Map<Long, Talk> talks, final TypeFile type, final String filtre) {
-        return FluentIterable.from(talks.values()).filter(new Predicate<Talk>() {
+    private List<Talk> filtrerTalk(LongSparseArray<Talk> talks, final TypeFile type, final String filtre) {
+        return FluentIterable.from(Utils.asList(talks)).filter(new Predicate<Talk>() {
             @Override
             public boolean apply(Talk input) {
                 boolean retenu;
-                if (type==null){
+                if (type == null) {
                     retenu = true;
-                }
-                else if(type.equals(TypeFile.workshops)){
+                } else if (type.equals(TypeFile.workshops)) {
                     retenu = "Workshop".equals(input.getFormat());
                 } else {
                     retenu = !"Workshop".equals(input.getFormat());
                 }
-                if (retenu) {
-                    return (filtre == null ||
-                            (input.getTitle() != null && input.getTitle().toLowerCase().contains(filtre.toLowerCase())) ||
-                            (input.getSummary() != null && input.getSummary().toLowerCase().contains(filtre.toLowerCase())));
-                }
-                return false;
+                return retenu &&
+                        ((filtre == null ||
+                                (input.getTitle() != null && input.getTitle().toLowerCase().contains(filtre.toLowerCase())) ||
+                                (input.getSummary() != null && input.getSummary().toLowerCase().contains(filtre.toLowerCase()))));
             }
         }).toList();
     }
@@ -522,8 +517,8 @@ public class ConferenceFacade {
     /**
      * Filtre la liste des talks ou des workshops
      */
-    private List<Lightningtalk> filtrerLightningTalk(Map<Long, Lightningtalk> talks, final String filtre) {
-        return FluentIterable.from(talks.values()).filter(new Predicate<Lightningtalk>() {
+    private List<Lightningtalk> filtrerLightningTalk(LongSparseArray<Lightningtalk> talks, final String filtre) {
+        return FluentIterable.from(Utils.asList(talks)).filter(new Predicate<Lightningtalk>() {
             @Override
             public boolean apply(Lightningtalk input) {
                 return (filtre == null ||
@@ -558,10 +553,7 @@ public class ConferenceFacade {
                 if(System.currentTimeMillis()>UIUtils.CONFERENCE_START_MILLIS &&
                         System.currentTimeMillis()<UIUtils.CONFERENCE_END_MILLIS){
                     //Si on est dedans on ne garde que les favoris qui ne sont pas passés
-                    if(input.getEnd()!=null && input.getEnd().getTime()<System.currentTimeMillis()){
-                        return false;
-                    }
-                    return true;
+                    return input.getEnd()==null || input.getEnd().getTime()>=System.currentTimeMillis();
                 }
                 else{
                     return true;
@@ -613,7 +605,7 @@ public class ConferenceFacade {
         List<Conference> sessions = new ArrayList<Conference>();
 
         //On recherche les talks
-        List<Talk> listetalks = Lists.newArrayList(getTalkAndWorkshops(context).values());
+        List<Talk> listetalks = Utils.asList(getTalkAndWorkshops(context));
         for (Talk t : listetalks) {
             for (Long idS : t.getSpeakers()) {
                 if (Long.valueOf(membre.getId()).equals(idS)) {
@@ -621,7 +613,7 @@ public class ConferenceFacade {
                 }
             }
         }
-        List<Lightningtalk> listelt = Lists.newArrayList(getLightningtalks(context).values());
+        List<Lightningtalk> listelt = Utils.asList(getLightningtalks(context));
         for (Lightningtalk t : listelt) {
             for (Long idS : t.getSpeakers()) {
                 if (Long.valueOf(membre.getId()).equals(idS)) {
@@ -632,4 +624,6 @@ public class ConferenceFacade {
 
         return sessions;
     }
+
+
 }

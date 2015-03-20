@@ -1,8 +1,6 @@
 package com.ehret.mixit.fragment;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -93,9 +91,10 @@ public class PlanningPlageBuilder {
             Salle salle = Salle.INCONNU;
             if (c instanceof Talk) {
                 salle = Salle.getSalle(((Talk) c).getRoom());
+                char code = ((Talk) c).getFormat().charAt(0);
+                createPlanningSalle("(" + code + ") " + c.getTitle(), salle.getColor(), c);
+
             }
-            char code = ((Talk) c).getFormat().charAt(0);
-            createPlanningSalle("(" + code + ") " + c.getTitle(), salle.getColor(), c);
 
             StringBuilder buf = new StringBuilder();
             if (c.getSpeakers() != null) {

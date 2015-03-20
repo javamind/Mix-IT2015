@@ -26,15 +26,15 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:contentDescription="@string/app_name"
-            android:layout_margin="10px"
+            android:layout_margin="4dp"
             android:src="@drawable/logomixit"/>
 
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:paddingLeft="5px"
-            android:paddingTop="10px"
+            android:paddingLeft="2dp"
+            android:paddingTop="4dp"
             android:layout_below="@+id/imageView1"
             style="@style/myTextView"
             android:text="@string/about_h1"
@@ -43,7 +43,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="5px"
+            android:paddingLeft="2dp"
             style="@style/myTextView"
             android:layout_below="@+id/about_h1"
             android:text="@string/about_cree"
@@ -52,7 +52,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="5px"
+            android:paddingLeft="2dp"
             android:layout_toRightOf="@+id/about_cree"
             android:layout_below="@+id/about_h1"
             style="@style/myTextView"
@@ -64,7 +64,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="5px"
+            android:paddingLeft="2dp"
             style="@style/myTextView"
             android:layout_below="@+id/about_cree"
             android:text="@string/about_blog"
@@ -73,7 +73,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="5px"
+            android:paddingLeft="2dp"
             android:layout_toRightOf="@+id/about_blog"
             android:layout_below="@+id/about_cree"
             style="@style/myTextView"
@@ -83,9 +83,9 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15px"
-            android:paddingBottom="15px"
-            android:paddingLeft="5px"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="2dp"
             android:layout_below="@+id/about_blog"
             style="@style/myTextView"
             

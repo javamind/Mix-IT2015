@@ -41,7 +41,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="blank"> </string>
-    <string name="onload">Téléchargement en cours...</string>
+    <string name="onload">Téléchargement en cours.</string>
     <string name="welcome">Bienvenue sur l\'application mobile Mix-IT qui vous donne accès à toute la programmation de cette conférence</string>
     <string name="about">A propos</string>
     <string name="search_hint">texte</string>
@@ -58,7 +58,7 @@
 
     <!-- Tweets -->
     <string name="tweetimage">Photo de profil twitter</string>
-    <string name="tweetnoreseau">Pas de connexion web... \nRéessayez plus tard pour visualiser les derniers tweets sur Mix-IT</string>
+    <string name="tweetnoreseau">Pas de connexion web. \nRéessayez plus tard pour visualiser les derniers tweets sur Mix-IT</string>
     <string name="tweetpres">Liste des derniers tweets sur Mix-IT</string>
     <string name="twitter">On parle de Mix-IT</string>
     <string name="tweetincitation">Parlez de Mix-IT sur Twitter ou Google+ en utilisant les raccourcis proposés dans la barre de bouton. Pour apparaître dans la liste rien de plus simple : Ecrivez un message en utilisant le hashtag #mixit15 </string>
@@ -97,7 +97,7 @@
     <string name="description_map">Google Map</string>
     <string name="description_venir">Comment venir</string>
     <string name="description_venir_mixit">Comment venir à Mix-IT</string>
-    <string name="description_plusinfo">Plus dinformations...</string>
+    <string name="description_plusinfo">Plus dinformations</string>
     <string name="description_liens">Liens</string>
     <string name="description_interet">Intérêts</string>
     <string name="description_niveau">Niveau</string>
@@ -106,7 +106,7 @@
     <!-- Calendrier -->
     <string name="calendrier_planning">De %1$s à %2$s</string>
     <string name="calendrier_planninga">à %1$s</string>
-    <string name="calendrier_detail">détail...</string>
+    <string name="calendrier_detail">détail</string>
     <string name="calendrier_confs">Talks</string>
     <string name="calendrier_ateliers">Ateliers</string>
     <string name="calendrier_conf">Conférence</string>
@@ -138,8 +138,8 @@
     <string name="calendrier_jeudi">Mar</string>
     <string name="calendrier_vendredi">Mer</string>
     <string name="calendrier_24">28</string>
-    <string name="calendrier_25">29\n8H30 19H00\ndétail... </string>
-    <string name="calendrier_26">30\n8H30 18H00\ndétail... </string>
+    <string name="calendrier_25">29\n8H30 19H00\ndétail </string>
+    <string name="calendrier_26">30\n8H30 18H00\ndétail </string>
     <string name="calendrier_27"> </string>
     <!-- Dates -->
     <string name="jour">jour</string>
@@ -174,7 +174,7 @@
 
 
     <!-- About -->
-    <string name="about_titre">A propos...</string>
+    <string name="about_titre">A propos</string>
     <string name="about_h1">Mix-IT 2015 Client</string>
     <string name="about_cree">Created by Guillaume EHRET</string>
     <string name="about_createur">https://twitter.com/guillaumeehret</string>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright 2014 Guillaume EHRET
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,133 +13,126 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="5px"
-    android:scrollbars="vertical"
-    >
-    <ScrollView
+    android:padding="2dp"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:id="@+id/person_fragments"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        >
-        <LinearLayout android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/person_fragments">
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/membre_image"
-                    android:layout_width="@dimen/speaker_image_size"
-                    android:layout_height="@dimen/speaker_image_size"
-                    android:layout_marginRight="@dimen/speaker_image_padding"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="4dp"
-                    android:paddingTop="4dp"
-                    android:scaleType="fitCenter"/>
-                <TextView
-                    android:id="@+id/membre_user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignWithParentIfMissing="true"
-                    android:layout_toRightOf="@id/membre_image"
-                    android:maxLines="1"
-                    android:paddingBottom="4dp"
-                    android:paddingTop="4dp"
-                    style="@style/myTextView"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/text_size_medium"/>
-                <TextView
-                    android:id="@+id/membre_entreprise"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignWithParentIfMissing="true"
-                    android:layout_toRightOf="@id/membre_image"
-                    android:layout_below="@id/membre_user_name"
-                    android:paddingBottom="4dp"
-                    android:paddingTop="4dp"
-                    style="@style/myTextView"
-                    android:textSize="@dimen/text_size_small"/>
-
-                <TextView
-                    android:id="@+id/membre_shortdesciptif"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignWithParentIfMissing="true"
-                    android:layout_below="@id/membre_entreprise"
-                    android:paddingBottom="4dp"
-                    android:paddingTop="4dp"
-                    style="@style/myTextView"
-                    android:textSize="@dimen/text_size_medium"/>
-
-
-
-                <TextView
-                    android:id="@+id/membre_desciptif"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignWithParentIfMissing="true"
-                    android:layout_below="@id/membre_shortdesciptif"
-                    android:paddingBottom="4dp"
-                    android:paddingTop="4dp"
-                    style="@style/myTextView"
-                    android:textSize="@dimen/text_size_medium"/>
-            </RelativeLayout>
-
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/personSessionFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:baselineAligned="false"
-                android:padding="5dp"
-                android:scrollbars="vertical">
-            </LinearLayout>
-
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/personLinkFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:baselineAligned="false"
-                android:padding="5dp"
-                android:scrollbars="vertical">
-            </LinearLayout>
-
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/personInteretFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:baselineAligned="false"
-                android:padding="5dp"
-                android:scrollbars="vertical">
-            </LinearLayout>
-
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/membre_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/speaker_image_padding"
-                android:layout_below="@id/personInteretFragment"
+                android:id="@+id/membre_image"
+                android:layout_width="@dimen/speaker_image_size"
+                android:layout_height="@dimen/speaker_image_size"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/speaker_image_padding"
                 android:paddingBottom="4dp"
                 android:paddingLeft="4dp"
                 android:paddingTop="4dp"
-                android:scaleType="fitCenter"/>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/membre_user_name"
+                style="@style/myTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_toRightOf="@id/membre_image"
+                android:maxLines="1"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/membre_entreprise"
+                style="@style/myTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/membre_user_name"
+                android:layout_toRightOf="@id/membre_image"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/membre_shortdesciptif"
+                style="@style/myTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/membre_entreprise"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:textSize="@dimen/text_size_medium" />
+
+
+            <TextView
+                android:id="@+id/membre_desciptif"
+                style="@style/myTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/membre_shortdesciptif"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:textSize="@dimen/text_size_medium" />
+        </RelativeLayout>
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/personSessionFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:baselineAligned="false"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:scrollbars="vertical"></LinearLayout>
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/personLinkFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:baselineAligned="false"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:scrollbars="vertical"></LinearLayout>
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/personInteretFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:baselineAligned="false"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:scrollbars="vertical"></LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/membre_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_below="@id/personInteretFragment"
+            android:layout_marginRight="@dimen/speaker_image_padding"
+            android:paddingBottom="4dp"
+            android:paddingLeft="4dp"
+            android:paddingTop="4dp"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+</ScrollView>

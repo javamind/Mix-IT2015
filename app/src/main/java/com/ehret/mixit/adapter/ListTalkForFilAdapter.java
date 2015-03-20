@@ -74,7 +74,7 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_talk, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_talk, parent, false);
             holder = new ViewHolder();
             holder.image = (ImageView) convertView.findViewById(R.id.talk_image);
             holder.imageFavorite = (ImageView) convertView.findViewById(R.id.talk_image_favorite);

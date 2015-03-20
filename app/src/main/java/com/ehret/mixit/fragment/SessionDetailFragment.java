@@ -89,6 +89,7 @@ public class SessionDetailFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.mInflater = inflater;
@@ -224,7 +225,7 @@ public class SessionDetailFragment extends Fragment {
 
             if(mInflater!=null) {
                 for (final Membre membre : speakers) {
-                    RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_person, null);
+                    RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_person, tableLayout, false);
                     row.setBackgroundResource(R.drawable.row_transparent_background);
 
                     //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
@@ -287,7 +288,7 @@ public class SessionDetailFragment extends Fragment {
                     .addTextColor(getResources().getColor(R.color.black))
                     .getView());
 
-            StringBuffer interets = new StringBuffer();
+            StringBuilder interets = new StringBuilder();
             for (final Long iidInteret : (List<Long>)conference.getInterests()) {
                 Interet interet = MembreFacade.getInstance().getInteret(getActivity(), iidInteret);
                 if (interet != null) {
@@ -366,7 +367,7 @@ public class SessionDetailFragment extends Fragment {
                     editor.putBoolean(String.valueOf(id), Boolean.TRUE);
                     updateMenuItem(item, true);
                 }
-                editor.commit();
+                editor.apply();
             }
         }
         return super.onOptionsItemSelected(item);

@@ -63,7 +63,7 @@ public class ListMembreAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_person, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_person, parent, false);
             holder = new ViewHolder();
             holder.profile_image = (ImageView) convertView.findViewById(R.id.person_user_image);
             holder.userName = (TextView) convertView.findViewById(R.id.person_user_name);

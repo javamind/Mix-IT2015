@@ -57,9 +57,7 @@ public class Interet {
 
         Interet interet = (Interet) o;
 
-        if (id != interet.id) return false;
-
-        return true;
+        return id == interet.id;
     }
 
     @Override

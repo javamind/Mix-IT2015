@@ -110,9 +110,7 @@ public class Conference<T> {
 
         Conference talk = (Conference) o;
 
-        if (id != talk.id) return false;
-
-        return true;
+        return id == talk.id;
     }
 
     @Override

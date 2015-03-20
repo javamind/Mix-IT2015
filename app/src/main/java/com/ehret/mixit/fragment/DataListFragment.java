@@ -3,6 +3,7 @@ package com.ehret.mixit.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,12 @@ public class DataListFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putAll(getArguments());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_datalist, container, false);
 
@@ -50,11 +57,16 @@ public class DataListFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((HomeActivity) activity).onSectionAttached(
-                "title_" + getArguments().getString(UIUtils.ARG_LIST_TYPE),
-                "color_" + getArguments().getString(UIUtils.ARG_LIST_TYPE));
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState!=null && getArguments()!=null && getArguments().getInt(UIUtils.ARG_SECTION_NUMBER)>0){
+            setArguments(savedInstanceState);
+        }
+        if(getActivity()!=null && !isAdded()){
+            ((HomeActivity) getActivity()).onSectionAttached(
+                    "title_" + getArguments().getString(UIUtils.ARG_LIST_TYPE),
+                    "color_" + getArguments().getString(UIUtils.ARG_LIST_TYPE));
+        }
     }
 
     /**
@@ -123,6 +135,7 @@ public class DataListFragment extends Fragment {
                                 getArguments().getString(UIUtils.ARG_LIST_FILTER))));
     }
 
+
     /**
      * Affichage des confs
      */
@@ -158,4 +171,6 @@ public class DataListFragment extends Fragment {
 
         }
     }
+
+
 }

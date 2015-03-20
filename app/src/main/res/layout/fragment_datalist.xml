@@ -20,7 +20,6 @@
         android:layout_height="fill_parent"
         android:id="@+id/liste_content"
         android:cacheColorHint="@android:color/white"
-
         android:divider="#AAAAAA"
         android:drawSelectorOnTop="false" />
 
