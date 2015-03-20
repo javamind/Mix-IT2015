@@ -59,7 +59,10 @@ public class DataListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState!=null && getArguments()!=null && getArguments().getInt(UIUtils.ARG_SECTION_NUMBER)>0){
+        if(savedInstanceState!=null && getArguments()!=null && getArguments().getInt(UIUtils.ARG_SECTION_NUMBER)==0){
+            getArguments().putString(UIUtils.ARG_LIST_TYPE, getArguments().getString(UIUtils.ARG_LIST_TYPE));
+            getArguments().putString(UIUtils.ARG_LIST_FILTER, getArguments().getString(UIUtils.ARG_LIST_FILTER));
+            getArguments().putInt(UIUtils.ARG_SECTION_NUMBER, getArguments().getInt(UIUtils.ARG_SECTION_NUMBER));
             setArguments(savedInstanceState);
         }
         if(getActivity()!=null && !isAdded()){
