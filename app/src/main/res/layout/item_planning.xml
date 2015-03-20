@@ -13,88 +13,82 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:padding="5px"
     android:background="@color/white"
+    android:padding="2dp"
+    android:id="@+id/item_planning"
     android:scrollbars="vertical">
-
-    <ScrollView
+    <!-- Ecran partage a la calendar : une partie agenda, une zone track et une speaker-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <!-- Ecran partage a la calendar : une partie agenda, une zone track et une speaker-->
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:scrollbars="vertical">
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:layout_weight="0.4"
             android:baselineAligned="false"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:scrollbars="vertical">
+
+            <GridLayout
+                android:id="@+id/planningGrid"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"></GridLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:baselineAligned="false"
+            android:orientation="vertical"
             android:padding="5dp"
             android:scrollbars="vertical">
 
-            <LinearLayout
+            <TextView
+                style="@style/myTextView"
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.4"
-                android:baselineAligned="false"
-                android:orientation="vertical"
-                android:scrollbars="vertical">
-                <GridLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/planningGrid"
-                    >
-                </GridLayout>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:text="@string/calendrier_explication" />
 
-            <LinearLayout
+            <TableLayout
+                android:id="@+id/planningHoraireTableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></TableLayout>
+
+            <TextView
+                style="@style/myTextView"
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.6"
-                android:baselineAligned="false"
-                android:orientation="vertical"
-                android:padding="5dp"
-                android:scrollbars="vertical">
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/calendrier_legende"
+                android:textSize="@dimen/text_size_small" />
 
-                <TextView
-                    style="@style/myTextView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/calendrier_explication" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/blank" />
 
-                <TableLayout android:id="@+id/planningHoraireTableLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </TableLayout>
+            <TextView
+                style="@style/myTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/calendrier_salle_liste" />
 
-                <TextView
-                    style="@style/myTextView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/calendrier_legende"
-                    android:textSize="@dimen/text_size_small" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/blank" />
-
-                <TextView
-                    style="@style/myTextView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/calendrier_salle_liste" />
-
-                <TableLayout android:id="@+id/salleTableLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3">
-                </TableLayout>
-            </LinearLayout>
-
+            <TableLayout
+                android:id="@+id/salleTableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"></TableLayout>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
 

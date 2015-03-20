@@ -17,11 +17,13 @@ package com.ehret.mixit.model;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.LongSparseArray;
 
 import com.ehret.mixit.domain.TypeFile;
 import com.ehret.mixit.domain.people.Interet;
 import com.ehret.mixit.domain.people.Membre;
 import com.ehret.mixit.utils.FileUtils;
+import com.ehret.mixit.utils.Utils;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Ordering;
@@ -36,9 +38,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Le but de ce fichier est de s'interfacer avec le fichier Json gerant les
@@ -60,16 +60,16 @@ public class MembreFacade {
 
     private final static String TAG = "MembreFacade";
 
-    private static Map<Long, Membre> membres = new HashMap<Long, Membre>();
-    ;
-    private static Map<Long, Membre> speaker = new HashMap<Long, Membre>();
-    ;
-    private static Map<Long, Membre> staff = new HashMap<Long, Membre>();
-    ;
-    private static Map<Long, Membre> sponsors = new HashMap<Long, Membre>();
-    ;
-    private static Map<Long, Interet> interets = new HashMap<Long, Interet>();
-    ;
+    private static LongSparseArray<Membre> membres = new LongSparseArray<>();
+
+    private static LongSparseArray<Membre> speaker = new LongSparseArray<>();
+
+    private static LongSparseArray<Membre> staff = new LongSparseArray<>();
+
+    private static LongSparseArray<Membre> sponsors = new LongSparseArray<>();
+
+    private static LongSparseArray<Interet> interets = new LongSparseArray<>();
+
 
     /**
      * Permet de vider le cache de données
@@ -111,8 +111,6 @@ public class MembreFacade {
 
     /**
      * Retourne le singleton
-     *
-     * @return
      */
     public static MembreFacade getInstance() {
         if (membreFacade == null) {
@@ -121,11 +119,6 @@ public class MembreFacade {
         return membreFacade;
     }
 
-    /**
-     * @param context
-     * @param typeAppel
-     * @return
-     */
     public List<Membre> getMembres(Context context, String typeAppel, String filtre) {
         if (TypeFile.members.name().equals(typeAppel)) {
             getMapMembres(context, typeAppel, membres);
@@ -145,13 +138,9 @@ public class MembreFacade {
 
     /**
      * Filtre la liste des membres
-     *
-     * @param talks
-     * @param filtre
-     * @return
      */
-    private List<Membre> filtrerMembre(Map<Long, Membre> talks, final String filtre) {
-        return FluentIterable.from(talks.values()).filter(new Predicate<Membre>() {
+    private List<Membre> filtrerMembre(LongSparseArray<Membre> talks, final String filtre) {
+        return FluentIterable.from(Utils.asList(talks)).filter(new Predicate<Membre>() {
             @Override
             public boolean apply(Membre input) {
                 return (filtre == null ||
@@ -164,8 +153,6 @@ public class MembreFacade {
 
     /**
      * Comparaison par nom
-     *
-     * @return
      */
     private Comparator<Membre> getComparatorByLevel() {
         return new Comparator<Membre>() {
@@ -178,8 +165,6 @@ public class MembreFacade {
 
     /**
      * Comparaison par nom
-     *
-     * @return
      */
     private Comparator<Membre> getComparatorByName() {
         return new Comparator<Membre>() {
@@ -192,13 +177,9 @@ public class MembreFacade {
 
     /**
      * Permet de recuperer la liste des membres
-     *
-     * @param context
-     * @param type
-     * @return
      */
-    private void getMapMembres(Context context, String type, Map<Long, Membre> membres) {
-        if (membres.isEmpty()) {
+    private void getMapMembres(Context context, String type, LongSparseArray<Membre> membres) {
+        if (membres.size()==0) {
             InputStream is = null;
             List<Membre> membreListe = null;
             JsonParser jp = null;
@@ -234,12 +215,6 @@ public class MembreFacade {
         }
     }
 
-    /**
-     * @param context
-     * @param typeAppel
-     * @param key
-     * @return
-     */
     public Membre getMembre(Context context, String typeAppel, Long key) {
         if (TypeFile.members.name().equals(typeAppel)) {
             getMapMembres(context, typeAppel, membres);
@@ -258,10 +233,10 @@ public class MembreFacade {
     }
 
     public Interet getInteret(Context context, Long id) {
-        if (interets.isEmpty()) {
+        if (interets.size()==0) {
             InputStream is = null;
             List<Interet> interetListe = null;
-            JsonParser jp = null;
+            JsonParser jp;
             try {
                 //On regarde si fichier telecharge
                 File myFile = FileUtils.getFileJson(context, TypeFile.getTypeFile(TypeFile.interests.name()));

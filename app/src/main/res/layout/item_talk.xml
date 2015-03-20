@@ -21,11 +21,12 @@
               android:baselineAligned="false"
               android:padding="5dp"
               android:scrollbars="vertical"
+              android:id="@+id/item_talk"
               android:background="@drawable/listeitem_background">
 
     <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="?android:listPreferredItemHeight"
+            android:layout_height="@dimen/speaker_image_size"
             android:id="@+id/container2"
             >
         <ImageView
@@ -85,7 +86,7 @@
                 android:layout_alignWithParentIfMissing="true"
                 android:layout_below="@id/talk_name"
                 android:textStyle="bold"
-                android:paddingRight="20px"
+                android:paddingRight="8dp"
                 android:textColor="@color/grey_dark"
                 android:textSize="@dimen/text_size_small"/>
         <TextView

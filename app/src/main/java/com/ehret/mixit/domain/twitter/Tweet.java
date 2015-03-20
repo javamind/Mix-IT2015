@@ -33,8 +33,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
-import com.ehret.mixit.R;
-
 
 /**
  * Classe modelisant un tweet
@@ -287,9 +285,7 @@ public class Tweet {
 
         Tweet tweet = (Tweet) o;
 
-        if (id != tweet.id) return false;
-
-        return true;
+        return id == tweet.id;
     }
 
     @Override

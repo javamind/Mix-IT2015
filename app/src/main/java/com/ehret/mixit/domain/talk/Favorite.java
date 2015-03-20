@@ -40,9 +40,7 @@ public class Favorite {
 
         Favorite talk = (Favorite) o;
 
-        if (id != talk.id) return false;
-
-        return true;
+        return id == talk.id;
     }
 
     @Override

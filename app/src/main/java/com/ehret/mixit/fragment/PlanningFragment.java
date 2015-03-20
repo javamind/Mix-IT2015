@@ -230,7 +230,7 @@ public class PlanningFragment extends Fragment {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
             SharedPreferences.Editor editor = sp.edit();
             editor.putLong((jour == 0) ? STATE_SELECTED_TIME_0 : STATE_SELECTED_TIME_1, heure.getTime());
-            editor.commit();
+            editor.apply();
 
             PlanningPlageBuilder planningPlageBuilderJour = (jour == 0) ? planningPlageBuilderJour0 : planningPlageBuilderJour1;
 

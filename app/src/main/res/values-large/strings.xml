@@ -2,7 +2,7 @@
 <resources>
     <string name="calendrier_explication">Cliquez sur une plage horaire pour voir comment seront réparties les différentes conférences ou ateliers par salle</string>
     <string name="calendrier_confs">Conférences</string>
-    <string name="calendrier_detail">Voir le détail...</string>
+    <string name="calendrier_detail">Voir le détail</string>
     <string name="calendrier_planning">Planning de %1$s à %2$s</string>
     <string name="calendrier_planninga">Planning à %1$s</string>
     <string name="calendrier_conf_small">Conférence</string>
@@ -23,6 +23,6 @@
     <string name="focus_sponsor_desc">Mix-IT reste à un prix abordable par rapport aux autres grandes conférences techniques grâce aux différents sponsors</string>
     <string name="focus_talk_desc">Les conférences s\'orientent autour de deux thématiques : la technique et l\'agilité. Le niveau vous indique le niveau d\'expertise conseillé</string>
     <string name="focus_workshop_desc">Les ateliers vous permettent de mettre en pratique certains concepts</string>
-    <string name="focus_lightningtalk_desc">Micro format pour aborder rapidement un sujet, une probématique, une technique...</string>
+    <string name="focus_lightningtalk_desc">Micro format pour aborder rapidement un sujet, une probématique, une technique.</string>
     <string name="focus_favorite_desc">Constituez votre propre planning en marquant les talks en favori.</string>
 </resources>

@@ -177,9 +177,7 @@ public class Membre {
 
         Membre speaker = (Membre) o;
 
-        if (id != speaker.id) return false;
-
-        return true;
+        return id == speaker.id;
     }
 
     @Override

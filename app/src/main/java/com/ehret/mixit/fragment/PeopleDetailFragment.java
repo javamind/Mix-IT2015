@@ -56,9 +56,7 @@ import com.github.rjeschke.txtmark.Processor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Activity permettant d'afficher les informations sur une personne participant à Mix-IT
@@ -205,7 +203,7 @@ public class PeopleDetailFragment extends Fragment {
 
             if(mInflater!=null) {
                 for (final Link link : membre.getSharedLinks()) {
-                    RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_link, null);
+                    RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_link, tableLayout, false);
                     row.setBackgroundResource(R.drawable.row_transparent_background);
                     //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
                     TextView link_text = (TextView) row.findViewById(R.id.link_text);
@@ -251,7 +249,7 @@ public class PeopleDetailFragment extends Fragment {
 
             if(mInflater!=null) {
                 for (final Conference conf : conferences) {
-                    LinearLayout row = (LinearLayout) mInflater.inflate(R.layout.item_talk, null);
+                    LinearLayout row = (LinearLayout) mInflater.inflate(R.layout.item_talk, tableLayout, false);
                     row.setBackgroundResource(R.drawable.row_transparent_background);
                     //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
                     ImageView image = (ImageView) row.findViewById(R.id.talk_image);
@@ -347,7 +345,7 @@ public class PeopleDetailFragment extends Fragment {
                     .addTextColor(getResources().getColor(R.color.black))
                     .getView());
 
-            StringBuffer interets = new StringBuffer();
+            StringBuilder interets = new StringBuilder();
             for (final Long iidInteret : membre.getInterests()) {
                 Interet interet = MembreFacade.getInstance().getInteret(getActivity(), iidInteret);
                 if (interet != null) {

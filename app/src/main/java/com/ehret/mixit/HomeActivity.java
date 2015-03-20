@@ -1,6 +1,5 @@
 package com.ehret.mixit;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
@@ -14,11 +13,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -38,10 +34,7 @@ public class HomeActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     public static final String ARG_SECTION_NUMBER = "section_number";
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
+    private Fragment mContent;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -53,13 +46,25 @@ public class HomeActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
+        }
+
+        NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
         // Set up the drawer    .
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //Save the fragment's instance
+        getSupportFragmentManager().putFragment(outState, "mContent", mContent);
     }
 
     @Override
@@ -81,7 +86,7 @@ public class HomeActivity extends ActionBarActivity
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = sp.edit();
             editor.putInt(ARG_SECTION_NUMBER, position);
-            editor.commit();
+            editor.apply();
         }
 
         switch (position) {
@@ -107,21 +112,20 @@ public class HomeActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        Fragment fragment;
         switch (position){
             case 0:
-                fragment = new HomeFragment();
+                mContent = new HomeFragment();
                 break;
             case 1:
-                fragment = new PlanningFragment();
+                mContent = new PlanningFragment();
                 break;
             case 2:
-                fragment = new FilDeLeauFragment();
+                mContent = new FilDeLeauFragment();
                 break;
             default:
-                fragment = DataListFragment.newInstance(getTypeFile(position).toString(), null, position + 1);
+                mContent = DataListFragment.newInstance(getTypeFile(position).toString(), null, position + 1);
         }
-        changeCurrentFragment(fragment, null);
+        changeCurrentFragment(mContent, null);
     }
 
     public void changeCurrentFragment(Fragment fragment, String backable) {
@@ -136,12 +140,16 @@ public class HomeActivity extends ActionBarActivity
     }
 
     public void onSectionAttached(String title, String color) {
-        mTitle = getString(getResources().getIdentifier(title, "string", HomeActivity.this.getPackageName()));
-        getSupportActionBar().setBackgroundDrawable(
-                new ColorDrawable(
-                        getResources().getColor(
-                                getResources().getIdentifier(color, "color", HomeActivity.this.getPackageName()))));
+        int nbtitle = getResources().getIdentifier(title, "string", HomeActivity.this.getPackageName());
 
+        if(nbtitle>0) {
+            mTitle = getString(nbtitle > 0 ? nbtitle : R.string.title_section_home);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setBackgroundDrawable(
+                        new ColorDrawable(
+                                getResources().getColor(getResources().getIdentifier(color, "color", HomeActivity.this.getPackageName()))));
+            }
+        }
     }
 
     public void restoreActionBar() {
