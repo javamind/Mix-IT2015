@@ -47,6 +47,16 @@ public class DataListFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity!=null && getArguments().getString(UIUtils.ARG_LIST_TYPE)!=null && R.string.title_section_home!=0){
+            ((HomeActivity) getActivity()).onSectionAttached(
+                    "title_" + getArguments().getString(UIUtils.ARG_LIST_TYPE),
+                    "color_" + getArguments().getString(UIUtils.ARG_LIST_TYPE));
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_datalist, container, false);
 
@@ -65,11 +75,7 @@ public class DataListFragment extends Fragment {
             getArguments().putInt(UIUtils.ARG_SECTION_NUMBER, getArguments().getInt(UIUtils.ARG_SECTION_NUMBER));
             setArguments(savedInstanceState);
         }
-        if(getActivity()!=null && !isAdded()){
-            ((HomeActivity) getActivity()).onSectionAttached(
-                    "title_" + getArguments().getString(UIUtils.ARG_LIST_TYPE),
-                    "color_" + getArguments().getString(UIUtils.ARG_LIST_TYPE));
-        }
+
     }
 
     /**
