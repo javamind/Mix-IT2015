@@ -62,7 +62,6 @@ import java.util.List;
  */
 public class SessionDetailFragment extends Fragment {
 
-    private ImageView image;
     private TextView horaire;
     private TextView level;
     private TextView levelTitle;
@@ -95,7 +94,6 @@ public class SessionDetailFragment extends Fragment {
         this.mInflater = inflater;
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_session, container, false);
 
-        this.image = (ImageView) rootView.findViewById(R.id.talk_image);
         this.imageFavorite = (ImageView) rootView.findViewById(R.id.talk_image_favorite);
         this.horaire = (TextView) rootView.findViewById(R.id.talk_horaire);
         this.level = (TextView) rootView.findViewById(R.id.talk_level);
@@ -141,13 +139,10 @@ public class SessionDetailFragment extends Fragment {
         Conference conference;
         if (TypeFile.lightningtalks.name().equals(type)) {
             conference = ConferenceFacade.getInstance().getLightningtalk(context, id);
-            image.setImageDrawable(getResources().getDrawable(R.drawable.lightning));
         } else if (TypeFile.workshops.name().equals(type)) {
             conference = ConferenceFacade.getInstance().getTalk(context, id);
-            image.setImageDrawable(getResources().getDrawable(R.drawable.workshop));
         } else {
             conference = ConferenceFacade.getInstance().getTalk(context, id);
-            image.setImageDrawable(getResources().getDrawable(R.drawable.talk));
         }
 
         addGeneralInfo(conference);

@@ -152,7 +152,7 @@ public class PlanningPlageBuilder {
                 .addNbMaxLines(2)
                 .addTextColor(context.getResources().getColor(android.R.color.black))
                 .getView();
-        button.setBackgroundResource(R.drawable.button_white_background);
+        button.setBackgroundResource(R.drawable.selector_planning_tab);
 
         //textView.setMaxWidth(tableRow.getWidth()-4);
         tableRow.addView(button);
@@ -226,7 +226,7 @@ public class PlanningPlageBuilder {
                 .addBackground(context.getResources().getColor(android.R.color.white))
                 .addTextColor(context.getResources().getColor(R.color.grey_dark))
                 .getView();
-        button.setBackgroundResource(R.drawable.button_white_background);
+        button.setBackgroundResource(R.drawable.selector_planning_tab);
         tableRow.addView(button);
 
         planningHoraireTableLayout.addView(tableRow, TableRowBuilder.getLayoutParams());

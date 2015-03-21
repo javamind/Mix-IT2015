@@ -70,7 +70,6 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_talk, parent, false);
             holder = new ViewHolder();
-            holder.image = (ImageView) convertView.findViewById(R.id.talk_image);
             holder.imageFavorite = (ImageView) convertView.findViewById(R.id.talk_image_favorite);
             holder.name = (TextView) convertView.findViewById(R.id.talk_name);
             holder.descriptif = (TextView) convertView.findViewById(R.id.talk_shortdesciptif);
@@ -110,15 +109,12 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
             holder.level.setText("[" + ((Talk) conf).getLevel() + "]");
 
             if ("Workshop".equals(((Talk) conf).getFormat())) {
-                holder.talkImageText.setText("Workshop");
-                holder.image.setImageDrawable(context.getResources().getDrawable(R.drawable.workshop));
+                holder.talkImageText.setText("Atelier");
             } else {
                 holder.talkImageText.setText("Talk");
-                holder.image.setImageDrawable(context.getResources().getDrawable(R.drawable.talk));
             }
         } else {
             holder.talkImageText.setText("L.Talk");
-            holder.image.setImageDrawable(context.getResources().getDrawable(R.drawable.lightning));
         }
 
         //On regarde si la conf fait partie des favoris
@@ -140,7 +136,6 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
     static class ViewHolder {
         TextView name;
         TextView descriptif;
-        ImageView image;
         TextView level;
         TextView horaire;
         TextView talkImageText;

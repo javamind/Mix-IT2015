@@ -252,7 +252,6 @@ public class PeopleDetailFragment extends Fragment {
                     LinearLayout row = (LinearLayout) mInflater.inflate(R.layout.item_talk, tableLayout, false);
                     row.setBackgroundResource(R.drawable.row_transparent_background);
                     //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
-                    ImageView image = (ImageView) row.findViewById(R.id.talk_image);
                     TextView level = (TextView) row.findViewById(R.id.talk_level);
                     TextView horaire = (TextView) row.findViewById(R.id.talk_horaire);
                     TextView talkImageText = (TextView) row.findViewById(R.id.talkImageText);
@@ -285,15 +284,12 @@ public class PeopleDetailFragment extends Fragment {
                         level.setText("[" + ((Talk) conf).getLevel() + "]");
 
                         if ("Workshop".equals(((Talk) conf).getFormat())) {
-                            talkImageText.setText("Workshop");
-                            image.setImageDrawable(getResources().getDrawable(R.drawable.workshop));
+                            talkImageText.setText("Atelier");
                         } else {
                             talkImageText.setText("Talk");
-                            image.setImageDrawable(getResources().getDrawable(R.drawable.talk));
                         }
                     } else {
                         talkImageText.setText("L.Talk");
-                        image.setImageDrawable(getResources().getDrawable(R.drawable.lightning));
                     }
 
                     row.setOnClickListener(new View.OnClickListener() {

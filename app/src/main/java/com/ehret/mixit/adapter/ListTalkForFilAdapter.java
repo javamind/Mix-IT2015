@@ -88,7 +88,6 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_talk, parent, false);
             holder = new ViewHolder();
-            holder.image = (ImageView) convertView.findViewById(R.id.talk_image);
             holder.imageFavorite = (ImageView) convertView.findViewById(R.id.talk_image_favorite);
             holder.name = (TextView) convertView.findViewById(R.id.talk_name);
             holder.descriptif = (TextView) convertView.findViewById(R.id.talk_shortdesciptif);
@@ -116,7 +115,6 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
             holder.descriptif.setText(null);
             holder.talkImageText.setText(null);
             holder.talkSalle.setText(null);
-            holder.image.setImageDrawable(null);
             holder.imageFavorite.setImageDrawable(null);
             holder.horaire.setText(null);
 
@@ -186,12 +184,12 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
                 holder.level.setText(null);
             }
 
-            if ("Workshop".equals(conf.getFormat())) {
-                holder.talkImageText.setText("Workshop");
-                holder.image.setImageDrawable(context.getResources().getDrawable(R.drawable.workshop));
+            if ("Workshop".equals(((Talk) conf).getFormat())) {
+                holder.talkImageText.setText("Atelier");
+                holder.talkImageText.setTextColor(context.getResources().getColor(R.color.color_workshops));
             } else {
                 holder.talkImageText.setText("Talk");
-                holder.image.setImageDrawable(context.getResources().getDrawable(R.drawable.talk));
+                holder.talkImageText.setTextColor(context.getResources().getColor(R.color.color_talks));
             }
 
             //On regarde si la conf fait partie des favoris
@@ -216,7 +214,6 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
     static class ViewHolder {
         TextView name;
         TextView descriptif;
-        ImageView image;
         TextView level;
         TextView horaire;
         TextView talkImageText;

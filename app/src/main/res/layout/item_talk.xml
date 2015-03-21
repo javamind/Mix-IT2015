@@ -19,45 +19,26 @@
               android:layout_height="match_parent"
               android:orientation="horizontal"
               android:baselineAligned="false"
-              android:padding="5dp"
+              android:padding="2dp"
               android:scrollbars="vertical"
               android:id="@+id/item_talk"
               android:background="@drawable/listeitem_background">
 
     <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/speaker_image_size"
-            android:id="@+id/container2"
-            >
-        <ImageView
-                android:id="@+id/talk_image"
-                android:layout_width="@dimen/speaker_image_size"
-                android:layout_height="@dimen/speaker_image_size"
-                android:layout_marginRight="@dimen/speaker_image_padding"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:paddingBottom="4dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="4dp"
-                android:scaleType="fitCenter"/>
+            android:layout_width="@dimen/speaker_image_size"
+            android:layout_height="@dimen/session_image_size"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/container2">
         <ImageView
                 android:id="@+id/talk_image_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/speaker_image_padding"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:paddingBottom="4dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="4dp"
+                android:layout_gravity="center_horizontal|top"
                 android:scaleType="fitCenter"/>
         <TextView android:id="@+id/talkImageText"
                   android:textStyle="bold"
-                  android:layout_width="match_parent"
-                  android:layout_height="@dimen/speaker_image_size"
-                  android:layout_marginRight="@dimen/speaker_image_padding"
-                  android:paddingBottom="4dp"
-                  android:paddingTop="4dp"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
                   android:textColor="@color/grey_dark"
                   android:layout_gravity="center_horizontal|bottom"
                   android:textSize="@dimen/text_size_small"/>
