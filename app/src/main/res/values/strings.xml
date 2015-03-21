@@ -178,7 +178,7 @@
     <string name="about_h1">Mix-IT 2015 Client</string>
     <string name="about_cree">Created by Guillaume EHRET</string>
     <string name="about_createur">https://twitter.com/guillaumeehret</string>
-    <string name="about_blog">Blog</string>
+    <string name="about_blog">http://dev-mind.fr/</string>
     <string name="about_blogurl">http://javamind-fr.blogspot.fr/</string>
     <string name="about_help">Si vous rencontrez des problèmes pour afficher les informations cliquez sur le bouton RAZ pour supprimer les fichiers téléchargés et revenir dans la configuration d\'origine</string>
 
