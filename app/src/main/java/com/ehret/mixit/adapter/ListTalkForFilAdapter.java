@@ -34,7 +34,9 @@ import com.ehret.mixit.domain.talk.Talk;
 import com.ehret.mixit.utils.UIUtils;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -69,6 +71,16 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
 
     public SimpleDateFormat sdf = new SimpleDateFormat("EEE");
 
+    public int getCurrentSelection(){
+        Date date = new Date();
+        for(int i=0 ; i<getCount() ; i++){
+            Conference conf = getItem(i);
+            if(conf.getEnd()!=null && conf.getEnd().compareTo(date) > 0){
+                return i;
+            }
+        }
+        return 0;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -117,7 +129,7 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
                 holder.name.setText(context.getResources().getString(R.string.calendrier_jour1));
                 holder.name.setTextColor(context.getResources().getColor(R.color.white));
             } else {
-                convertView.setBackgroundColor(context.getResources().getColor(R.color.grey_dark_fifty));
+                convertView.setBackgroundColor(context.getResources().getColor(R.color.color_planning_time));
                 holder.name.setText(DateFormat.getTimeInstance(DateFormat.SHORT).format(conf.getEnd()));
                 holder.name.setTextColor(context.getResources().getColor(R.color.black));
 
@@ -127,8 +139,17 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
             holder.container2.getLayoutParams().height = 0;
             holder.descriptif.getLayoutParams().height = 0;
         } else {
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.transparent));
-            convertView.setBackground(context.getResources().getDrawable(R.drawable.button_white_background));
+            //We control hour
+            if(conf.getEnd()==null || conf.getEnd().compareTo(new Date()) < 0){
+                convertView.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+                convertView.setBackground(context.getResources().getDrawable(R.drawable.selector_fildeleau_oldsession));
+            }
+            else{
+                convertView.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+                convertView.setBackground(context.getResources().getDrawable(R.drawable.selector_fildeleau_session));
+            }
+
+
             holder.horaire.getLayoutParams().height = context.getResources().getDimensionPixelSize(R.dimen.text_size_small_container);
             holder.talkSalle.getLayoutParams().height = context.getResources().getDimensionPixelSize(R.dimen.text_size_small_container);
             holder.container2.getLayoutParams().height = mSize;

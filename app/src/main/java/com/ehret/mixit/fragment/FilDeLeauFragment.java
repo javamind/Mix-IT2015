@@ -62,7 +62,9 @@ public class FilDeLeauFragment extends Fragment {
             }
         });
 
-        liste.setAdapter(new ListTalkForFilAdapter(context, ConferenceFacade.getInstance().getWorkshopsAndTalks(context)));
+        ListTalkForFilAdapter adapter = new ListTalkForFilAdapter(context, ConferenceFacade.getInstance().getWorkshopsAndTalks(context));
+        liste.setAdapter(adapter);
 
+        liste.setSelection(adapter.getCurrentSelection());
     }
 }
