@@ -186,22 +186,13 @@ public class PeopleDetailFragment extends Fragment {
 
         //On affiche les liens que si on a recuperer des choses
         if (membre!=null && membre.getSharedLinks() != null && !membre.getSharedLinks().isEmpty()) {
-            linkLayout.addView(new TextViewTableBuilder()
-                    .buildView(getActivity())
-                    .addText(getString(R.string.description_liens))
-                    .addPadding(0, 10, 4)
-                    .addBold(true)
-                    .addUpperCase()
-                    .addSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.text_size_cal))
-                    .addTextColor(getResources().getColor(R.color.black))
-                    .getView());
 
             //On ajoute un table layout
             TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
             TableLayout tableLayout = new TableLayout(getActivity().getBaseContext());
             tableLayout.setLayoutParams(tableParams);
 
-            if(mInflater!=null) {
+            if(mInflater!=null && membre.getSharedLinks().size()>0) {
                 for (final Link link : membre.getSharedLinks()) {
                     RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_link, tableLayout, false);
                     row.setBackgroundResource(R.drawable.row_transparent_background);
@@ -220,6 +211,15 @@ public class PeopleDetailFragment extends Fragment {
                     tableLayout.addView(row);
                 }
             }
+            else{
+                RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_link, tableLayout, false);
+                row.setBackgroundResource(R.drawable.row_transparent_background);
+                //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
+                TextView link_text = (TextView) row.findViewById(R.id.link_text);
+                link_text.setText("Aucun lien");
+                link_text.setBackgroundColor(Color.TRANSPARENT);
+                tableLayout.addView(row);
+            }
             linkLayout.addView(tableLayout);
         }
     }
@@ -233,15 +233,6 @@ public class PeopleDetailFragment extends Fragment {
 
         //On affiche les liens que si on a recuperer des choses
         if (conferences != null && !conferences.isEmpty()) {
-            sessionLayout.addView(new TextViewTableBuilder()
-                    .buildView(getActivity())
-                    .addText(getString(R.string.description_sessions))
-                    .addPadding(0, 10, 4)
-                    .addBold(true)
-                    .addUpperCase()
-                    .addSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.text_size_cal))
-                    .addTextColor(getResources().getColor(R.color.black))
-                    .getView());
             //On ajoute un table layout
             TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
             TableLayout tableLayout = new TableLayout(getActivity().getBaseContext());
@@ -331,16 +322,6 @@ public class PeopleDetailFragment extends Fragment {
         //On affiche les liens que si on a recuperer des choses
         if (membre != null && membre.getInterests() != null && !membre.getInterests().isEmpty()) {
 
-            interestLayout.addView(new TextViewTableBuilder()
-                    .buildView(getActivity())
-                    .addText(getString(R.string.description_interet))
-                    .addPadding(0, 10, 4)
-                    .addBold(true)
-                    .addUpperCase()
-                    .addSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.text_size_cal))
-                    .addTextColor(getResources().getColor(R.color.black))
-                    .getView());
-
             StringBuilder interets = new StringBuilder();
             for (final Long iidInteret : membre.getInterests()) {
                 Interet interet = MembreFacade.getInstance().getInteret(getActivity(), iidInteret);
@@ -355,7 +336,6 @@ public class PeopleDetailFragment extends Fragment {
                     .buildView(getActivity())
                     .addText(interets.toString())
                     .addPadding(4, 10, 4)
-                    .addSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.text_size_cal))
                     .addTextColor(getResources().getColor(R.color.black))
                     .getView();
             text.setSingleLine(false);

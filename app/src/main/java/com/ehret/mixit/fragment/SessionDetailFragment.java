@@ -64,7 +64,6 @@ public class SessionDetailFragment extends Fragment {
 
     private TextView horaire;
     private TextView level;
-    private TextView levelTitle;
     private TextView name;
     private TextView summary;
     private TextView descriptif;
@@ -97,7 +96,6 @@ public class SessionDetailFragment extends Fragment {
         this.imageFavorite = (ImageView) rootView.findViewById(R.id.talk_image_favorite);
         this.horaire = (TextView) rootView.findViewById(R.id.talk_horaire);
         this.level = (TextView) rootView.findViewById(R.id.talk_level);
-        this.levelTitle = (TextView) rootView.findViewById(R.id.talk_level_title);
         this.name = (TextView) rootView.findViewById(R.id.talk_name);
         this.summary = (TextView) rootView.findViewById(R.id.talk_summary);
         this.descriptif = (TextView) rootView.findViewById(R.id.talk_desciptif);
@@ -163,12 +161,10 @@ public class SessionDetailFragment extends Fragment {
 
         }
         if (conference instanceof Talk) {
-            levelTitle.setText(getString(R.string.description_niveau));
             level.setText("[" + ((Talk) conference).getLevel() + "]");
         }
         else{
-            levelTitle.setText(getString(R.string.description_votant));
-            level.setText(""+((Lightningtalk) conference).getNbVotes());
+            level.setText("votes : "+((Lightningtalk) conference).getNbVotes());
         }
         name.setText(conference.getTitle());
         summary.setText(Html.fromHtml(Processor.process(conference.getSummary()).trim()));
@@ -220,7 +216,7 @@ public class SessionDetailFragment extends Fragment {
 
             if(mInflater!=null) {
                 for (final Membre membre : speakers) {
-                    RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_person, tableLayout, false);
+                    LinearLayout row = (LinearLayout) mInflater.inflate(R.layout.item_person, tableLayout, false);
                     row.setBackgroundResource(R.drawable.row_transparent_background);
 
                     //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
@@ -273,15 +269,6 @@ public class SessionDetailFragment extends Fragment {
         sessionLinkList.removeAllViews();
         //On affiche les liens que si on a recuperer des choses
         if (conference.getInterests() != null && !conference.getInterests().isEmpty()) {
-            sessionLinkList.addView(new TextViewTableBuilder()
-                    .buildView(getActivity())
-                    .addText(getString(R.string.description_interet))
-                    .addPadding(0, 10, 4)
-                    .addBold(true)
-                    .addUpperCase()
-                    .addSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.text_size_cal_title))
-                    .addTextColor(getResources().getColor(R.color.black))
-                    .getView());
 
             StringBuilder interets = new StringBuilder();
             for (final Long iidInteret : (List<Long>)conference.getInterests()) {
@@ -297,7 +284,6 @@ public class SessionDetailFragment extends Fragment {
                     .buildView(getActivity())
                     .addText(interets.toString())
                     .addPadding(4, 10, 4)
-                    .addSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.text_size_cal))
                     .addTextColor(getResources().getColor(R.color.black))
                     .getView();
             text.setSingleLine(false);

@@ -18,8 +18,10 @@
     <dimen name="text_size_large">16sp</dimen>
     <dimen name="session_image_size">40dp</dimen>
     <dimen name="speaker_image_size">48dp</dimen>
+    <dimen name="speaker_image_size_big">64dp</dimen>
     <dimen name="speaker_image_padding">8dp</dimen>
-    <dimen name="text_size_button_salle">22sp</dimen>
+    <dimen name="text_size_button_salle">26sp</dimen>
+    <dimen name="text_size_menu_icon">22sp</dimen>
 
     <integer name="text_size_cal">10</integer>
     <integer name="text_size_cal_mini">1</integer>

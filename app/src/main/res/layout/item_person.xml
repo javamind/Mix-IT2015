@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright 2014 Guillaume EHRET
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,58 +13,71 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="2dp"
-                android:id="@+id/item_person"
-                android:background="@drawable/listeitem_background">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_person"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/listeitem_background"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="2dp"
+    android:scrollbars="vertical">
+
     <ImageView
-            android:id="@+id/person_user_image"
-            android:layout_width="@dimen/speaker_image_size"
-            android:layout_height="@dimen/speaker_image_size"
-            android:layout_marginRight="@dimen/speaker_image_padding"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:paddingBottom="4dp"
-            android:paddingLeft="4dp"
-            android:paddingTop="4dp"
-            android:scaleType="fitCenter"/>
-    <TextView
+        android:id="@+id/person_user_image"
+        android:layout_width="@dimen/speaker_image_size"
+        android:layout_height="@dimen/speaker_image_size"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/speaker_image_padding"
+        android:paddingBottom="4dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:scaleType="fitCenter" />
+
+
+    <RelativeLayout
+        android:id="@+id/item_person2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp">
+
+        <TextView
             android:id="@+id/person_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignWithParentIfMissing="true"
-            android:layout_toRightOf="@id/person_user_image"
             android:maxLines="1"
             android:paddingBottom="4dp"
             android:paddingTop="4dp"
-            style="@style/myTextView"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size_medium"/>
-    <TextView
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/person_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignWithParentIfMissing="true"
             android:layout_toRightOf="@id/person_user_name"
             android:paddingLeft="8dp"
-            android:textStyle="bold"
             android:textColor="@color/grey_dark"
+            android:textSize="@dimen/text_size_small"
 
-            android:textSize="@dimen/text_size_small"/>
-    <TextView
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/person_shortdesciptif"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignWithParentIfMissing="true"
-            android:layout_toRightOf="@id/person_user_image"
             android:layout_below="@id/person_user_name"
             android:paddingBottom="4dp"
             android:paddingTop="4dp"
-            style="@style/myTextView"
-            android:textSize="@dimen/text_size_small"/>
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>
