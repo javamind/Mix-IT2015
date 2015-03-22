@@ -18,6 +18,7 @@ package com.ehret.mixit.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -243,11 +244,10 @@ public class PeopleDetailFragment extends Fragment {
                     LinearLayout row = (LinearLayout) mInflater.inflate(R.layout.item_talk, tableLayout, false);
                     row.setBackgroundResource(R.drawable.row_transparent_background);
                     //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
-                    TextView level = (TextView) row.findViewById(R.id.talk_level);
                     TextView horaire = (TextView) row.findViewById(R.id.talk_horaire);
                     TextView talkImageText = (TextView) row.findViewById(R.id.talkImageText);
                     TextView talkSalle = (TextView) row.findViewById(R.id.talk_salle);
-
+                    ImageView imageFavorite= (ImageView) row.findViewById(R.id.talk_image_favorite);
 
                     ((TextView) row.findViewById(R.id.talk_name)).setText(conf.getTitle());
                     ((TextView) row.findViewById(R.id.talk_shortdesciptif)).setText(conf.getSummary().trim());
@@ -272,8 +272,6 @@ public class PeopleDetailFragment extends Fragment {
 
 
                     if (conf instanceof Talk) {
-                        level.setText("[" + ((Talk) conf).getLevel() + "]");
-
                         if ("Workshop".equals(((Talk) conf).getFormat())) {
                             talkImageText.setText("Atelier");
                         } else {
@@ -308,6 +306,19 @@ public class PeopleDetailFragment extends Fragment {
                         }
                     });
 
+                    //On regarde si la conf fait partie des favoris
+                    SharedPreferences settings = getActivity().getSharedPreferences(UIUtils.PREFS_FAVORITES_NAME, 0);
+                    boolean trouve = false;
+                    for (String key : settings.getAll().keySet()) {
+                        if (key.equals(String.valueOf(conf.getId()))) {
+                            trouve = true;
+                            imageFavorite.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_action_important));
+                            break;
+                        }
+                    }
+                    if (!trouve) {
+                        imageFavorite.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_action_not_important));
+                    }
                     tableLayout.addView(row);
                 }
             }
