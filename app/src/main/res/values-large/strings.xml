@@ -25,4 +25,6 @@
     <string name="focus_workshop_desc">Les ateliers vous permettent de mettre en pratique certains concepts</string>
     <string name="focus_lightningtalk_desc">Micro format pour aborder rapidement un sujet, une probématique, une technique.</string>
     <string name="focus_favorite_desc">Constituez votre propre planning en marquant les talks en favori.</string>
+
+    <string name="pasdate">Pas d\'heure définie pour l\'instant</string>
 </resources>

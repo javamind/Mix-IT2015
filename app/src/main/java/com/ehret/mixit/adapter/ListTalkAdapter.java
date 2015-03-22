@@ -73,7 +73,6 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
             holder.imageFavorite = (ImageView) convertView.findViewById(R.id.talk_image_favorite);
             holder.name = (TextView) convertView.findViewById(R.id.talk_name);
             holder.descriptif = (TextView) convertView.findViewById(R.id.talk_shortdesciptif);
-            holder.level = (TextView) convertView.findViewById(R.id.talk_level);
             holder.horaire = (TextView) convertView.findViewById(R.id.talk_horaire);
             holder.talkImageText = (TextView) convertView.findViewById(R.id.talkImageText);
             holder.talkSalle = (TextView) convertView.findViewById(R.id.talk_salle);
@@ -106,8 +105,6 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
         holder.talkSalle.setBackgroundColor(context.getResources().getColor(salle.getColor()));
 
         if (conf instanceof Talk) {
-            holder.level.setText("[" + ((Talk) conf).getLevel() + "]");
-
             if ("Workshop".equals(((Talk) conf).getFormat())) {
                 holder.talkImageText.setText("Atelier");
             } else {
@@ -136,7 +133,6 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
     static class ViewHolder {
         TextView name;
         TextView descriptif;
-        TextView level;
         TextView horaire;
         TextView talkImageText;
         TextView talkSalle;

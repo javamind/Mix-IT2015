@@ -18,6 +18,7 @@ package com.ehret.mixit.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -69,6 +70,9 @@ public class PeopleDetailFragment extends Fragment {
     private TextView personDesciptif;
     private TextView personShortDesciptif;
     private TextView membreEntreprise;
+    private TextView titleSessions;
+    private TextView titleLinks;
+    private TextView titleInterets;
     private LinearLayout interestLayout;
     private LinearLayout linkLayout;
     private LinearLayout sessionLayout;
@@ -94,6 +98,9 @@ public class PeopleDetailFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_people, container, false);
 
         this.membreUserName = (TextView) rootView.findViewById(R.id.membre_user_name);
+        this.titleSessions = (TextView) rootView.findViewById(R.id.titleSessions);
+        this.titleLinks = (TextView) rootView.findViewById(R.id.titleLinks);
+        this.titleInterets = (TextView) rootView.findViewById(R.id.titleInterets);
         this.personDesciptif = (TextView) rootView.findViewById(R.id.membre_desciptif);
         this.personShortDesciptif = (TextView) rootView.findViewById(R.id.membre_shortdesciptif);
         this.membreEntreprise = (TextView) rootView.findViewById(R.id.membre_entreprise);
@@ -132,7 +139,7 @@ public class PeopleDetailFragment extends Fragment {
         //On commence par recuperer le Membre que l'on sohaite afficher
         Long id = getArguments().getLong(UIUtils.ARG_ID);
         Membre membre = MembreFacade.getInstance().getMembre(context, getArguments().getString(UIUtils.ARG_LIST_TYPE), id);
-        if(membre==null){
+        if (membre == null) {
             membre = MembreFacade.getInstance().getMembre(context, TypeFile.members.name(), id);
         }
 
@@ -142,16 +149,15 @@ public class PeopleDetailFragment extends Fragment {
         addPeopleInterrest(membre);
     }
 
-    private void addPeopleInfo(Membre membre){
+    private void addPeopleInfo(Membre membre) {
         Context context = getActivity().getBaseContext();
 
-        if(membre!=null) {
+        if (membre != null) {
             this.membreUserName.setText(membre.getCompleteName());
             this.membreEntreprise.setText(membre.getCompany());
             this.personDesciptif.setText(Html.fromHtml(Processor.process(membre.getLongdesc().trim())), TextView.BufferType.SPANNABLE);
             this.personShortDesciptif.setText(Html.fromHtml(Processor.process(membre.getShortdesc().trim())));
-        }
-        else{
+        } else {
             this.membreUserName.setText("Inconnu");
             this.membreEntreprise.setText("Inconnu");
             this.personDesciptif.setText("");
@@ -159,13 +165,12 @@ public class PeopleDetailFragment extends Fragment {
         }
         Bitmap image = null;
         //Si on est un sponsor on affiche le logo
-        if(membre!=null && membre.getLevel()!=null && membre.getLevel().length()>0){
+        if (membre != null && membre.getLevel() != null && membre.getLevel().length() > 0) {
             image = FileUtils.getImageLogo(context, membre);
             profileImage.setImageBitmap(image);
             logoImage.setImageBitmap(image);
             logoImage.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             logoImage.setVisibility(View.INVISIBLE);
         }
         if (image == null) {
@@ -175,24 +180,24 @@ public class PeopleDetailFragment extends Fragment {
                 profileImage.setImageDrawable(context.getResources().getDrawable(R.drawable.person_image_empty));
             }
         }
-        if(image!=null){
+        if (image != null) {
             profileImage.setImageBitmap(image);
         }
     }
 
-    private void addPeopleLink(Membre membre){
+    private void addPeopleLink(Membre membre) {
         //On vide les éléments
         linkLayout.removeAllViews();
 
         //On affiche les liens que si on a recuperer des choses
-        if (membre!=null && membre.getSharedLinks() != null && !membre.getSharedLinks().isEmpty()) {
+        if (membre != null && membre.getSharedLinks() != null && !membre.getSharedLinks().isEmpty()) {
 
             //On ajoute un table layout
             TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
             TableLayout tableLayout = new TableLayout(getActivity().getBaseContext());
             tableLayout.setLayoutParams(tableParams);
 
-            if(mInflater!=null && membre.getSharedLinks().size()>0) {
+            if (mInflater != null && membre.getSharedLinks().size() > 0) {
                 for (final Link link : membre.getSharedLinks()) {
                     RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_link, tableLayout, false);
                     row.setBackgroundResource(R.drawable.row_transparent_background);
@@ -210,8 +215,7 @@ public class PeopleDetailFragment extends Fragment {
                     });
                     tableLayout.addView(row);
                 }
-            }
-            else{
+            } else {
                 RelativeLayout row = (RelativeLayout) mInflater.inflate(R.layout.item_link, tableLayout, false);
                 row.setBackgroundResource(R.drawable.row_transparent_background);
                 //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
@@ -222,9 +226,12 @@ public class PeopleDetailFragment extends Fragment {
             }
             linkLayout.addView(tableLayout);
         }
+        else{
+            titleLinks.getLayoutParams().height = 0;
+        }
     }
 
-    private void addPeopleSession(Membre membre){
+    private void addPeopleSession(Membre membre) {
         //On recupere aussi la liste des sessions de l'utilisateur
         List<Conference> conferences = ConferenceFacade.getInstance().getSessionMembre(membre, getActivity());
 
@@ -238,16 +245,16 @@ public class PeopleDetailFragment extends Fragment {
             TableLayout tableLayout = new TableLayout(getActivity().getBaseContext());
             tableLayout.setLayoutParams(tableParams);
 
-            if(mInflater!=null) {
+            if (mInflater != null) {
+
                 for (final Conference conf : conferences) {
                     LinearLayout row = (LinearLayout) mInflater.inflate(R.layout.item_talk, tableLayout, false);
                     row.setBackgroundResource(R.drawable.row_transparent_background);
                     //Dans lequel nous allons ajouter le contenu que nous faisons mappé dans
-                    TextView level = (TextView) row.findViewById(R.id.talk_level);
                     TextView horaire = (TextView) row.findViewById(R.id.talk_horaire);
                     TextView talkImageText = (TextView) row.findViewById(R.id.talkImageText);
                     TextView talkSalle = (TextView) row.findViewById(R.id.talk_salle);
-
+                    ImageView imageFavorite = (ImageView) row.findViewById(R.id.talk_image_favorite);
 
                     ((TextView) row.findViewById(R.id.talk_name)).setText(conf.getTitle());
                     ((TextView) row.findViewById(R.id.talk_shortdesciptif)).setText(conf.getSummary().trim());
@@ -272,8 +279,6 @@ public class PeopleDetailFragment extends Fragment {
 
 
                     if (conf instanceof Talk) {
-                        level.setText("[" + ((Talk) conf).getLevel() + "]");
-
                         if ("Workshop".equals(((Talk) conf).getFormat())) {
                             talkImageText.setText("Atelier");
                         } else {
@@ -308,14 +313,29 @@ public class PeopleDetailFragment extends Fragment {
                         }
                     });
 
+                    //On regarde si la conf fait partie des favoris
+                    SharedPreferences settings = getActivity().getSharedPreferences(UIUtils.PREFS_FAVORITES_NAME, 0);
+                    boolean trouve = false;
+                    for (String key : settings.getAll().keySet()) {
+                        if (key.equals(String.valueOf(conf.getId()))) {
+                            trouve = true;
+                            imageFavorite.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_action_important));
+                            break;
+                        }
+                    }
+                    if (!trouve) {
+                        imageFavorite.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_action_not_important));
+                    }
                     tableLayout.addView(row);
                 }
             }
             sessionLayout.addView(tableLayout);
+        } else {
+            titleSessions.getLayoutParams().height = 0;
         }
     }
 
-    private void addPeopleInterrest(Membre membre){
+    private void addPeopleInterrest(Membre membre) {
         //On vide les éléments
         interestLayout.removeAllViews();
 
@@ -341,6 +361,9 @@ public class PeopleDetailFragment extends Fragment {
             text.setSingleLine(false);
             interestLayout.addView(text);
         }
+        else{
+            titleInterets.getLayoutParams().height = 0;
+        }
     }
 
     @Override
@@ -354,7 +377,7 @@ public class PeopleDetailFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_profile) {
-        //    final Long myid = id;
+            //    final Long myid = id;
             Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();
 //            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //            builder.setMessage(getString(R.string.description_link_user))
@@ -381,7 +404,7 @@ public class PeopleDetailFragment extends Fragment {
     }
 
 
-    public boolean isPeopleMemberFragment(){
+    public boolean isPeopleMemberFragment() {
         return getArguments().getString(UIUtils.ARG_LIST_TYPE).equals(TypeFile.members.toString());
     }
 

@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="@string/calendrier_legende"
-                android:textSize="@dimen/text_size_small" />
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:layout_width="fill_parent"
