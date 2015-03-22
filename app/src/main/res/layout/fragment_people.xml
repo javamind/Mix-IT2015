@@ -23,16 +23,18 @@
         android:id="@+id/person_fragments"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp">
 
             <ImageView
                 android:id="@+id/membre_image"
-                android:layout_width="@dimen/speaker_image_size"
-                android:layout_height="@dimen/speaker_image_size"
+                android:layout_width="@dimen/speaker_image_size_big"
+                android:layout_height="@dimen/speaker_image_size_big"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="@dimen/speaker_image_padding"
@@ -52,7 +54,7 @@
                 android:maxLines="1"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp"
-                android:textSize="@dimen/text_size_medium"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" />
 
             <TextView
@@ -65,7 +67,7 @@
                 android:layout_toRightOf="@id/membre_image"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp"
-                android:textSize="@dimen/text_size_small" />
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/membre_shortdesciptif"
@@ -74,9 +76,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignWithParentIfMissing="true"
                 android:layout_below="@id/membre_entreprise"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:textSize="@dimen/text_size_medium" />
+                android:paddingTop="8dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
             <TextView
@@ -86,11 +87,17 @@
                 android:layout_height="wrap_content"
                 android:layout_alignWithParentIfMissing="true"
                 android:layout_below="@id/membre_shortdesciptif"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:textSize="@dimen/text_size_medium" />
+/>
         </RelativeLayout>
 
+
+        <TextView
+            style="@style/myCalendarTitleh2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2dp"
+            android:text="@string/description_sessions"
+            android:textStyle="bold" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/personSessionFragment"
@@ -102,6 +109,15 @@
             android:scrollbars="vertical"></LinearLayout>
 
 
+        <TextView
+            style="@style/myCalendarTitleh2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2dp"
+            android:paddingTop="8dp"
+            android:text="@string/description_liens"
+            android:textStyle="bold" />
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/personLinkFragment"
             android:layout_width="fill_parent"
@@ -111,6 +127,15 @@
             android:padding="5dp"
             android:scrollbars="vertical"></LinearLayout>
 
+
+        <TextView
+            style="@style/myCalendarTitleh2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2dp"
+            android:paddingTop="8dp"
+            android:text="@string/description_interet"
+            android:textStyle="bold" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/personInteretFragment"

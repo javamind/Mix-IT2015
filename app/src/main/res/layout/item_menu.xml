@@ -22,8 +22,8 @@
                 android:background="@drawable/selector_menu">
     <TextView
             android:id="@+id/menu_color"
-            android:layout_width="@dimen/text_size_button_salle"
-            android:layout_height="@dimen/text_size_button_salle"
+            android:layout_width="@dimen/text_size_menu_icon"
+            android:layout_height="@dimen/text_size_menu_icon"
             android:layout_marginRight="@dimen/speaker_image_padding"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"

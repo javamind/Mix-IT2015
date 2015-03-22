@@ -89,9 +89,9 @@ public class Membre {
 
     public String getCompleteName() {
         if(firstname==null || "".equals(firstname)){
-            return lastname;
+            return lastname.toUpperCase();
         }
-        return firstname + " " + lastname;
+        return lastname.toUpperCase() + " " + firstname;
     }
 
     public void setFirstname(String firstname) {

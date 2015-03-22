@@ -24,98 +24,57 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="1px">
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/talk_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:paddingBottom="8dp"
+            android:paddingTop="4dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"/>
+
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            android:background="@drawable/talk_header">
             <FrameLayout
                 android:id="@+id/talk_frame_image"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <ImageView
                     android:id="@+id/talk_image_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/speaker_image_padding"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="4dp"
-                    android:paddingTop="4dp"
                     android:scaleType="fitCenter" />
             </FrameLayout>
 
             <TextView
-                android:id="@+id/talk_name"
-                style="@style/myTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignWithParentIfMissing="true"
-                android:layout_toRightOf="@id/talk_frame_image"
-                android:maxLines="2"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="bold" />
-
-
-            <TextView
                 android:id="@+id/talk_horaire"
-                style="@style/myTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignWithParentIfMissing="true"
-                android:layout_below="@id/talk_name"
                 android:layout_toRightOf="@id/talk_frame_image"
-                android:paddingBottom="4dp"
-                android:paddingRight="8dp"
-                android:paddingTop="4dp"
-                android:textSize="@dimen/text_size_small" />
+                android:layout_toEndOf="@id/talk_frame_image"
+                android:paddingTop="8dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <Button
                 android:id="@+id/talk_salle"
-                style="@style/myTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/text_size_button_salle"
                 android:layout_alignWithParentIfMissing="true"
-                android:layout_below="@id/talk_name"
                 android:layout_toRightOf="@+id/talk_horaire"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:textSize="@dimen/text_size_small"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/talk_summary"
-                style="@style/myTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignWithParentIfMissing="true"
-                android:layout_below="@id/talk_horaire"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:textSize="@dimen/text_size_medium" />
-
-            <TextView
-                android:id="@+id/talk_desciptif"
-                style="@style/myTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignWithParentIfMissing="true"
-                android:layout_below="@id/talk_summary"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:textSize="@dimen/text_size_medium" />
-
-            <TextView
-                android:id="@+id/talk_level_title"
-                style="@style/myCalendarTitleh2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/talk_desciptif"
-                android:paddingLeft="2dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="top"
+                android:padding="4dp"
+                android:layout_marginTop="4dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
             <TextView
@@ -124,10 +83,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignWithParentIfMissing="true"
-                android:layout_below="@id/talk_desciptif"
-                android:layout_toRightOf="@id/talk_level_title"
-                android:paddingLeft="8dp"
-                android:textSize="@dimen/text_size_small" />
+                android:layout_below="@id/talk_horaire"
+                android:layout_toRightOf="@id/talk_frame_image"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/talk_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:paddingTop="10dp"/>
+
+            <TextView
+                android:id="@+id/talk_desciptif"
+                style="@style/myTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/talk_summary"
+                />
+
+
+
         </RelativeLayout>
 
         <TextView
@@ -147,6 +129,16 @@
             android:orientation="vertical"
             android:padding="5dp"
             android:scrollbars="vertical"></LinearLayout>
+
+        <TextView
+            style="@style/myCalendarTitleh2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2dp"
+            android:paddingTop="8dp"
+            android:text="@string/description_interet"
+            android:textStyle="bold" />
+
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/sessionLinkList"
