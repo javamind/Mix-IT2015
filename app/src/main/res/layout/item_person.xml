@@ -63,8 +63,7 @@
             android:layout_toRightOf="@id/person_user_name"
             android:paddingLeft="8dp"
             android:textColor="@color/grey_dark"
-            android:textSize="@dimen/text_size_small"
-
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold" />
 
         <TextView

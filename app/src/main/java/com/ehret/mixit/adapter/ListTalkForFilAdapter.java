@@ -91,7 +91,6 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
             holder.imageFavorite = (ImageView) convertView.findViewById(R.id.talk_image_favorite);
             holder.name = (TextView) convertView.findViewById(R.id.talk_name);
             holder.descriptif = (TextView) convertView.findViewById(R.id.talk_shortdesciptif);
-            holder.level = (TextView) convertView.findViewById(R.id.talk_level);
             holder.horaire = (TextView) convertView.findViewById(R.id.talk_horaire);
             holder.talkImageText = (TextView) convertView.findViewById(R.id.talkImageText);
             holder.talkSalle = (TextView) convertView.findViewById(R.id.talk_salle);
@@ -111,7 +110,6 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
         if (conf.getTitle() == null) {
             //In this case this just a time marker
             holder.name.setText(null);
-            holder.level.setText(null);
             holder.descriptif.setText(null);
             holder.talkImageText.setText(null);
             holder.talkSalle.setText(null);
@@ -177,13 +175,6 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
             holder.talkSalle.setText(String.format(context.getResources().getString(R.string.Salle), salle.getNom()));
             holder.talkSalle.setBackgroundColor(context.getResources().getColor(salle.getColor()));
 
-
-            if (conf.getLevel() != null) {
-                holder.level.setText("[" + conf.getLevel() + "]");
-            } else {
-                holder.level.setText(null);
-            }
-
             if ("Workshop".equals(((Talk) conf).getFormat())) {
                 holder.talkImageText.setText("Atelier");
                 holder.talkImageText.setTextColor(context.getResources().getColor(R.color.color_workshops));
@@ -214,7 +205,6 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
     static class ViewHolder {
         TextView name;
         TextView descriptif;
-        TextView level;
         TextView horaire;
         TextView talkImageText;
         TextView talkSalle;

@@ -149,7 +149,7 @@
     <string name="heures">heures</string>
     <string name="heure">heure</string>
     <string name="periode">%1$s de %2$s à %3$s</string>
-    <string name="pasdate">Pas d\'heure définie pour l\'instant</string>
+    <string name="pasdate">Heure non définie</string>
     <string name="Salle">Salle %s</string>
 
     <!-- Différentes listes -->

@@ -70,7 +70,7 @@
             android:layout_below="@id/talk_name"
             android:paddingRight="8dp"
             android:textColor="@color/grey_dark"
-            android:textSize="@dimen/text_size_small"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold" />
 
         <TextView
@@ -82,21 +82,9 @@
             android:layout_below="@id/talk_name"
             android:layout_toRightOf="@+id/talk_horaire"
             android:lines="1"
-            android:textSize="@dimen/text_size_small"
-
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/talk_level"
-            style="@style/myTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignWithParentIfMissing="true"
-            android:layout_below="@id/talk_name"
-            android:layout_toRightOf="@id/talk_salle"
-            android:lines="1"
-            android:layout_margin="1dp"
-            android:textSize="@dimen/text_size_small" />
 
 
         <TextView
