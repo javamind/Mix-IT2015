@@ -53,8 +53,8 @@ public class PlanningJourneyBuilder {
     /**
      * Ajoute un moment commun
      */
-    public PlanningJourneyBuilder addViewEventCommun(int row, int temps, String text, final Date heure, int background) {
-        Button textView = getButton(text, false, background, heure);
+    public PlanningJourneyBuilder addViewEventCommun(int row, int temps, String text, final Date heure, int background, boolean small) {
+        Button textView = getButton(text, false, background, heure, small);
         setLayoutAndBorder(textView,
                 new GridLayout.LayoutParams(GridLayout.spec(row, temps, GridLayout.FILL), GridLayout.spec(2, 2, GridLayout.FILL)),
                 row >= 42, true, true, true, temps);
@@ -66,8 +66,8 @@ public class PlanningJourneyBuilder {
     /**
      * Ajoute une conf
      */
-    public PlanningJourneyBuilder addViewTalk(int row, int temps, String text, boolean title, int background, final Date heure) {
-        Button textView = getButton(text, title, background, heure);
+    public PlanningJourneyBuilder addViewTalk(int row, int temps, String text, boolean title, int background, final Date heure, boolean small) {
+        Button textView = getButton(text, title, background, heure, small);
         setLayoutAndBorder(textView,
                 new GridLayout.LayoutParams(GridLayout.spec(row, temps == 99 ? 1 : temps, GridLayout.FILL), GridLayout.spec(2, GridLayout.FILL)),
                 false, true, true, false, temps);
@@ -79,8 +79,8 @@ public class PlanningJourneyBuilder {
     /**
      * Ajoute un atlier
      */
-    public PlanningJourneyBuilder addViewWorkshop(int row, int temps, String text, boolean title, int background, final Date heure) {
-        Button textView = getButton(text, title, background, heure);
+    public PlanningJourneyBuilder addViewWorkshop(int row, int temps, String text, boolean title, int background, final Date heure, boolean small) {
+        Button textView = getButton(text, title, background, heure, small);
         setLayoutAndBorder(textView,
                 new GridLayout.LayoutParams(GridLayout.spec(row, temps, GridLayout.FILL), GridLayout.spec(3, GridLayout.FILL)),
                 false, true, true, true, temps);
@@ -135,13 +135,13 @@ public class PlanningJourneyBuilder {
     /**
      * Ajoute un champ clickable
      */
-    private Button getButton(String text, boolean title, int background, final Date heure) {
+    private Button getButton(String text, boolean title, int background, final Date heure, boolean small) {
         Button textView = new ButtonGridBuilder()
                 .buildView(context)
                 .addText(text)
                 .addAlignement(Gravity.CENTER)
-                .addBold(true)
-                .addSize(TypedValue.COMPLEX_UNIT_SP, context.getResources().getInteger(R.integer.text_size_cal))
+                .addBold(false)
+                .addSize(TypedValue.COMPLEX_UNIT_SP, context.getResources().getInteger(small ? R.integer.text_size_cal_min : R.integer.text_size_cal))
                 .addBackgroundDrawable(background)
                 .addTextColor(context.getResources().getColor(android.R.color.black))
                 .getView();
