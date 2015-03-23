@@ -48,6 +48,8 @@ public class UIUtils {
     public static final String ARG_ID = "id";
     public static final String PREFS_FAVORITES_NAME = "PrefFavorites";
     public static final String PREFS_TEMP_NAME = "PrefTemp";
+    public final static String ARG_FILE_SAV = "Mixit2015";
+    public final static String ARG_KEY_FIRST_TIME = "first_time";
 
     /**
      * Parse the given string as a RFC 3339 timestamp, returning the value as

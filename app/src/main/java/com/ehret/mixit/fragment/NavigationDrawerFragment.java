@@ -1,4 +1,4 @@
-package com.ehret.mixit;
+package com.ehret.mixit.fragment;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.ehret.mixit.R;
 import com.ehret.mixit.adapter.ListMenuAdapter;
 
 import java.util.Arrays;

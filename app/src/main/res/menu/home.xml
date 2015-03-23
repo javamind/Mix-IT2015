@@ -31,10 +31,6 @@
         android:title="@string/description_sync_talk"
         android:orderInCategory="100"
         app:showAsAction="never"/>
-    <item android:id="@+id/menu_sync_speaker"
-        android:title="@string/description_sync_speaker"
-        android:orderInCategory="100"
-        app:showAsAction="never"/>
     <item android:id="@+id/menu_sync_membre"
         android:title="@string/description_sync_membre"
         android:orderInCategory="100"
