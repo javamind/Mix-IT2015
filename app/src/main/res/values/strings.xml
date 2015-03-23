@@ -195,7 +195,7 @@
     <string name="dial_non">Non</string>
     <string name="dial_cancel">Annuler</string>
     <string name="dial_raz">Remise à zéro</string>
-    <string name="dial_message_talk">Le chargement récupère les données sur les ateliers, lightning talks et conférences</string>
+    <string name="dial_message_talk">Le chargement récupère les données sur les ateliers, lightning talks, les conférences et les speakers</string>
     <string name="dial_message">Le chargement récupère les données et les images et peut être plus ou moins long. Une fois lancée la tâche s\'exécutera jusqu\'à la fin
         même si la fenêtre d\'avancement est masquée</string>
     <string name="dial_message_membre">Le chargement des membres inscrits sur le site Mix-IT est très long à cause du grand nombre de personnes inscrites sur le site. Une fois lancée la tâche s\'exécutera jusqu\'à la fin
