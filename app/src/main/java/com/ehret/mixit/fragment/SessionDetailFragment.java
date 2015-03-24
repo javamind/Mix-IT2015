@@ -69,6 +69,7 @@ public class SessionDetailFragment extends Fragment {
     private TextView descriptif;
     private Button salle;
     private ImageView imageFavorite;
+    private ImageView langImage;
     private LinearLayout sessionLinkList;
     private LinearLayout sessionPersonList;
     private LayoutInflater mInflater;
@@ -102,6 +103,7 @@ public class SessionDetailFragment extends Fragment {
         this.salle = (Button) rootView.findViewById(R.id.talk_salle);
         this.sessionLinkList = (LinearLayout) rootView.findViewById(R.id.sessionLinkList);
         this.sessionPersonList = (LinearLayout) rootView.findViewById(R.id.sessionPersonList);
+        this.langImage = (ImageView) rootView.findViewById(R.id.talk_image_language);
 
         return rootView;
     }
@@ -173,6 +175,13 @@ public class SessionDetailFragment extends Fragment {
         Salle room = Salle.INCONNU;
         if (conference instanceof Talk) {
             room = Salle.getSalle(((Talk) conference).getRoom());
+        }
+
+        if(conference.getLanguage()!=null && "en".equals(conference.getLanguage())){
+            langImage.setImageDrawable(getResources().getDrawable(R.drawable.en));
+        }
+        else{
+            langImage.setImageDrawable(getResources().getDrawable(R.drawable.fr));
         }
         if (Salle.INCONNU != room) {
             salle.setText(String.format(getString(R.string.Salle), room.getNom()));

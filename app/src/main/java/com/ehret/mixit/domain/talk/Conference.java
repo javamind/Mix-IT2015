@@ -27,6 +27,7 @@ import java.util.List;
 public class Conference<T> {
     private long id;
     private String title;
+    private String language;
     private String summary;
     private String description;
     private List<Long> interests;
@@ -101,6 +102,14 @@ public class Conference<T> {
 
     public void setSpeakers(List<Long> speakers) {
         this.speakers = speakers;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     @Override

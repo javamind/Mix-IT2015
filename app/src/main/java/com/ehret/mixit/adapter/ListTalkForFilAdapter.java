@@ -90,6 +90,7 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_talk, parent, false);
             holder = new ViewHolder();
             holder.imageFavorite = (ImageView) convertView.findViewById(R.id.talk_image_favorite);
+            holder.langImage = (ImageView) convertView.findViewById(R.id.talk_image_language);
             holder.name = (TextView) convertView.findViewById(R.id.talk_name);
             holder.descriptif = (TextView) convertView.findViewById(R.id.talk_shortdesciptif);
             holder.horaire = (TextView) convertView.findViewById(R.id.talk_horaire);
@@ -130,8 +131,8 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
                 convertView.setBackgroundColor(context.getResources().getColor(R.color.color_planning_time));
                 holder.name.setText(DateFormat.getTimeInstance(DateFormat.SHORT).format(conf.getEnd()));
                 holder.name.setTextColor(context.getResources().getColor(R.color.black));
-
             }
+
             holder.horaire.getLayoutParams().height = 0;
             holder.talkSalle.getLayoutParams().height = 0;
             holder.container2.getLayoutParams().height = 0;
@@ -147,7 +148,12 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
                 convertView.setBackground(context.getResources().getDrawable(R.drawable.selector_fildeleau_session));
             }
 
-
+            if(conf.getLanguage()!=null && "en".equals(conf.getLanguage())){
+                holder.langImage.setImageDrawable(context.getResources().getDrawable(R.drawable.en));
+            }
+            else{
+                holder.langImage.setImageDrawable(context.getResources().getDrawable(R.drawable.fr));
+            }
             holder.horaire.getLayoutParams().height = mSizeHoraire;
             holder.talkSalle.getLayoutParams().height = mSizeHoraire;
             holder.container2.getLayoutParams().height = mSize;
@@ -213,6 +219,7 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
         ImageView imageFavorite;
         FrameLayout container2;
         RelativeLayout container3;
+        ImageView langImage;
 
     }
 

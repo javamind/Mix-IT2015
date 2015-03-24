@@ -255,6 +255,7 @@ public class PeopleDetailFragment extends Fragment {
                     TextView talkImageText = (TextView) row.findViewById(R.id.talkImageText);
                     TextView talkSalle = (TextView) row.findViewById(R.id.talk_salle);
                     ImageView imageFavorite = (ImageView) row.findViewById(R.id.talk_image_favorite);
+                    ImageView langImage = (ImageView) row.findViewById(R.id.talk_image_language);
 
                     ((TextView) row.findViewById(R.id.talk_name)).setText(conf.getTitle());
                     ((TextView) row.findViewById(R.id.talk_shortdesciptif)).setText(conf.getSummary().trim());
@@ -269,6 +270,12 @@ public class PeopleDetailFragment extends Fragment {
                     } else {
                         horaire.setText(getResources().getString(R.string.pasdate));
 
+                    }
+                    if(conf.getLanguage()!=null && "en".equals(conf.getLanguage())){
+                        langImage.setImageDrawable(getResources().getDrawable(R.drawable.en));
+                    }
+                    else{
+                        langImage.setImageDrawable(getResources().getDrawable(R.drawable.fr));
                     }
                     Salle salle = Salle.INCONNU;
                     if (conf instanceof Talk && Salle.INCONNU != Salle.getSalle(((Talk) conf).getRoom())) {

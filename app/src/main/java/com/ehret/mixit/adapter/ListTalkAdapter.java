@@ -71,6 +71,7 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_talk, parent, false);
             holder = new ViewHolder();
             holder.imageFavorite = (ImageView) convertView.findViewById(R.id.talk_image_favorite);
+            holder.langImage = (ImageView) convertView.findViewById(R.id.talk_image_language);
             holder.name = (TextView) convertView.findViewById(R.id.talk_name);
             holder.descriptif = (TextView) convertView.findViewById(R.id.talk_shortdesciptif);
             holder.horaire = (TextView) convertView.findViewById(R.id.talk_horaire);
@@ -96,6 +97,12 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
         } else {
             holder.horaire.setText(context.getResources().getString(R.string.pasdate));
 
+        }
+        if(conf.getLanguage()!=null && "en".equals(conf.getLanguage())){
+            holder.langImage.setImageDrawable(context.getResources().getDrawable(R.drawable.en));
+        }
+        else{
+            holder.langImage.setImageDrawable(context.getResources().getDrawable(R.drawable.fr));
         }
         Salle salle = Salle.INCONNU;
         if (conf instanceof Talk && Salle.INCONNU != Salle.getSalle(((Talk) conf).getRoom())) {
@@ -137,7 +144,7 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
         TextView talkImageText;
         TextView talkSalle;
         ImageView imageFavorite;
-
+        ImageView langImage;
     }
 
 }

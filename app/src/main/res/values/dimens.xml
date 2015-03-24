@@ -16,7 +16,8 @@
     <dimen name="text_size_small_container">12sp</dimen>
     <dimen name="text_size_medium">12sp</dimen>
     <dimen name="text_size_large">16sp</dimen>
-    <dimen name="session_image_size">40dp</dimen>
+    <dimen name="session_image_size">42dp</dimen>
+    <dimen name="session_lang_image_size">24sp</dimen>
     <dimen name="speaker_image_size">48dp</dimen>
     <dimen name="speaker_image_size_big">64dp</dimen>
     <dimen name="speaker_image_padding">8dp</dimen>

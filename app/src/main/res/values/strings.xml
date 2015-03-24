@@ -137,9 +137,9 @@
     <string name="calendrier_avril">Avril</string>
     <string name="calendrier_jeudi">Mar</string>
     <string name="calendrier_vendredi">Mer</string>
-    <string name="calendrier_24">28</string>
-    <string name="calendrier_25">29\n8H30 19H00\ndétail </string>
-    <string name="calendrier_26">30\n8H30 18H00\ndétail </string>
+    <string name="calendrier_24">16</string>
+    <string name="calendrier_25">17\n8H30 19H00\ndétail </string>
+    <string name="calendrier_26">17\n8H30 18H00\ndétail </string>
     <string name="calendrier_27"> </string>
     <!-- Dates -->
     <string name="jour">jour</string>
@@ -150,7 +150,7 @@
     <string name="heure">heure</string>
     <string name="periode">%1$s de %2$s à %3$s</string>
     <string name="pasdate">Heure non définie</string>
-    <string name="Salle">Salle %s</string>
+    <string name="Salle">S. %s</string>
 
     <!-- Différentes listes -->
     <string name="focus_orga">Les membres du staff</string>
