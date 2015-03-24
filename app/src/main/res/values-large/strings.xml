@@ -27,4 +27,5 @@
     <string name="focus_favorite_desc">Constituez votre propre planning en marquant les talks en favori.</string>
 
     <string name="pasdate">Pas d\'heure définie pour l\'instant</string>
+    <string name="Salle">Salle %s</string>
 </resources>

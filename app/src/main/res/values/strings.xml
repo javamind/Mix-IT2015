@@ -150,7 +150,7 @@
     <string name="heure">heure</string>
     <string name="periode">%1$s de %2$s à %3$s</string>
     <string name="pasdate">Heure non définie</string>
-    <string name="Salle">Salle %s</string>
+    <string name="Salle">S. %s</string>
 
     <!-- Différentes listes -->
     <string name="focus_orga">Les membres du staff</string>
