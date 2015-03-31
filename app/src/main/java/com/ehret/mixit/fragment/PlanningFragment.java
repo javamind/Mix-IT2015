@@ -256,7 +256,7 @@ public class PlanningFragment extends Fragment {
                     .addViewHeure()
                     .addViewQuartHeure()
                     .addViewEventCommun(0, 3, " ", null, R.drawable.button_empty_background, false)
-                    .addViewEventCommun(3, 6, getResources().getString(R.string.calendrier_accueil), UIUtils.createPlageHoraire(16, 8, 15), R.drawable.button_pause_background, false)
+                    .addViewEventCommun(3, 9, getResources().getString(R.string.calendrier_accueil), UIUtils.createPlageHoraire(16, 8, 15), R.drawable.button_pause_background, false)
                     .addViewEventCommun(12, 3, getResources().getString(R.string.calendrier_orga), UIUtils.createPlageHoraire(16, 9, 0), R.drawable.button_pause_background, true)
                     .addViewEventCommun(15, 5, getResources().getString(R.string.calendrier_keynote), UIUtils.createPlageHoraire(16, 9, 15), R.drawable.button_ligtalk_background, false)
                     .addViewEventCommun(20, 4, getResources().getString(R.string.calendrier_pause), UIUtils.createPlageHoraire(16, 9, 40), R.drawable.button_pause_background, true)
