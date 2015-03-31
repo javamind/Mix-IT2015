@@ -196,7 +196,7 @@ public class ConferenceFacade {
      * Permet de recuperer la liste des talks
      */
     public List<Lightningtalk> getLightningTalks(Context context, String filtre) {
-        return Ordering.from(getComparatorDate()).compound(getComparatorConference())
+        return Ordering.from(getComparatorDate()).compound(getComparatorLightningtalk())
                 .sortedCopy(filtrerLightningTalk(getLightningtalks(context), filtre));
     }
 
@@ -593,6 +593,24 @@ public class ConferenceFacade {
                     return -1;
                 }
                 return m1.getTitle().compareTo(m2.getTitle());
+            }
+        };
+    }
+
+    /**
+     * Renvoie le comparator permettant de trier des conf
+     */
+    private Comparator<Lightningtalk> getComparatorLightningtalk() {
+        return new Comparator<Lightningtalk>() {
+            @Override
+            public int compare(Lightningtalk m1, Lightningtalk m2) {
+                if(m1.getNbVotes()==m2.getNbVotes()){
+                    return m1.getTitle().compareTo(m2.getTitle());
+                }
+                if(m2.getNbVotes()>m1.getNbVotes()){
+                    return 1;
+                }
+                return -1;
             }
         };
     }
