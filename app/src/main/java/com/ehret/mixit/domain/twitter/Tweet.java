@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Guillaume EHRET
+ * Copyright 2015 Guillaume EHRET
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ import java.util.Map;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Tweet {
-    private String created_at = "Thu, 21 Mar 2014 20:16:34 +0000";
+    private String created_at = "Thu, 16 Apr 2015 20:16:34 +0000";
 
     private String from_user;
     private long from_user_id;
