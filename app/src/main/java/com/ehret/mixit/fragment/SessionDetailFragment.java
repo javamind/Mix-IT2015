@@ -172,10 +172,8 @@ public class SessionDetailFragment extends Fragment {
         summary.setText(Html.fromHtml(Processor.process(conference.getSummary()).trim()));
 
         descriptif.setText(Html.fromHtml(Processor.process(conference.getDescription()).trim()), TextView.BufferType.SPANNABLE);
-        Salle room = Salle.INCONNU;
-        if (conference instanceof Talk) {
-            room = Salle.getSalle(((Talk) conference).getRoom());
-        }
+        Salle room = Salle.getSalle(conference.getRoom());
+        
 
         if(conference.getLanguage()!=null && "en".equals(conference.getLanguage())){
             langImage.setImageDrawable(getResources().getDrawable(R.drawable.en));
