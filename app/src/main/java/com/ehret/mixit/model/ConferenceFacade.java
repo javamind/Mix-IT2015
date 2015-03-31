@@ -21,6 +21,7 @@ import android.util.Log;
 import android.util.LongSparseArray;
 
 import com.ehret.mixit.R;
+import com.ehret.mixit.domain.Salle;
 import com.ehret.mixit.domain.TypeFile;
 import com.ehret.mixit.domain.people.Membre;
 import com.ehret.mixit.domain.talk.Conference;
@@ -462,6 +463,7 @@ public class ConferenceFacade {
                 });
                 //On transforme la liste en Map
                 for (Lightningtalk m : talkListe) {
+                    m.setRoom(Salle.SALLE7.getNom());
                     lightningtalks.put(m.getId(), m);
                 }
             } catch (IOException e) {

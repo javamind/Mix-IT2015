@@ -21,14 +21,8 @@ package com.ehret.mixit.domain.talk;
 public class Talk extends Conference<Talk> {
     private String format;
     private String level;
-    private String room;
-    public String getRoom() {
-        return room;
-    }
 
-    public void setRoom(String room) {
-        this.room = room;
-    }
+
 
 
     public String getFormat() {
