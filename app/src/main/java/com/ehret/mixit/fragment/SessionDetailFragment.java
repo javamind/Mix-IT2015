@@ -163,7 +163,7 @@ public class SessionDetailFragment extends Fragment {
 
         }
         if (conference instanceof Talk) {
-            level.setText("[" + ((Talk) conference).getLevel() + "]");
+            level.setText(((Talk) conference).getLevel()!=null ? "[" + ((Talk) conference).getLevel() + "]" : "");
         }
         else{
             level.setText("votes : "+((Lightningtalk) conference).getNbVotes());
