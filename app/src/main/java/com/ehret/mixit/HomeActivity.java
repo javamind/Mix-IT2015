@@ -291,7 +291,7 @@ public class HomeActivity extends ActionBarActivity
         if (type.equals(TypeAppel.TALK)) {
             nbMax = 100;
         } else if (type.equals(TypeAppel.MEMBRE)) {
-            nbMax = 1000;
+            nbMax = 2000;
         } else {
             nbMax = 3;
         }
