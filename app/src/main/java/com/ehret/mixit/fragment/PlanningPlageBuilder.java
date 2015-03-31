@@ -88,15 +88,15 @@ public class PlanningPlageBuilder {
         if (nbConfSurPlage >= index) {
             Conference c = confs.get(index - 1);
 
-            Salle salle = Salle.INCONNU;
+            Salle salle = Salle.getSalle(c.getRoom());
             if (c instanceof Talk) {
                 Talk t = (Talk) c;
-                salle = Salle.getSalle(t.getRoom());
                 char code = t.getFormat()!=null ? t.getFormat().charAt(0) : 'T';
                 createPlanningSalle("(" + code + ") " + c.getTitle(), salle.getColor(), c);
-
             }
-
+            else{
+                createPlanningSalle("(L) " + c.getTitle(), salle.getColor(), c);
+            }
             StringBuilder buf = new StringBuilder();
             if (c.getSpeakers() != null) {
                 for (Long id : (List<Long>)c.getSpeakers()) {

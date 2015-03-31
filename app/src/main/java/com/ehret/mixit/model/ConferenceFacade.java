@@ -374,7 +374,7 @@ public class ConferenceFacade {
             lit.setStart(UIUtils.createPlageHoraire(16, 13, 0));
             lit.setEnd(UIUtils.createPlageHoraire(16, 13, 30));
             talksSpeciaux.put(lit.getId(), lit);
-            
+
             lit = createTalkHorsConf(context.getString(R.string.calendrier_cloture), 100002);
             lit.setStart(UIUtils.createPlageHoraire(17, 18, 0));
             lit.setEnd(UIUtils.createPlageHoraire(17, 18, 10));
