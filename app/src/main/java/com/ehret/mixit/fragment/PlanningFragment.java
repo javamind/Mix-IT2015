@@ -166,13 +166,13 @@ public class PlanningFragment extends Fragment {
 
 
             //Par defaut on affiche la premiere session de la premier journee
-            int day = 29;
+            int day = 16;
             if (position == 0) {
                 planningPlageBuilderJour0 = PlanningPlageBuilder.create(getInstance()).with(planningHoraireTableLayout);
                 planningJourneyBuilderJour0 = PlanningJourneyBuilder.create(getInstance()).jour(0).grid(calendarGrid);
                 dessinerCalendrierJour0(planningHoraireTableLayout);
             } else {
-                day = 30;
+                day = 17;
                 planningPlageBuilderJour1 = PlanningPlageBuilder.create(getInstance()).with(planningHoraireTableLayout);
                 planningJourneyBuilderJour1 = PlanningJourneyBuilder.create(getInstance()).jour(1).grid(calendarGrid);
                 dessinerCalendrierJour1(planningHoraireTableLayout);

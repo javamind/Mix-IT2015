@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Guillaume EHRET
+ * Copyright 2015 Guillaume EHRET
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -137,7 +137,7 @@ public class UIUtils {
      */
     public static Date createPlageHoraire(int jour, int heure, int minute) {
         Calendar calendar = Calendar.getInstance(Locale.FRANCE);
-        calendar.set(2014, 4, jour, heure, minute , 0);
+        calendar.set(2015, 3, jour, heure, minute , 0);
         return calendar.getTime();
     }
 

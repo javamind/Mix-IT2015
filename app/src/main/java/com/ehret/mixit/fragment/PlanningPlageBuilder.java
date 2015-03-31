@@ -88,14 +88,15 @@ public class PlanningPlageBuilder {
         if (nbConfSurPlage >= index) {
             Conference c = confs.get(index - 1);
 
-            Salle salle = Salle.INCONNU;
+            Salle salle = Salle.getSalle(c.getRoom());
             if (c instanceof Talk) {
-                salle = Salle.getSalle(((Talk) c).getRoom());
-                char code = ((Talk) c).getFormat().charAt(0);
+                Talk t = (Talk) c;
+                char code = t.getFormat()!=null ? t.getFormat().charAt(0) : 'T';
                 createPlanningSalle("(" + code + ") " + c.getTitle(), salle.getColor(), c);
-
             }
-
+            else{
+                createPlanningSalle("(L) " + c.getTitle(), salle.getColor(), c);
+            }
             StringBuilder buf = new StringBuilder();
             if (c.getSpeakers() != null) {
                 for (Long id : (List<Long>)c.getSpeakers()) {
@@ -182,8 +183,9 @@ public class PlanningPlageBuilder {
                     }
                 });
             } else {
+                Talk t = (Talk) conf;
                 //Pour les talks on ne retient que les talks et workshop
-                char code = ((Talk) conf).getFormat().charAt(0);
+                char code = t.getFormat()!=null ? t.getFormat().charAt(0) : 'T';
                 if (code == 'T' || code == 'W' || code == 'K') {
                     tableRow.setOnClickListener(new View.OnClickListener() {
                         @Override

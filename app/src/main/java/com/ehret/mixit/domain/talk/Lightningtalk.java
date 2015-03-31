@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Guillaume EHRET
+ * Copyright 2015 Guillaume EHRET
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package com.ehret.mixit.domain.talk;
 
+import com.ehret.mixit.domain.Salle;
+
 /**
  * Les lightning talk ont plusieurs particularités dont le nb de votes
  */
@@ -28,5 +30,10 @@ public class Lightningtalk extends Conference<Lightningtalk> {
 
     public void setNbVotes(int nbVotes) {
         this.nbVotes = nbVotes;
+    }
+
+    @Override
+    public String getRoom() {
+        return Salle.SALLE7.getNom();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Guillaume EHRET
+ * Copyright 2015 Guillaume EHRET
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -374,10 +374,7 @@ public class ConferenceFacade {
             lit.setStart(UIUtils.createPlageHoraire(16, 13, 0));
             lit.setEnd(UIUtils.createPlageHoraire(16, 13, 30));
             talksSpeciaux.put(lit.getId(), lit);
-            lit = createTalkHorsConf(context.getString(R.string.calendrier_ligthning), 100001);
-            lit.setStart(UIUtils.createPlageHoraire(17, 13, 0));
-            lit.setEnd(UIUtils.createPlageHoraire(17, 13, 30));
-            talksSpeciaux.put(lit.getId(), lit);
+
             lit = createTalkHorsConf(context.getString(R.string.calendrier_cloture), 100002);
             lit.setStart(UIUtils.createPlageHoraire(17, 18, 0));
             lit.setEnd(UIUtils.createPlageHoraire(17, 18, 10));
