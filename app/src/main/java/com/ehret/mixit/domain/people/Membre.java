@@ -27,8 +27,8 @@ import java.util.List;
 public class Membre {
 
     private long id;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String login;
     private String company;
     private String shortdesc;
@@ -83,27 +83,27 @@ public class Membre {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
     public String getCompleteName() {
-        if(firstname==null || "".equals(firstname)){
-            return lastname!=null ? lastname.toUpperCase() : "unknown";
+        if(firstName ==null || "".equals(firstName)){
+            return lastName !=null ? lastName.toUpperCase() : "unknown";
         }
-        return lastname.toUpperCase() + " " + firstname;
+        return lastName.toUpperCase() + " " + firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName ==null ? "unknown" : lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getLogin() {

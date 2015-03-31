@@ -144,8 +144,8 @@ public class MembreFacade {
             @Override
             public boolean apply(Membre input) {
                 return (filtre == null ||
-                        (input.getFirstname() != null && input.getFirstname().toLowerCase().contains(filtre.toLowerCase())) ||
-                        (input.getLastname() != null && input.getLastname().toLowerCase().contains(filtre.toLowerCase())) ||
+                        (input.getFirstName() != null && input.getFirstName().toLowerCase().contains(filtre.toLowerCase())) ||
+                        (input.getLastName() != null && input.getLastName().toLowerCase().contains(filtre.toLowerCase())) ||
                         (input.getShortdesc() != null && input.getShortdesc().toLowerCase().contains(filtre.toLowerCase())));
             }
         }).toList();
@@ -170,8 +170,7 @@ public class MembreFacade {
         return new Comparator<Membre>() {
             @Override
             public int compare(Membre m1, Membre m2) {
-
-                return m1.getLastname().compareTo(m2.getLastname());
+                return m1.getLastName().compareTo(m2.getLastName());
             }
         };
     }
