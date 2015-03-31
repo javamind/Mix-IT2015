@@ -170,6 +170,7 @@ public class MembreFacade {
         return new Comparator<Membre>() {
             @Override
             public int compare(Membre m1, Membre m2) {
+
                 return m1.getLastname().compareTo(m2.getLastname());
             }
         };

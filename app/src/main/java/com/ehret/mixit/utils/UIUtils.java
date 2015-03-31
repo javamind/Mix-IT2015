@@ -137,7 +137,7 @@ public class UIUtils {
      */
     public static Date createPlageHoraire(int jour, int heure, int minute) {
         Calendar calendar = Calendar.getInstance(Locale.FRANCE);
-        calendar.set(2014, 3, jour, heure, minute , 0);
+        calendar.set(2014, 4, jour, heure, minute , 0);
         return calendar.getTime();
     }
 
