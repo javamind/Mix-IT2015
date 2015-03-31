@@ -49,7 +49,7 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
     private Context context;
     private int mSize;
     private int mSizeHoraire;
-
+    private int mSizeLang;
     public ListTalkForFilAdapter(Context context, List<T> datas) {
         this.datas = datas;
         this.context = context;
@@ -108,6 +108,7 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
         if (holder.container2.getLayoutParams().height > 0) {
             mSize = holder.container2.getLayoutParams().height;
             mSizeHoraire = holder.horaire.getLayoutParams().height;
+            mSizeLang = holder.langImage.getLayoutParams().height;
         }
 
         if (conf.getTitle() == null) {
@@ -137,6 +138,7 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
             holder.talkSalle.getLayoutParams().height = 0;
             holder.container2.getLayoutParams().height = 0;
             holder.descriptif.getLayoutParams().height = 0;
+            holder.langImage.getLayoutParams().height = 0;
         } else {
             //We control hour
             if(conf.getEnd()==null || conf.getEnd().compareTo(new Date()) < 0){
@@ -159,7 +161,7 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
             holder.container2.getLayoutParams().height = mSize;
             holder.descriptif.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
             holder.name.setTextColor(context.getResources().getColor(R.color.black));
-
+            holder.langImage.getLayoutParams().height = mSizeLang;
             if (conf.getStart() != null && conf.getEnd() != null) {
                 holder.horaire.setText(String.format(context.getResources().getString(R.string.periode),
                         sdf.format(conf.getStart()),
