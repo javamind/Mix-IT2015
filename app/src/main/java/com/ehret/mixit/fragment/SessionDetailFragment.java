@@ -163,7 +163,7 @@ public class SessionDetailFragment extends Fragment {
 
         }
         if (conference instanceof Talk) {
-            level.setText("[" + ((Talk) conference).getLevel() + "]");
+            level.setText(((Talk) conference).getLevel()!=null ? "[" + ((Talk) conference).getLevel() + "]" : "");
         }
         else{
             level.setText("votes : "+((Lightningtalk) conference).getNbVotes());
@@ -240,9 +240,10 @@ public class SessionDetailFragment extends Fragment {
                         descriptif.setText(membre.getShortdesc().trim());
                     }
 
-                    if (membre.getLevel() != null && !membre.getLevel().isEmpty()) {
+                    if (membre.getLevel() != null && !membre.getLevel().isEmpty() && !"null".equals(membre.getLevel())) {
                         level.setText("[" + membre.getLevel().trim() + "]");
                     }
+
 
                     //Recuperation de l'mage liee au profil
                     Bitmap image = FileUtils.getImageProfile(getActivity(), membre);

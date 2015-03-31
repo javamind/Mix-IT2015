@@ -83,5 +83,10 @@
     <string name="title_section_workshop">Workshops</string>
     <string name="title_workshops">Workshops</string>
     <string name="whats_on_thank_you_title" translatable="false">See you next year</string>
-    <string name="whats_on_countdown_title_0"><xliff:g id="remaining_time">%1$s</xliff:g></string>
+    <string name="whats_on_countdown_title_0"> </string>
+    <plurals name="whats_on_countdown_title">
+        <item quantity="one"><xliff:g id="number_of_days">%1$s</xliff:g> day, <xliff:g id="remaining_time">%2$s</xliff:g>\nbefore Mix-IT 2015</item>
+        <item quantity="other"><xliff:g id="number_of_days">%1$s</xliff:g> days, <xliff:g id="remaining_time">%2$s</xliff:g>\nbefore Mix-IT 2015</item>
+    </plurals>
+    <string name="welcome" translatable="false">Welcome on the Mix-IT application which help you to follow the different speakers, sponsors.. and know all on the programmation of this conference</string>
 </resources>

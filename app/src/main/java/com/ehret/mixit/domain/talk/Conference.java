@@ -34,6 +34,7 @@ public class Conference<T> {
     private List<Long> speakers;
     private Date start;
     private Date end;
+    private String room;
 
     public Date getEnd() {
         return end;
@@ -53,7 +54,13 @@ public class Conference<T> {
         return (T) this;
     }
 
+    public String getRoom() {
+        return room;
+    }
 
+    public void setRoom(String room) {
+        this.room = room;
+    }
 
 
     public long getId() {
