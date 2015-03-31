@@ -264,15 +264,15 @@ public class ConferenceFacade {
     public List<Talk> getTimeMarkers(Context context) {
         if(timeMark.isEmpty()){
             timeMark.add(createTalkHorsConf(null, 120000)
-                    .setStart(UIUtils.createPlageHoraire(29, 6, 0))
-                    .setEnd(UIUtils.createPlageHoraire(29, 6, 0))
+                    .setStart(UIUtils.createPlageHoraire(16, 6, 0))
+                    .setEnd(UIUtils.createPlageHoraire(16, 6, 0))
                     .setFormat("day1"));
             timeMark.add(createTalkHorsConf(null, 120001)
-                    .setStart(UIUtils.createPlageHoraire(30, 6, 0))
-                    .setEnd(UIUtils.createPlageHoraire(30, 6, 0))
+                    .setStart(UIUtils.createPlageHoraire(17, 6, 0))
+                    .setEnd(UIUtils.createPlageHoraire(17, 6, 0))
                     .setFormat("day2"));
 
-            for(int j=29 ; j<31 ;j++) {
+            for(int j=16 ; j<17 ;j++) {
                 for (int i = 8; i < 20; i++) {
                     timeMark.add(createTalkHorsConf(null, 110000 + i + (20 * j % 2))
                             .setStart(UIUtils.createPlageHoraire(j, i-1, 59))
