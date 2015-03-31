@@ -105,8 +105,8 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
             holder.langImage.setImageDrawable(context.getResources().getDrawable(R.drawable.fr));
         }
         Salle salle = Salle.INCONNU;
-        if (conf instanceof Talk && Salle.INCONNU != Salle.getSalle(((Talk) conf).getRoom())) {
-            salle = Salle.getSalle(((Talk) conf).getRoom());
+        if (Salle.INCONNU != Salle.getSalle(conf.getRoom())) {
+            salle = Salle.getSalle(conf.getRoom());
         }
         holder.talkSalle.setText(String.format(context.getResources().getString(R.string.Salle), salle.getNom()));
         holder.talkSalle.setBackgroundColor(context.getResources().getColor(salle.getColor()));

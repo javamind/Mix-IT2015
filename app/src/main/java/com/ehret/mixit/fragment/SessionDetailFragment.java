@@ -173,7 +173,7 @@ public class SessionDetailFragment extends Fragment {
 
         descriptif.setText(Html.fromHtml(Processor.process(conference.getDescription()).trim()), TextView.BufferType.SPANNABLE);
         Salle room = Salle.getSalle(conference.getRoom());
-        
+
 
         if(conference.getLanguage()!=null && "en".equals(conference.getLanguage())){
             langImage.setImageDrawable(getResources().getDrawable(R.drawable.en));
