@@ -147,39 +147,39 @@ public class ConferenceFacade {
 
 
     public void setFavorites(Context context, boolean reinialize) {
-            InputStream is = null;
-            JsonParser jp = null;
-            try {
-                //On regarde si fichier telecharge
-                File myFile = FileUtils.getFileJson(context, TypeFile.favorites);
-                if (myFile != null) {
-                    is = new FileInputStream(myFile);
-                    jp = this.jsonFactory.createJsonParser(is);
-                    List<Favorite> talkListe = this.objectMapper.readValue(jp, new TypeReference<List<Favorite>>() {
-                    });
-                    //On recupere les favoris existant si on le demande
-                    SharedPreferences settings = context.getSharedPreferences(UIUtils.PREFS_FAVORITES_NAME, 0);
-                    SharedPreferences.Editor editor = settings.edit();
-                    if(reinialize){
-                        editor.clear();
-                    }
-                    //Les confs passées sont enregistrées
-                    for (Favorite m : talkListe) {
-                        editor.putBoolean(String.valueOf(m.getId()), Boolean.TRUE);
-                    }
-                    editor.apply();
+        InputStream is = null;
+        JsonParser jp = null;
+        try {
+            //On regarde si fichier telecharge
+            File myFile = FileUtils.getFileJson(context, TypeFile.favorites);
+            if (myFile != null) {
+                is = new FileInputStream(myFile);
+                jp = this.jsonFactory.createJsonParser(is);
+                List<Favorite> talkListe = this.objectMapper.readValue(jp, new TypeReference<List<Favorite>>() {
+                });
+                //On recupere les favoris existant si on le demande
+                SharedPreferences settings = context.getSharedPreferences(UIUtils.PREFS_FAVORITES_NAME, 0);
+                SharedPreferences.Editor editor = settings.edit();
+                if (reinialize) {
+                    editor.clear();
                 }
-            } catch (IOException e) {
-                Log.e(TAG, "Erreur lors de la recuperation des favorites", e);
-            } finally {
-                if (is != null) {
-                    try {
-                        is.close();
-                    } catch (IOException e) {
-                        Log.e(TAG, "Impossible de fermer le fichier favorites", e);
-                    }
+                //Les confs passées sont enregistrées
+                for (Favorite m : talkListe) {
+                    editor.putBoolean(String.valueOf(m.getId()), Boolean.TRUE);
+                }
+                editor.apply();
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Erreur lors de la recuperation des favorites", e);
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "Impossible de fermer le fichier favorites", e);
                 }
             }
+        }
 
 
     }
@@ -235,12 +235,12 @@ public class ConferenceFacade {
         Date dateComparee = calendar.getTime();
 
         for (Talk talk : talks) {
-            if (talk.getStart() != null && talk.getEnd() != null){
+            if (talk.getStart() != null && talk.getEnd() != null) {
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
                 cal.setTime(talk.getEnd());
-                if(dateComparee.before(cal.getTime())){
+                if (dateComparee.before(cal.getTime())) {
                     cal.setTime(talk.getStart());
-                    if(dateComparee.after(cal.getTime())){
+                    if (dateComparee.after(cal.getTime())) {
                         confs.add(talk);
                     }
                 }
@@ -259,10 +259,11 @@ public class ConferenceFacade {
 
     /**
      * Cree la liste des marqueurs de temps pour le fil de l'eau
+     *
      * @return
      */
     public List<Talk> getTimeMarkers(Context context) {
-        if(timeMark.isEmpty()){
+        if (timeMark.isEmpty()) {
             timeMark.add(createTalkHorsConf(null, 120000)
                     .setStart(UIUtils.createPlageHoraire(16, 6, 0))
                     .setEnd(UIUtils.createPlageHoraire(16, 6, 0))
@@ -272,24 +273,25 @@ public class ConferenceFacade {
                     .setEnd(UIUtils.createPlageHoraire(17, 6, 0))
                     .setFormat("day2"));
 
-            for(int j=16 ; j<17 ;j++) {
+            for (int j = 16; j < 18; j++) {
                 for (int i = 8; i < 20; i++) {
                     timeMark.add(createTalkHorsConf(null, 110000 + i + (20 * j % 2))
-                            .setStart(UIUtils.createPlageHoraire(j, i-1, 59))
+                            .setStart(UIUtils.createPlageHoraire(j, i - 1, 59))
                             .setEnd(UIUtils.createPlageHoraire(j, i, 0)));
                 }
             }
         }
         return timeMark;
     }
+
     /**
      * Création de tous les events qui ne sont pas fournis par l'interface Mixit
      */
     public LongSparseArray<Talk> getEventsSpeciaux(Context context) {
-        if (talksSpeciaux.size()==0) {
+        if (talksSpeciaux.size() == 0) {
 
             Talk event = null;
-            event = createTalkHorsConf( context.getString(R.string.calendrier_accueillg), 90000)
+            event = createTalkHorsConf(context.getString(R.string.calendrier_accueillg), 90000)
                     .setStart(UIUtils.createPlageHoraire(16, 8, 15))
                     .setEnd(UIUtils.createPlageHoraire(16, 9, 0));
             talksSpeciaux.put(event.getId(), event);
@@ -398,12 +400,11 @@ public class ConferenceFacade {
     }
 
 
-
     /**
      * Permet de recuperer la liste des talks
      */
     private LongSparseArray<Talk> getTalkAndWorkshops(Context context) {
-        if (talks.size()==0) {
+        if (talks.size() == 0) {
             InputStream is = null;
             List<Talk> talkListe = null;
             JsonParser jp = null;
@@ -442,7 +443,7 @@ public class ConferenceFacade {
      * Permet de recuperer la liste des talks
      */
     private LongSparseArray<Lightningtalk> getLightningtalks(Context context) {
-        if (lightningtalks.size()==0) {
+        if (lightningtalks.size() == 0) {
             InputStream is = null;
             List<Lightningtalk> talkListe;
             JsonParser jp;
@@ -549,12 +550,11 @@ public class ConferenceFacade {
             @Override
             public boolean apply(Conference input) {
                 //On verifie la date, si on est avant ou après la conf on garde tout
-                if(System.currentTimeMillis()>UIUtils.CONFERENCE_START_MILLIS &&
-                        System.currentTimeMillis()<UIUtils.CONFERENCE_END_MILLIS){
+                if (System.currentTimeMillis() > UIUtils.CONFERENCE_START_MILLIS &&
+                        System.currentTimeMillis() < UIUtils.CONFERENCE_END_MILLIS) {
                     //Si on est dedans on ne garde que les favoris qui ne sont pas passés
-                    return input.getEnd()==null || input.getEnd().getTime()>=System.currentTimeMillis();
-                }
-                else{
+                    return input.getEnd() == null || input.getEnd().getTime() >= System.currentTimeMillis();
+                } else {
                     return true;
                 }
             }
@@ -586,10 +586,10 @@ public class ConferenceFacade {
         return new Comparator<T>() {
             @Override
             public int compare(T m1, T m2) {
-                if(m1.getTitle()==null){
+                if (m1.getTitle() == null) {
                     return 1;
                 }
-                if(m2.getTitle()==null){
+                if (m2.getTitle() == null) {
                     return -1;
                 }
                 return m1.getTitle().compareTo(m2.getTitle());
@@ -604,10 +604,10 @@ public class ConferenceFacade {
         return new Comparator<Lightningtalk>() {
             @Override
             public int compare(Lightningtalk m1, Lightningtalk m2) {
-                if(m1.getNbVotes()==m2.getNbVotes()){
+                if (m1.getNbVotes() == m2.getNbVotes()) {
                     return m1.getTitle().compareTo(m2.getTitle());
                 }
-                if(m2.getNbVotes()>m1.getNbVotes()){
+                if (m2.getNbVotes() > m1.getNbVotes()) {
                     return 1;
                 }
                 return -1;
