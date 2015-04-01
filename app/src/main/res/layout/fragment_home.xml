@@ -55,12 +55,17 @@
             android:paddingLeft="2dp"
             style="@style/myCalendarTitle"
             android:text="@string/description_venir"/>
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
 
+            >
         <FrameLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:background="@drawable/mapmenu_background"
             android:layout_height="?android:listPreferredItemHeight"
             android:foregroundGravity="fill"
+            android:layout_weight="1"
             >
             <ImageView android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -78,7 +83,30 @@
                 android:text="@string/description_map"/>
 
         </FrameLayout>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:background="@drawable/mapmenu_background"
+            android:layout_height="?android:listPreferredItemHeight"
+            android:foregroundGravity="fill"
+            android:layout_weight="1"
+            >
+            <ImageView android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/map_background"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/description_map"/>
+            <TextView android:id="@+id/mapTextView2"
+                android:textStyle="bold"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:padding="10dp"
+                style="@style/myTextView"
+                android:text="@string/description_map2"/>
 
+        </FrameLayout>
+        </LinearLayout>
         <LinearLayout android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/mapmenu_background"

@@ -86,7 +86,8 @@
     <string name="description_staff" translatable="false">Staffs</string>
     <string name="description_membres">Membres</string>
     <string name="description_sponsor" translatable="false">Sponsors</string>
-    <string name="description_map" translatable="false">Google Map</string>
+    <string name="description_map">Conférence</string>
+    <string name="description_map2">Soirée</string>
     <string name="description_venir">Comment venir</string>
     <string name="description_venir_mixit">Comment venir à Mix-IT</string>
     <string name="description_plusinfo">Plus dinformations</string>

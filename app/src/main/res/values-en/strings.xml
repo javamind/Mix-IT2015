@@ -27,6 +27,8 @@
     <string name="calendrier_presseslg">Sessions introduction</string>
     <string name="calendrier_repas">Lunch</string>
     <string name="calendrier_salle_liste">List of rooms</string>
+    <string name="description_map">Conference</string>
+    <string name="description_map2">Party</string>
     <string name="description_compose_google">Google+ message</string>
     <string name="description_favorite">Favorites</string>
     <string name="description_favorite_add">Add to favorites</string>
