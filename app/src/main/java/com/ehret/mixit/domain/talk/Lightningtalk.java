@@ -17,6 +17,10 @@ package com.ehret.mixit.domain.talk;
 
 import com.ehret.mixit.domain.Salle;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Les lightning talk ont plusieurs particularités dont le nb de votes
  */
@@ -35,5 +39,19 @@ public class Lightningtalk extends Conference<Lightningtalk> {
     @Override
     public String getRoom() {
         return Salle.SALLE7.getNom();
+    }
+
+    @Override
+    public Date getStart() {
+        Calendar calendar = Calendar.getInstance(Locale.FRANCE);
+        calendar.set(2015, 3, 16, 13, 0 , 0);
+        return calendar.getTime();
+    }
+
+    @Override
+    public Date getEnd() {
+        Calendar calendar = Calendar.getInstance(Locale.FRANCE);
+        calendar.set(2015, 3, 16, 13, 30 , 0);
+        return calendar.getTime();
     }
 }
