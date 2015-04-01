@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.SharedElementCallback;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -162,6 +163,30 @@ public class HomeActivity extends ActionBarActivity
             getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         fragmentTransaction.replace(R.id.container, fragment).commit();
+    }
+
+    /**
+     * On back pressed we want to exit only if home page is the current
+     */
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            boolean home = false;
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof HomeFragment) {
+                    home = true;
+                }
+            }
+            if(home){
+                super.onBackPressed();
+            }
+            else{
+                changeCurrentFragment(new HomeFragment(), null);
+            }
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     public void onSectionAttached(String title, String color) {
