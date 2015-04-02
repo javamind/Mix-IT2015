@@ -158,6 +158,12 @@ public class MembreFacade {
         return new Comparator<Membre>() {
             @Override
             public int compare(Membre m1, Membre m2) {
+                if (m1.getLevel() == null) {
+                    return 1;
+                }
+                if (m2.getLevel() == null) {
+                    return -1;
+                }
                 return m1.getLevel().compareTo(m2.getLevel());
             }
         };
@@ -170,6 +176,12 @@ public class MembreFacade {
         return new Comparator<Membre>() {
             @Override
             public int compare(Membre m1, Membre m2) {
+                if (m1.getLastName() == null) {
+                    return 1;
+                }
+                if (m2.getLastName() == null) {
+                    return -1;
+                }
                 return m1.getLastName().compareTo(m2.getLastName());
             }
         };
