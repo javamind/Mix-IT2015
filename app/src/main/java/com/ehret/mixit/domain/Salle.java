@@ -25,15 +25,15 @@ import com.ehret.mixit.R;
  * To change this template use File | Settings | File Templates.
  */
 public enum Salle {
-    SALLE1("Gosling", R.color.salle1, R.drawable.salle1_background,0),
-    SALLE2("Eich", R.color.salle2, R.drawable.salle2_background,0),
-    SALLE3("Nonaka", R.color.salle3, R.drawable.salle3_background,0),
-    SALLE4("Dijkstra", R.color.salle4, R.drawable.salle4_background,0),
-    SALLE5("Turing", R.color.salle5, R.drawable.salle5_background,0),
-    SALLE6("Lovelace", R.color.salle6, R.drawable.salle6_background,0),
-    SALLE7("Grand Amphi", R.color.salle7, R.drawable.salle7_background,1),
-    SALLE8("Petit Amphi", R.color.salle8, R.drawable.salle8_background,1),
-    SALLE9("Mezzanine", R.color.salle9, R.drawable.salle9_background,1),
+    SALLE1("Gosling", R.color.salle1, R.drawable.salle1_background,1),
+    SALLE2("Eich", R.color.salle2, R.drawable.salle2_background,1),
+    SALLE3("Nonaka", R.color.salle3, R.drawable.salle3_background,1),
+    SALLE4("Dijkstra", R.color.salle4, R.drawable.salle4_background,1),
+    SALLE5("Turing", R.color.salle5, R.drawable.salle5_background,1),
+    SALLE6("Lovelace", R.color.salle6, R.drawable.salle6_background,1),
+    SALLE7("Grand Amphi", R.color.salle7, R.drawable.salle7_background,0),
+    SALLE8("Petit Amphi", R.color.salle8, R.drawable.salle8_background,0),
+    SALLE9("Mezzanine", R.color.salle9, R.drawable.salle9_background,2),
     INCONNU("Inconnue", R.color.grey, 0,0);
 
     private String nom;
