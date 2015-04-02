@@ -38,6 +38,7 @@ import android.widget.TextView;
 
 import com.ehret.mixit.HomeActivity;
 import com.ehret.mixit.R;
+import com.ehret.mixit.SalleActivity;
 import com.ehret.mixit.builder.TextViewTableBuilder;
 import com.ehret.mixit.domain.Salle;
 import com.ehret.mixit.domain.TypeFile;
@@ -55,7 +56,9 @@ import com.github.rjeschke.txtmark.Processor;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Activité permettant d'afficher les informations sur un talk
@@ -172,7 +175,7 @@ public class SessionDetailFragment extends Fragment {
         summary.setText(Html.fromHtml(Processor.process(conference.getSummary()).trim()));
 
         descriptif.setText(Html.fromHtml(Processor.process(conference.getDescription()).trim()), TextView.BufferType.SPANNABLE);
-        Salle room = Salle.getSalle(conference.getRoom());
+        final Salle room = Salle.getSalle(conference.getRoom());
 
 
         if(conference.getLanguage()!=null && "en".equals(conference.getLanguage())){
@@ -189,13 +192,14 @@ public class SessionDetailFragment extends Fragment {
             else{
                 salle.setBackgroundColor(getActivity().getBaseContext().getResources().getColor(room.getColor()));
             }
-            //TODO zoom salle
-//            salle.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    UIUtils.startActivity(Salle1Activity.class, talkActivity);
-//                }
-//            });
+            salle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Map<String, Object> parametres = new HashMap<>();
+                    parametres.put(UIUtils.ARG_KEY_ROOM, room.getEtage());
+                    UIUtils.startActivity(SalleActivity.class, getActivity(), parametres);
+                }
+            });
         }
     }
 

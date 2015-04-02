@@ -3,14 +3,20 @@ package com.ehret.mixit.fragment;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.ehret.mixit.R;
+import com.ehret.mixit.SalleActivity;
 import com.ehret.mixit.builder.TableRowBuilder;
 import com.ehret.mixit.builder.TextViewTableBuilder;
 import com.ehret.mixit.domain.Salle;
+import com.ehret.mixit.utils.UIUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * builds the list of the rooms
@@ -65,14 +71,14 @@ public class PlanningSalleBuilder {
                 .addTextColor(context.getResources().getColor(android.R.color.black))
                 .getView();
 
-        //TODO zoom on the selected room
-//        mySalle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                UIUtils.startActivity(salle.getEtage() == 0 ? Salle1Activity.class : Salle2Activity.class, mActivity);
-//            }
-//        });
+        mySalle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String, Object> parametres = new HashMap<>();
+                parametres.put(UIUtils.ARG_KEY_ROOM, Integer.valueOf(salle.getEtage()));
+                UIUtils.startActivity(SalleActivity.class, context, parametres);
+            }
+        });
         tableRow.addView(mySalle);
     }
 }

@@ -50,6 +50,7 @@ public class UIUtils {
     public static final String PREFS_TEMP_NAME = "PrefTemp";
     public final static String ARG_FILE_SAV = "Mixit2015";
     public final static String ARG_KEY_FIRST_TIME = "first_time";
+    public final static String ARG_KEY_ROOM = "room";
 
     /**
      * Parse the given string as a RFC 3339 timestamp, returning the value as
@@ -92,7 +93,11 @@ public class UIUtils {
                 if (param != null) {
                     if (param instanceof Long) {
                         i.putExtra(key, ((Long) param).longValue());
-                    } else {
+                    }
+                    if (param instanceof Integer) {
+                        i.putExtra(key, ((Integer) param).intValue()) ;
+                    }
+                    else {
                         i.putExtra(key, param.toString());
                     }
                 }

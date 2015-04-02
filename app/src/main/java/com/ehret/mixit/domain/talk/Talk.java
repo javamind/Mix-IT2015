@@ -26,7 +26,7 @@ public class Talk extends Conference<Talk> {
 
 
     public String getFormat() {
-        return format;
+        return format==null ? "Talk" : format;
     }
 
     public Talk setFormat(String format) {
