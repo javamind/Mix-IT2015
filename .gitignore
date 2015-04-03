@@ -5,3 +5,6 @@
 .DS_Store
 /build
 gradle.properties
+.idea/*
+**/*.iml
+*.iml

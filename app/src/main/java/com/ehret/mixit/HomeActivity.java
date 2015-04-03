@@ -91,7 +91,13 @@ public class HomeActivity extends ActionBarActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //Save the fragment's instance
-        getSupportFragmentManager().putFragment(outState, "mContent", mContent);
+
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            if (fragment.equals(mContent)) {
+                getSupportFragmentManager().putFragment(outState, "mContent", mContent);
+                break;
+            }
+        }
     }
 
     @Override
@@ -273,7 +279,7 @@ public class HomeActivity extends ActionBarActivity
         }
     }
 
-    private enum TypeAppel {MEMBRE, TALK, FAVORITE}
+    public enum TypeAppel {MEMBRE, TALK, FAVORITE}
 
     /**
      * Affichage d'un message pour savoir quelle données récupérer
@@ -307,7 +313,7 @@ public class HomeActivity extends ActionBarActivity
     /**
      * Lancement de la synchro
      */
-    protected void appelerSynchronizer(TypeAppel type, Long idUserForFavorite) {
+    public void appelerSynchronizer(TypeAppel type, Long idUserForFavorite) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
         }

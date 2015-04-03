@@ -16,7 +16,9 @@
 package com.ehret.mixit.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -384,27 +386,26 @@ public class PeopleDetailFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_profile) {
-            //    final Long myid = id;
-            Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setMessage(getString(R.string.description_link_user))
-//                    .setPositiveButton(R.string.dial_oui, new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            //On recupere les favoris existant si on le demande
-//                            SharedPreferences settings = getActivity().getSharedPreferences(UIUtils.PREFS_TEMP_NAME, 0);
-//                            SharedPreferences.Editor editor = settings.edit();
-//                            editor.putLong("idMemberForFavorite", myid);
-//                            editor.commit();
-//                            appelerSynchronizer(myid, true);
-//                        }
-//                    })
-//                    .setNeutralButton(R.string.dial_cancel, new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            //On ne fait rien
-//                        }
-//                    });
-//            builder.create();
-//            builder.show();
+            final Long idMembre = getArguments().getLong(UIUtils.ARG_ID);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(getString(R.string.description_link_user))
+                    .setPositiveButton(R.string.dial_oui, new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int id) {
+                            //On recupere les favoris existant si on le demande
+                            SharedPreferences settings = getActivity().getSharedPreferences(UIUtils.PREFS_TEMP_NAME, 0);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putLong("idMemberForFavorite", idMembre);
+                            editor.commit();
+                            ((HomeActivity)getActivity()).appelerSynchronizer(HomeActivity.TypeAppel.FAVORITE, idMembre);
+                        }
+                    })
+                    .setNeutralButton(R.string.dial_cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //On ne fait rien
+                        }
+                    });
+            builder.create();
+            builder.show();
 
         }
         return super.onOptionsItemSelected(item);
