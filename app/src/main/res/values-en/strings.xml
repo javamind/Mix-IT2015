@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Mix-IT 2015</string>
-    <string name="Salle">Room %s</string>
+    <string name="Salle">%s</string>
     <string name="about">About</string>
     <string name="about_help">If you have a problem to see the data, click on the reset button to delete all the uploaded files and recover the original configuration</string>
     <string name="about_titre">About</string>
+    <string name="calendrier_planning">From %1$s to %2$s</string>
+    <string name="calendrier_planninga">at %1$s</string>
     <string name="calendrier_25">17\n8H30 19H00\ndetail</string>
     <string name="calendrier_26">17\n8H30 18H00\ndetail</string>
     <string name="calendrier_accueil">Home</string>
@@ -66,6 +67,7 @@
     <string name="focus_lightningtalk">Ligthning talks</string>
     <string name="heure">hour</string>
     <string name="heures">hours</string>
+    <string name="jours">days</string>
     <string name="jour">day</string>
     <string name="onload">Ongoing downloading</string>
     <string name="pasdate">Hour not defined</string>
@@ -84,11 +86,11 @@
     <string name="title_section_members">Members</string>
     <string name="title_section_workshop">Workshops</string>
     <string name="title_workshops">Workshops</string>
-    <string name="whats_on_thank_you_title" translatable="false">See you next year</string>
+    <string name="whats_on_thank_you_title">See you next year</string>
     <string name="whats_on_countdown_title_0"> </string>
     <plurals name="whats_on_countdown_title">
         <item quantity="one"><xliff:g id="number_of_days">%1$s</xliff:g> day, <xliff:g id="remaining_time">%2$s</xliff:g>\nbefore Mix-IT 2015</item>
         <item quantity="other"><xliff:g id="number_of_days">%1$s</xliff:g> days, <xliff:g id="remaining_time">%2$s</xliff:g>\nbefore Mix-IT 2015</item>
     </plurals>
-    <string name="welcome" translatable="false">Welcome on the Mix-IT application which help you to follow the different speakers, sponsors.. and know all on the programmation of this conference</string>
+    <string name="welcome">Welcome on the Mix-IT application which help you to follow the different speakers, sponsors.. and know all on the programmation of this conference</string>
 </resources>

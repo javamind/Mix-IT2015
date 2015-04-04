@@ -194,7 +194,7 @@ public class MembreFacade {
         if (membres.size()==0) {
             InputStream is = null;
             List<Membre> membreListe = null;
-            JsonParser jp = null;
+            JsonParser jp;
             try {
                 //On regarde si fichier telecharge
                 File myFile = FileUtils.getFileJson(context, TypeFile.getTypeFile(type));

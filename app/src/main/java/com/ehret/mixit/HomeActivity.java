@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.SharedElementCallback;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -247,7 +246,6 @@ public class HomeActivity extends ActionBarActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent i = null;
         switch (item.getItemId()) {
             case R.id.menu_about:
                 DialogAboutFragment dial = new DialogAboutFragment();
@@ -268,7 +266,7 @@ public class HomeActivity extends ActionBarActivity
             case R.id.menu_sync_favorites:
                 SharedPreferences settings = getSharedPreferences(UIUtils.PREFS_TEMP_NAME, 0);
                 Long id = settings.getLong("idMemberForFavorite", 0L);
-                if (id != null && id > 0) {
+                if (id > 0) {
                     appelerSynchronizer(TypeAppel.FAVORITE, id);
                 } else {
                     Toast.makeText(this, getString(R.string.description_link_user_error), Toast.LENGTH_LONG).show();
@@ -318,7 +316,7 @@ public class HomeActivity extends ActionBarActivity
             progressDialog = new ProgressDialog(this);
         }
         progressDialog.setCancelable(true);
-        int nbMax = 0;
+        int nbMax;
         if (type.equals(TypeAppel.TALK)) {
             nbMax = 100;
         } else if (type.equals(TypeAppel.MEMBRE)) {
@@ -375,15 +373,17 @@ public class HomeActivity extends ActionBarActivity
                     break;
             }
 
-            for (JsonFile json : jsonToSync) {
-                try {
-                    if (!Synchronizer.downloadJsonFile(getBaseContext(), json.getUrl(), json.getType())) {
-                        //Si une erreur de chargement on sort
-                        break;
+            if(jsonToSync!=null) {
+                for (JsonFile json : jsonToSync) {
+                    try {
+                        if (!Synchronizer.downloadJsonFile(getBaseContext(), json.getUrl(), json.getType())) {
+                            //Si une erreur de chargement on sort
+                            break;
+                        }
+                        publishProgress(progressStatus++);
+                    } catch (RuntimeException e) {
+                        Log.w("DialogSynchronize", "Impossible de synchroniser", e);
                     }
-                    publishProgress(progressStatus++);
-                } catch (RuntimeException e) {
-                    Log.w("DialogSynchronize", "Impossible de synchroniser", e);
                 }
             }
 

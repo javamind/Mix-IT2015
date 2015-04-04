@@ -14,10 +14,8 @@ import com.ehret.mixit.HomeActivity;
 import com.ehret.mixit.R;
 import com.ehret.mixit.adapter.ListTalkForFilAdapter;
 import com.ehret.mixit.domain.TypeFile;
-import com.ehret.mixit.domain.talk.Conference;
 import com.ehret.mixit.domain.talk.Talk;
 import com.ehret.mixit.model.ConferenceFacade;
-import com.ehret.mixit.utils.UIUtils;
 
 
 public class FilDeLeauFragment extends Fragment {

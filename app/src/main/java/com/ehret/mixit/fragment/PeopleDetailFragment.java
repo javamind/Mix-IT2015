@@ -27,7 +27,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +38,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ehret.mixit.HomeActivity;
 import com.ehret.mixit.R;
@@ -280,8 +278,8 @@ public class PeopleDetailFragment extends Fragment {
                         langImage.setImageDrawable(getResources().getDrawable(R.drawable.fr));
                     }
                     Salle salle = Salle.INCONNU;
-                    if (conf instanceof Talk && Salle.INCONNU != Salle.getSalle(((Talk) conf).getRoom())) {
-                        salle = Salle.getSalle(((Talk) conf).getRoom());
+                    if (conf instanceof Talk && Salle.INCONNU != Salle.getSalle(conf.getRoom())) {
+                        salle = Salle.getSalle(conf.getRoom());
                     }
                     talkSalle.setText(String.format(getResources().getString(R.string.Salle), salle.getNom()));
                     talkSalle.setBackgroundColor(getResources().getColor(salle.getColor()));
@@ -300,7 +298,7 @@ public class PeopleDetailFragment extends Fragment {
                     row.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            TypeFile typeFile = null;
+                            TypeFile typeFile;
                             int page = 6;
                             if (conf instanceof Talk) {
                                 if ("Workshop".equals(((Talk) conf).getFormat())) {

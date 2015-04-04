@@ -22,7 +22,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,7 +31,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -207,7 +205,7 @@ public class SessionDetailFragment extends Fragment {
         //On vide les éléments
         sessionPersonList.removeAllViews();
 
-        List<Membre> speakers = new ArrayList<Membre>();
+        List<Membre> speakers = new ArrayList<>();
         for (Long id : (List<Long>)conference.getSpeakers()) {
             Membre membre = MembreFacade.getInstance().getMembre(getActivity(), TypeFile.members.name(), id);
             if (membre != null) {
@@ -329,7 +327,6 @@ public class SessionDetailFragment extends Fragment {
      * Verifie si l'activité st dans les favoris
      */
     private boolean isTalkFavorite() {
-        boolean trouve = false;
         SharedPreferences settings = getActivity().getSharedPreferences(UIUtils.PREFS_FAVORITES_NAME, 0);
         return settings.getBoolean(String.valueOf(getArguments().getLong(UIUtils.ARG_ID)), false);
     }

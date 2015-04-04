@@ -1,8 +1,5 @@
 package com.ehret.mixit.domain;
 
-/**
- * Created by ehret_g on 09/03/15.
- */
 public class Menu {
     private int colorResource;
     private int label;

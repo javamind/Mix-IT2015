@@ -34,7 +34,6 @@ import com.ehret.mixit.domain.talk.Talk;
 import com.ehret.mixit.utils.UIUtils;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -185,7 +184,7 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
             holder.talkSalle.setText(String.format(context.getResources().getString(R.string.Salle), salle.getNom()));
             holder.talkSalle.setBackgroundColor(context.getResources().getColor(salle.getColor()));
 
-            if ("Workshop".equals(((Talk) conf).getFormat())) {
+            if ("Workshop".equals(conf.getFormat())) {
                 holder.talkImageText.setText("Atelier");
                 holder.talkImageText.setTextColor(context.getResources().getColor(R.color.color_workshops));
             } else {

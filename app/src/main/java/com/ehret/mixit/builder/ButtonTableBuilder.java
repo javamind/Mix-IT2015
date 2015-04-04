@@ -51,9 +51,6 @@ public class ButtonTableBuilder extends AbstractTextViewBuilder<Button, ButtonTa
 
     /**
      * Fusionne nbcol  {@link #button}
-     *
-     * @param nbcol
-     * @return
      */
     public ButtonTableBuilder addSpan(int nbcol) {
         LayoutParams params = getLayoutParams(LayoutParams.MATCH_PARENT);
@@ -64,8 +61,6 @@ public class ButtonTableBuilder extends AbstractTextViewBuilder<Button, ButtonTa
 
     /**
      * Renvoi le Layout de type TableRow
-     *
-     * @return
      */
     private LayoutParams getLayoutParams(int match) {
         return getLayoutParams(match, 1f);
@@ -73,8 +68,6 @@ public class ButtonTableBuilder extends AbstractTextViewBuilder<Button, ButtonTa
 
     /**
      * Renvoi le Layout de type TableRow
-     *
-     * @return
      */
     private LayoutParams getLayoutParams(int match, float weight) {
         ViewGroup.LayoutParams params = getView().getLayoutParams();
@@ -88,12 +81,6 @@ public class ButtonTableBuilder extends AbstractTextViewBuilder<Button, ButtonTa
 
     /**
      * Ajoute des bordures a {@link #button}
-     *
-     * @param borderLeft
-     * @param borderRight
-     * @param borderBottom
-     * @param borderTop
-     * @return
      */
     public ButtonTableBuilder addBorders(boolean borderLeft, boolean borderRight,
                                            boolean borderBottom, boolean borderTop) {

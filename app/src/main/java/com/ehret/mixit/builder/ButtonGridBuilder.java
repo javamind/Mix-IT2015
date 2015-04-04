@@ -30,8 +30,6 @@ public class ButtonGridBuilder extends AbstractTextViewBuilder<Button, ButtonGri
 
     /**
      * Retourne le textView construit
-     *
-     * @return
      */
     public Button getView() {
         return textView;

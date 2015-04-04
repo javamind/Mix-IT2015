@@ -91,15 +91,14 @@ public class PlanningPlageBuilder {
             Salle salle = Salle.getSalle(c.getRoom());
             if (c instanceof Talk) {
                 Talk t = (Talk) c;
-                char code = t.getFormat()!=null ? t.getFormat().charAt(0) : 'T';
+                char code = t.getFormat() != null ? t.getFormat().charAt(0) : 'T';
                 createPlanningSalle("(" + code + ") " + c.getTitle(), salle.getColor(), c);
-            }
-            else{
+            } else {
                 createPlanningSalle("(L) " + c.getTitle(), salle.getColor(), c);
             }
             StringBuilder buf = new StringBuilder();
             if (c.getSpeakers() != null) {
-                for (Long id : (List<Long>)c.getSpeakers()) {
+                for (Long id : (List<Long>) c.getSpeakers()) {
                     Membre m = MembreFacade.getInstance().getMembre(context, TypeFile.speaker.name(), id);
                     if (m != null && m.getCompleteName() != null) {
                         if (!buf.toString().equals("")) {
@@ -164,46 +163,40 @@ public class PlanningPlageBuilder {
      * Ajoute un event pour zoomer sur le detail d'une plage horaire
      */
     private void addEventOnTableRow(final Conference conf, TableRow tableRow) {
-        final Map<String, Object> parameters = new HashMap<>(6);
 
-//            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-//            SharedPreferences.Editor editor = sp.edit();
-//            editor.putInt(ARG_SECTION_HOUR, heure);
-//            editor.commit();
-
-            //En fonction du type de talk nous ne faisons pas la même chose
-            if (conf instanceof Lightningtalk) {
-                //Pour la les lightning on affiche la liste complete
+        //En fonction du type de talk nous ne faisons pas la même chose
+        if (conf instanceof Lightningtalk) {
+            //Pour la les lightning on affiche la liste complete
+            tableRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((HomeActivity) planningFragment.getActivity()).changeCurrentFragment(
+                            SessionDetailFragment.newInstance(TypeFile.lightningtalks.toString(), conf.getId(), 6),
+                            TypeFile.lightningtalks.toString());
+                }
+            });
+        } else {
+            Talk t = (Talk) conf;
+            //Pour les talks on ne retient que les talks et workshop
+            char code = t.getFormat() != null ? t.getFormat().charAt(0) : 'T';
+            if (code == 'T' || code == 'W' || code == 'K') {
                 tableRow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        int num = 3;
+                        TypeFile type = TypeFile.talks;
+                        if (((Talk) conf).getFormat().charAt(0) == 'W') {
+                            num = 4;
+                            type = TypeFile.workshops;
+                        }
+
                         ((HomeActivity) planningFragment.getActivity()).changeCurrentFragment(
-                                SessionDetailFragment.newInstance(TypeFile.lightningtalks.toString(),conf.getId(),6),
-                                TypeFile.lightningtalks.toString());
+                                SessionDetailFragment.newInstance(type.name(), conf.getId(), num),
+                                type.name());
                     }
                 });
-            } else {
-                Talk t = (Talk) conf;
-                //Pour les talks on ne retient que les talks et workshop
-                char code = t.getFormat()!=null ? t.getFormat().charAt(0) : 'T';
-                if (code == 'T' || code == 'W' || code == 'K') {
-                    tableRow.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            int num = 3;
-                            TypeFile type = TypeFile.talks;
-                            if(((Talk) conf).getFormat().charAt(0) == 'W'){
-                                num = 4;
-                                type = TypeFile.workshops;
-                            }
-
-                            ((HomeActivity) planningFragment.getActivity()).changeCurrentFragment(
-                                    SessionDetailFragment.newInstance(type.name(),conf.getId(),num),
-                                    type.name());
-                        }
-                    });
-                }
             }
+        }
     }
 
     /**

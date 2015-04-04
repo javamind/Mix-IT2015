@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources  xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources>
 
     <color name="color_home">#37474F</color>
     <color name="color_planning">#E91E63</color>

@@ -23,11 +23,11 @@
     <string name="title_workshops">Ateliers</string>
     <string name="title_lightningtalks" translatable="false">Lightning talks</string>
     <string name="title_favorites">Favoris</string>
-    <string name="title_detail_speaker">Speaker</string>
+    <string name="title_detail_speaker" translatable="false">Speaker</string>
     <string name="title_detail_members">Membre</string>
-    <string name="title_detail_staff">Staff</string>
-    <string name="title_detail_sponsor">Sponsor</string>
-    <string name="title_detail_talks">Talk</string>
+    <string name="title_detail_staff" translatable="false">Staff</string>
+    <string name="title_detail_sponsor" translatable="false">Sponsor</string>
+    <string name="title_detail_talks" translatable="false">Talk</string>
     <string name="title_detail_workshops">Atelier</string>
     <string name="title_detail_lightningtalks" translatable="false">Lightning talk</string>
     <string name="title_detail_favorites">Favori</string>
@@ -42,7 +42,7 @@
 
     <string name="blank" translatable="false"> </string>
     <string name="onload">Téléchargement en cours.</string>
-    <string name="welcome" translatable="false">Bienvenue sur l\'application mobile Mix-IT qui vous donne accès à toute la programmation de cette conférence</string>
+    <string name="welcome">Bienvenue sur l\'application mobile Mix-IT qui vous donne accès à toute la programmation de cette conférence</string>
     <string name="about">A propos</string>
     <string name="search_hint">texte</string>
     <string name="mixit_url" translatable="false">http://www.mix-it.fr/infos/acces</string>
@@ -53,7 +53,7 @@
         <item quantity="one"><xliff:g id="number_of_days">%1$s</xliff:g> jours, <xliff:g id="remaining_time">%2$s</xliff:g>\navant de nous retrouver à Mix-IT</item>
         <item quantity="other"><xliff:g id="number_of_days">%1$s</xliff:g> jours, <xliff:g id="remaining_time">%2$s</xliff:g>\navant de nous retrouver à Mix-IT</item>
     </plurals>
-    <string name="whats_on_thank_you_title" translatable="false">A l\'année prochaine!</string>
+    <string name="whats_on_thank_you_title">A l\'année prochaine!</string>
 
 
     <!-- Import favoris -->
@@ -112,7 +112,7 @@
     <string name="calendrier_presses">Pres. sessions PM</string>
     <string name="calendrier_presseslg">Presentation des sessions PM </string>
     <string name="calendrier_ligthning" translatable="false">Ligthning Talks</string>
-    <string name="calendrier_ligthning_small">Ligh.Talk</string>
+    <string name="calendrier_ligthning_small" translatable="false">Ligh.Talk</string>
     <string name="calendrier_keynote" translatable="false">Keynote</string>
     <string name="calendrier_cloture">Clôture des organisateurs</string>
     <string name="calendrier_pause">Pause</string>

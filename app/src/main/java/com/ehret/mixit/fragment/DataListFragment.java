@@ -49,7 +49,7 @@ public class DataListFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if(activity!=null && getArguments().getString(UIUtils.ARG_LIST_TYPE)!=null && R.string.title_section_home!=0){
+        if(activity!=null && getArguments().getString(UIUtils.ARG_LIST_TYPE)!=null){
             ((HomeActivity) getActivity()).onSectionAttached(
                     "title_" + getArguments().getString(UIUtils.ARG_LIST_TYPE),
                     "color_" + getArguments().getString(UIUtils.ARG_LIST_TYPE));
