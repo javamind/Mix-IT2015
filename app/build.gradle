@@ -14,8 +14,8 @@ android {
         applicationId "com.ehret.mixit"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 10
-        versionName "3.1"
+        versionCode 11
+        versionName "3.2"
     }
 
     packagingOptions {

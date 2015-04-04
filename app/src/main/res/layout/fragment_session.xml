@@ -64,19 +64,6 @@
                 android:paddingTop="8dp"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <Button
-                android:id="@+id/talk_salle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/text_size_button_salle"
-                android:layout_alignWithParentIfMissing="true"
-                android:layout_toRightOf="@+id/talk_horaire"
-                android:layout_toEndOf="@+id/talk_horaire"
-                android:layout_marginLeft="10dp"
-                android:gravity="top"
-                android:padding="4dp"
-                android:layout_marginTop="4dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/talk_level"
@@ -99,6 +86,22 @@
                 android:paddingLeft="4dp"
                 android:paddingTop="1dp"
                 android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/talk_salle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/text_size_button_salle"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_toRightOf="@+id/talk_image_language"
+                android:layout_toEndOf="@+id/talk_image_language"
+                android:layout_below="@+id/talk_horaire"
+                android:layout_marginLeft="10dp"
+                android:gravity="top"
+                android:padding="2dp"
+                android:layout_marginStart="4dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
+
         </RelativeLayout>
 
         <RelativeLayout
