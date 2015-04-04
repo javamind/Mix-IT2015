@@ -28,9 +28,6 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
 
     /**
      * Cree une nouvelle instance de 
-     *
-     * @param text
-     * @return
      */
     public TypeBuilder addText(String text) {
         getView().setText(text);
@@ -39,9 +36,6 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
 
     /**
      * Cree une nouvelle instance de 
-     *
-     * @param text
-     * @return
      */
     public TypeBuilder addText(int text) {
         getView().setText(text);
@@ -50,9 +44,6 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
 
     /**
      * Aligenemnt de 
-     *
-     * @param gravity
-     * @return
      */
     public TypeBuilder addAlignement(int gravity) {
         getView().setGravity(gravity);
@@ -61,8 +52,7 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
 
     /**
      * WrapContent 
-     *
-     * @return
+
      */
     public TypeBuilder addStrike() {
         getView().setPaintFlags(getView().getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -75,10 +65,7 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
     }
 
     /**
-     * Cree une nouvelle instance de 
-     *
-     * @param context
-     * @return
+     * Cree une nouvelle instance de
      */
     public TypeBuilder buildView(Context context) {
         setTypeBuilder();
@@ -89,10 +76,7 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
     }
 
     /**
-     * Size  
-     *
-     * @param size
-     * @return
+     * Size
      */
     public TypeBuilder addSize(int size) {
         getView().setTextSize(size);
@@ -100,10 +84,7 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
     }
 
     /**
-     * Size  
-     *
-     * @param size
-     * @return
+     * Size
      */
     public TypeBuilder addSize(int unit, int size) {
         getView().setTextSize(unit, size);
@@ -112,10 +93,7 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
 
     /**
      * Ajoute des marges internes a  
-     *
-     * @param left
-     * @param right
-     * @return
+
      */
     public TypeBuilder addPadding(int left, int right, int bottom) {
         getView().setPadding(left, 4, right, bottom);
@@ -124,8 +102,7 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
 
     /**
      * Met les caracteres en majuscules
-     *
-     * @return
+
      */
     public TypeBuilder addUpperCase() {
         getView().setAllCaps(true);
@@ -134,9 +111,7 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
 
     /**
      * Ajoute une couleur de fond a 
-     *
-     * @param color
-     * @return
+
      */
     public TypeBuilder addBackground(int color) {
         getView().setBackgroundColor(color);
@@ -146,9 +121,7 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
     /**
      * Ajoute une couleur de fond a 
      * via un drawable
-     *
-     * @param drawable
-     * @return
+
      */
     public TypeBuilder addBackgroundDrawable(int drawable) {
         getView().setBackgroundResource(drawable);
@@ -157,9 +130,7 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
 
     /**
      * Ajoute le nb de lignes acceptées
-     *
-     * @param nb
-     * @return
+
      */
     public TypeBuilder addNbLines(int nb) {
         getView().setLines(nb);
@@ -168,9 +139,6 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
 
     /**
      * Ajoute le nb max de lignes acceptées
-     *
-     * @param nb
-     * @return
      */
     public TypeBuilder addNbMaxLines(int nb) {
         getView().setSingleLine(false);
@@ -179,10 +147,7 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
     }
 
     /**
-     * Ajoute une couleur de texte a 
-     *
-     * @param color
-     * @return
+     * Ajoute une couleur de texte a
      */
     public TypeBuilder addTextColor(int color) {
         getView().setTextColor(color);
@@ -192,15 +157,11 @@ public abstract class AbstractTextViewBuilder<TypeView extends TextView, TypeBui
 
     /**
      * Retourne le textView construit
-     *
-     * @return
      */
     abstract public TypeView getView();
 
     /**
      * Retourne le textView construit
-     *
-     * @return
      */
     abstract protected void createView(Context context);
 

@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import com.ehret.mixit.utils.UIUtils;
 
 public class SalleActivity extends Activity {
-    private ImageView image;
 
     /**
      * Called when the activity is first created.
@@ -20,7 +19,7 @@ public class SalleActivity extends Activity {
 
         int level = getIntent().getIntExtra(UIUtils.ARG_KEY_ROOM, 0);
 
-        image = (ImageView) findViewById(R.id.image_salle);
+        ImageView image = (ImageView) findViewById(R.id.image_salle);
         image.setImageResource(level == 0 ? R.drawable.plan_etage_0 : R.drawable.plan_etage_1);
 
         image.setOnClickListener(new View.OnClickListener() {

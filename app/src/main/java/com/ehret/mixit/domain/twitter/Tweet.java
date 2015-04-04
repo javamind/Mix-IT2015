@@ -87,7 +87,6 @@ public class Tweet {
                 //On s'interesse a la difference de date avec maintenant
                 long difference = System.currentTimeMillis() - mydate.getTime();
                 long x = difference / 1000;
-                long seconds = x % 60;
                 x /= 60;
                 long minutes = x % 60;
                 x /= 60;

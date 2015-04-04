@@ -40,11 +40,6 @@ public class Synchronizer {
 
     /**
      * Permet de télécharger un fichier JSON distant
-     *
-     * @param context
-     * @param urlFile
-     * @param typeFile
-     * @return
      */
     public static boolean downloadJsonFile(Context context, String urlFile, TypeFile typeFile) {
         InputStream inputStream = null;
@@ -57,7 +52,7 @@ public class Synchronizer {
             fileOutput = new FileOutputStream(FileUtils.createFileJson(context, typeFile));
             inputStream = new BufferedInputStream(urlConnection.getInputStream());
             byte[] buffer = new byte[1024];
-            int bufferLength = 0;
+            int bufferLength;
             while ((bufferLength = inputStream.read(buffer)) > 0) {
                 fileOutput.write(buffer, 0, bufferLength);
             }
@@ -88,15 +83,11 @@ public class Synchronizer {
 
     /**
      * Telechargement d'une image
-     *
-     * @param mURL
-     * @param ofile
-     * @throws Exception
      */
     public static void downloadImage(Context context, String mURL, String ofile) {
         InputStream in = null;
         FileOutputStream out = null;
-        URLConnection urlConn = null;
+        URLConnection urlConn;
         try {
             //Emplacement final
             File emplacement = new File(context.getExternalFilesDir(Environment.DIRECTORY_DCIM), ofile + ".jpg");

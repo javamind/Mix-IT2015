@@ -28,8 +28,7 @@ public class TableRowBuilder {
 
     /**
      * Renvoi le Layout de type TableRow
-     *
-     * @return
+
      */
     public static LayoutParams getLayoutParams() {
         return new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -37,9 +36,6 @@ public class TableRowBuilder {
 
     /**
      * Cree une nouvelle instance de {@link #tableRow}
-     *
-     * @param context
-     * @return
      */
     public TableRowBuilder buildTableRow(Context context) {
         tableRow = new TableRow(context);
@@ -49,9 +45,6 @@ public class TableRowBuilder {
 
     /**
      * Specifie le nb colonne de {@link #tableRow}
-     *
-     * @param nb
-     * @return
      */
     public TableRowBuilder addNbColonne(int nb) {
         tableRow.setLayoutParams(new LayoutParams(nb));
@@ -60,9 +53,6 @@ public class TableRowBuilder {
 
     /**
      * Ajoute une couleur de fond a {@link #tableRow}
-     *
-     * @param color
-     * @return
      */
     public TableRowBuilder addBackground(int color) {
         tableRow.setBackgroundColor(color);
@@ -71,8 +61,6 @@ public class TableRowBuilder {
 
     /**
      * Retourne le tableRow construit
-     *
-     * @return
      */
     public TableRow getView() {
         return tableRow;

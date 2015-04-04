@@ -14,8 +14,8 @@ android {
         applicationId "com.ehret.mixit"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 10
+        versionName "3.1"
     }
 
     packagingOptions {
@@ -51,7 +51,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.github.rjeschke:txtmark:0.11'
     compile 'com.google.guava:guava:16.0.1'
     compile 'org.codehaus.jackson:jackson-core-asl:1.9.12'

@@ -75,7 +75,7 @@ public class PlanningSalleBuilder {
             @Override
             public void onClick(View v) {
                 Map<String, Object> parametres = new HashMap<>();
-                parametres.put(UIUtils.ARG_KEY_ROOM, Integer.valueOf(salle.getEtage()));
+                parametres.put(UIUtils.ARG_KEY_ROOM, salle.getEtage());
                 UIUtils.startActivity(SalleActivity.class, context, parametres);
             }
         });

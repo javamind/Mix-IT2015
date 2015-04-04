@@ -30,8 +30,6 @@ public class TextViewGridBuilder extends AbstractTextViewBuilder<TextView, TextV
 
     /**
      * Retourne le textView construit
-     *
-     * @return
      */
     public TextView getView() {
         return textView;

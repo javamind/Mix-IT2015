@@ -39,8 +39,6 @@ public class FileUtils {
 
     /**
      * Indique si stockage dispo
-     *
-     * @return
      */
     public static boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
@@ -50,10 +48,6 @@ public class FileUtils {
 
     /**
      * Cette méthode  le fichier que l'on souhaite recuperer
-     *
-     * @param context
-     * @param typeFile
-     * @return
      */
     public static File createFileJson(Context context, TypeFile typeFile) throws IOException {
         File myFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DCIM), typeFile.name() + ".json");
@@ -75,20 +69,12 @@ public class FileUtils {
         //Suppression des données en cache
         ConferenceFacade.getInstance().viderCache();
         MembreFacade.getInstance().viderCache();
-//        SharedPreferences settings = context.getSharedPreferences(UIUtils.PREFS_FAVORITES_NAME, 0);
-//        SharedPreferences.Editor editor = settings.edit();
-//        editor.clear();
-//        editor.commit();
 
     }
 
     /**
      * Cette méthode  recupere le fichier correspondant à une ressource. Si la ressource n'a pu être téléchargée
      * on s'appuie sur la version en local
-     *
-     * @param context
-     * @param typeFile
-     * @return
      */
     public static File getFileJson(Context context, TypeFile typeFile) throws IOException {
         File myFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DCIM), typeFile.name() + ".json");
@@ -99,13 +85,8 @@ public class FileUtils {
 
     }
 
-    /**
-     * @param context
-     * @param membre
-     * @return
-     */
     public static Bitmap getImageProfile(Context context, Membre membre) {
-        if(membre==null)
+        if (membre == null)
             return null;
         if (membre.getUrlimage() != null) {
             File myFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DCIM), "membre" + membre.getId() + ".jpg");
@@ -121,11 +102,7 @@ public class FileUtils {
         return null;
     }
 
-    /**
-     * @param context
-     * @param membre
-     * @return
-     */
+
     public static Bitmap getImageLogo(Context context, Membre membre) {
         if (membre.getLogo() != null) {
             File myFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DCIM), "logo" + membre.getId() + ".jpg");
@@ -142,14 +119,11 @@ public class FileUtils {
     }
 
     /**
-     * @param context
-     * @param typeFile
-     * @return
      * @throws java.io.IOException
      */
     public static InputStream getRawFileJson(Context context, TypeFile typeFile) throws IOException {
         //Sinon on prend celui dans les raw file
-        InputStream is = null;
+        InputStream is;
         switch (typeFile) {
             case interests:
                 is = context.getResources().openRawResource(R.raw.interests);

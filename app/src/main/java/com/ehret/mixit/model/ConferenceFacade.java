@@ -123,7 +123,7 @@ public class ConferenceFacade {
      * Permet de recuperer la liste des confs mises en favoris
      */
     public List<Conference> getFavorites(Context context, String filtre) {
-        List<Conference> conferences = new ArrayList<Conference>();
+        List<Conference> conferences = new ArrayList<>();
 
         //La premiere étape consiste a reconstitue la liste
         Set<String> keys = context.getSharedPreferences(UIUtils.PREFS_FAVORITES_NAME, 0).getAll().keySet();
@@ -148,7 +148,7 @@ public class ConferenceFacade {
 
     public void setFavorites(Context context, boolean reinialize) {
         InputStream is = null;
-        JsonParser jp = null;
+        JsonParser jp;
         try {
             //On regarde si fichier telecharge
             File myFile = FileUtils.getFileJson(context, TypeFile.favorites);
@@ -224,7 +224,7 @@ public class ConferenceFacade {
      * Cette méthode cherche les talks sur cette période
      */
     public List<Conference> getConferenceSurPlageHoraire(Date date, Context context) {
-        List<Conference> confs = new ArrayList<Conference>();
+        List<Conference> confs = new ArrayList<>();
         //On recupere les talks
         Collection<Talk> talks = Utils.asList(getTalkAndWorkshops(context));
 
@@ -259,8 +259,6 @@ public class ConferenceFacade {
 
     /**
      * Cree la liste des marqueurs de temps pour le fil de l'eau
-     *
-     * @return
      */
     public List<Talk> getTimeMarkers(Context context) {
         if (timeMark.isEmpty()) {
@@ -619,7 +617,7 @@ public class ConferenceFacade {
      * Renvoi la liste des membres attachés à une session
      */
     public List<Conference> getSessionMembre(Membre membre, Context context) {
-        List<Conference> sessions = new ArrayList<Conference>();
+        List<Conference> sessions = new ArrayList<>();
 
         //On recherche les talks
         List<Talk> listetalks = Utils.asList(getTalkAndWorkshops(context));

@@ -28,9 +28,6 @@ public class TextViewTableBuilder extends AbstractTextViewBuilder<TextView, Text
 
     /**
      * Fusionne nbcol  {@link #textView}
-     *
-     * @param nbcol
-     * @return
      */
     public TextViewTableBuilder addSpan(int nbcol) {
         LayoutParams params = getLayoutParams(LayoutParams.MATCH_PARENT);
@@ -40,8 +37,6 @@ public class TextViewTableBuilder extends AbstractTextViewBuilder<TextView, Text
 
     /**
      * Renvoi le Layout de type TableRow
-     *
-     * @return
      */
     private LayoutParams getLayoutParams(int match) {
         return getLayoutParams(match, 1f);
@@ -49,8 +44,6 @@ public class TextViewTableBuilder extends AbstractTextViewBuilder<TextView, Text
 
     /**
      * Renvoi le Layout de type TableRow
-     *
-     * @return
      */
     private LayoutParams getLayoutParams(int match, float weight) {
         ViewGroup.LayoutParams params = getView().getLayoutParams();
@@ -64,12 +57,6 @@ public class TextViewTableBuilder extends AbstractTextViewBuilder<TextView, Text
 
     /**
      * Ajoute des bordures a {@link #textView}
-     *
-     * @param borderLeft
-     * @param borderRight
-     * @param borderBottom
-     * @param borderTop
-     * @return
      */
     public TextViewTableBuilder addBorders(boolean borderLeft, boolean borderRight,
                                       boolean borderBottom, boolean borderTop) {
