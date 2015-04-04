@@ -68,7 +68,7 @@ public class SessionDetailFragment extends Fragment {
     private TextView name;
     private TextView summary;
     private TextView descriptif;
-    private Button salle;
+    private TextView salle;
     private ImageView imageFavorite;
     private ImageView langImage;
     private LinearLayout sessionLinkList;
@@ -101,7 +101,7 @@ public class SessionDetailFragment extends Fragment {
         this.name = (TextView) rootView.findViewById(R.id.talk_name);
         this.summary = (TextView) rootView.findViewById(R.id.talk_summary);
         this.descriptif = (TextView) rootView.findViewById(R.id.talk_desciptif);
-        this.salle = (Button) rootView.findViewById(R.id.talk_salle);
+        this.salle = (TextView) rootView.findViewById(R.id.talk_salle);
         this.sessionLinkList = (LinearLayout) rootView.findViewById(R.id.sessionLinkList);
         this.sessionPersonList = (LinearLayout) rootView.findViewById(R.id.sessionPersonList);
         this.langImage = (ImageView) rootView.findViewById(R.id.talk_image_language);
@@ -207,7 +207,7 @@ public class SessionDetailFragment extends Fragment {
 
         List<Membre> speakers = new ArrayList<>();
         for (Long id : (List<Long>)conference.getSpeakers()) {
-            Membre membre = MembreFacade.getInstance().getMembre(getActivity(), TypeFile.members.name(), id);
+            Membre membre = MembreFacade.getInstance().getMembre(getActivity(), TypeFile.speaker.name(), id);
             if (membre != null) {
                 speakers.add(membre);
             }

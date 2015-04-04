@@ -143,7 +143,7 @@
     <string name="heure">heure</string>
     <string name="periode" translatable="false">%1$s de %2$s à %3$s</string>
     <string name="pasdate">Heure non définie</string>
-    <string name="Salle">S. %s</string>
+    <string name="Salle">%s</string>
 
 
 
