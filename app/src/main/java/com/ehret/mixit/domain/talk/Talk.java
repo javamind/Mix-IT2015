@@ -15,6 +15,8 @@
  */
 package com.ehret.mixit.domain.talk;
 
+import com.ehret.mixit.domain.Salle;
+
 /**
  * Représente aussi bien un atelier qu'une conf
  */
@@ -42,5 +44,12 @@ public class Talk extends Conference<Talk> {
         this.level = level;
     }
 
-
+    public Talk setEventSpecial(){
+        setLevel("");
+        setDescription("");
+        setLanguage("");
+        setFormat("Special");
+        setRoom(Salle.INCONNU.getNom());
+        return this;
+    }
 }
