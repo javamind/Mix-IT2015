@@ -176,26 +176,8 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
             if (conf.getSummary() != null) {
                 holder.descriptif.setText(Html.fromHtml(conf.getSummary().trim()));
             }
-
-            Salle salle;
-            if (Salle.INCONNU != Salle.getSalle(conf.getRoom())) {
-                salle = Salle.getSalle(conf.getRoom());
-                if(context.getResources().getBoolean(R.bool.small_screen)){
-                    holder.talkSalle.setText(String.format(context.getResources().getString(R.string.Salle), salle.getTeenyName()));
-                }
-                else {
-                    holder.talkSalle.setText(String.format(context.getResources().getString(R.string.Salle), salle.getNom()));
-                }
-                holder.talkSalle.setBackgroundColor(context.getResources().getColor(salle.getColor()));
-
-            }
-
-            if ("Workshop".equals(conf.getFormat())) {
-                holder.talkImageText.setText("Atelier");
-                holder.talkImageText.setTextColor(context.getResources().getColor(R.color.color_workshops));
-            } else {
-                holder.talkImageText.setText("Talk");
-                holder.talkImageText.setTextColor(context.getResources().getColor(R.color.color_talks));
+            else{
+                holder.descriptif.setText("");
             }
 
             //On regarde si la conf fait partie des favoris
@@ -211,6 +193,36 @@ public class ListTalkForFilAdapter<T extends Conference> extends BaseAdapter {
             if (!trouve) {
                 holder.imageFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_not_important));
             }
+
+            Salle salle;
+            if (Salle.INCONNU != Salle.getSalle(conf.getRoom())) {
+                salle = Salle.getSalle(conf.getRoom());
+                if(context.getResources().getBoolean(R.bool.small_screen)){
+                    holder.talkSalle.setText(String.format(context.getResources().getString(R.string.Salle), salle.getTeenyName()));
+                }
+                else {
+                    holder.talkSalle.setText(String.format(context.getResources().getString(R.string.Salle), salle.getNom()));
+                }
+                holder.talkSalle.setBackgroundColor(context.getResources().getColor(salle.getColor()));
+
+            }
+            else{
+                holder.talkSalle.setText("");
+            }
+            if ("Workshop".equals(conf.getFormat())) {
+                holder.talkImageText.setText("Atelier");
+                holder.talkImageText.setTextColor(context.getResources().getColor(R.color.color_workshops));
+            }
+            else if(("Special".equals(conf.getFormat()))) {
+                holder.imageFavorite.setImageDrawable(null);
+                holder.talkImageText.setText("");
+            }
+            else {
+                holder.talkImageText.setText(conf.getFormat());
+                holder.talkImageText.setTextColor(context.getResources().getColor(R.color.color_talks));
+            }
+
+
 
         }
 

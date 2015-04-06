@@ -116,12 +116,17 @@ public class ListTalkAdapter<T extends Conference> extends BaseAdapter {
             holder.talkSalle.setBackgroundColor(context.getResources().getColor(salle.getColor()));
 
         }
-
+        else{
+            holder.talkSalle.setText("");
+        }
 
         if (conf instanceof Talk) {
             if ("Workshop".equals(((Talk) conf).getFormat())) {
                 holder.talkImageText.setText("Atelier");
-            } else {
+            } else if ("Keynote".equals(((Talk) conf).getFormat())) {
+                holder.talkImageText.setText("Keynote");
+            }
+            else{
                 holder.talkImageText.setText("Talk");
             }
         } else {
