@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -48,7 +49,9 @@ import com.ehret.mixit.domain.talk.Talk;
 import com.ehret.mixit.model.ConferenceFacade;
 import com.ehret.mixit.model.MembreFacade;
 import com.ehret.mixit.utils.FileUtils;
+import com.ehret.mixit.utils.HtmlTagHandler;
 import com.ehret.mixit.utils.UIUtils;
+import com.github.rjeschke.txtmark.Configuration;
 import com.github.rjeschke.txtmark.Processor;
 
 import java.text.DateFormat;
@@ -74,6 +77,7 @@ public class SessionDetailFragment extends Fragment {
     private LinearLayout sessionLinkList;
     private LinearLayout sessionPersonList;
     private LayoutInflater mInflater;
+    private HtmlTagHandler htmlTagHandler = new HtmlTagHandler();
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -172,7 +176,11 @@ public class SessionDetailFragment extends Fragment {
         name.setText(conference.getTitle());
         summary.setText(Html.fromHtml(Processor.process(conference.getSummary()).trim()));
 
-        descriptif.setText(Html.fromHtml(Processor.process(conference.getDescription()).trim()), TextView.BufferType.SPANNABLE);
+        descriptif.setText(
+                Html.fromHtml(
+                        Processor.process(conference.getDescription(), Configuration.builder().forceExtentedProfile().build()).trim(), null, htmlTagHandler),
+                TextView.BufferType.SPANNABLE);
+
         final Salle room = Salle.getSalle(conference.getRoom());
 
 
