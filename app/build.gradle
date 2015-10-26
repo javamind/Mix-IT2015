@@ -14,8 +14,8 @@ android {
         applicationId "com.ehret.mixit"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 13
-        versionName "3.4"
+        versionCode 14
+        versionName "3.5"
     }
 
     packagingOptions {
@@ -57,3 +57,4 @@ dependencies {
     compile 'org.codehaus.jackson:jackson-core-asl:1.9.12'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
 }
+
